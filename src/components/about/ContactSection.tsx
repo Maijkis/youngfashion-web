@@ -6,8 +6,8 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactSection() {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-6">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-16 md:py-28 px-6 md:px-12 lg:px-20">
+      <div className="max-w-7xl mx-auto">
         <SectionHeader title="Get in Touch" subtitle="We'd love to hear from you" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
@@ -60,7 +60,7 @@ export default function ContactSection() {
           <AnimatedSection delay={0.15}>
             <div className="space-y-6 md:space-y-8">
               <div>
-                <h3 className="text-base md:text-xl font-light uppercase tracking-[0.08em] text-white mb-4 md:mb-6">
+                <h3 className="text-base md:text-xl font-bold uppercase tracking-[-0.01em] text-white mb-4 md:mb-6">
                   Contact Information
                 </h3>
                 <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">

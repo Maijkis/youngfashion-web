@@ -10,7 +10,7 @@ export default function PartnersStrip() {
 
   return (
     <section className="py-12 md:py-16 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 mb-6">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-6">
         <p className="text-[10px] uppercase tracking-[0.2em] text-muted/60 text-center">
           Our Partners
         </p>

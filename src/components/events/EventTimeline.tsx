@@ -35,7 +35,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
                 Upcoming
               </span>
             </div>
-            <h3 className="text-xl md:text-3xl lg:text-4xl font-light uppercase tracking-[0.1em] text-white mb-3 md:mb-4">
+            <h3 className="text-xl md:text-3xl lg:text-4xl font-bold uppercase tracking-[-0.02em] text-white mb-3 md:mb-4">
               {event.title}
             </h3>
             <div className="flex items-center gap-2 text-white/50 mb-4 md:mb-6">
@@ -91,7 +91,7 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
               </span>
             </div>
 
-            <h3 className="text-base md:text-xl font-light uppercase tracking-[0.05em] md:tracking-[0.08em] text-white mb-2 md:mb-3">
+            <h3 className="text-base md:text-xl font-bold uppercase tracking-[-0.01em] text-white mb-2 md:mb-3">
               {event.title}
             </h3>
 

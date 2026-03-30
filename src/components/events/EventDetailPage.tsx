@@ -24,7 +24,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
   const hasMorePhotos = galleryPhotos.length > 3;
 
   return (
-    <div className="pt-28 md:pt-36 pb-16 md:pb-24 px-4 md:px-6">
+    <div className="pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 md:mb-10">
           <Link
@@ -42,7 +42,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
               <p className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-white/40 mb-3">
                 Event Overview
               </p>
-              <h1 className="text-xl md:text-3xl font-light uppercase tracking-[0.08em] text-white leading-tight mb-4">
+              <h1 className="text-xl md:text-3xl font-bold uppercase tracking-[-0.02em] text-white leading-tight mb-4">
                 {event.title}
               </h1>
 
@@ -142,7 +142,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
               <button
                 type="button"
                 onClick={() => setExpanded((prev) => !prev)}
-                className="inline-flex items-center gap-2 glass-light px-5 py-3 text-[11px] md:text-xs uppercase tracking-[0.18em] text-white hover:bg-white/15 transition-colors"
+                className="frosted-btn relative overflow-hidden inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-xl border border-white/[0.15] px-5 py-3 text-[11px] md:text-xs uppercase tracking-[0.2em] font-bold text-white hover:bg-white/[0.12] hover:border-white/30 transition-all duration-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
               >
                 {expanded ? "Show Less" : "See More"}
                 <ArrowRight

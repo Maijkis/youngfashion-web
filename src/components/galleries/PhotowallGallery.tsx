@@ -150,7 +150,7 @@ export default function PhotowallGallery({
                       <p className="text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-white/40 mb-3">
                         Photo Details
                       </p>
-                      <h3 className="text-base md:text-lg font-light uppercase tracking-[0.08em] text-white mb-3">
+                      <h3 className="text-base md:text-lg font-bold uppercase tracking-[0.08em] text-white mb-3">
                         Young Fashion 2025
                       </h3>
                       <div className="space-y-2 text-xs md:text-sm text-white/55 leading-relaxed">

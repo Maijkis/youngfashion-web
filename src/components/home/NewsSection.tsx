@@ -11,7 +11,7 @@ export default function NewsSection() {
   const latest = pressArticles.slice(0, 3);
 
   return (
-    <section className="py-16 md:py-28 px-4 md:px-6">
+    <section className="py-16 md:py-28 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Latest"
@@ -44,7 +44,7 @@ export default function NewsSection() {
                       })}
                     </span>
                   </div>
-                  <h3 className="text-sm md:text-base font-light text-white leading-snug mb-3">
+                  <h3 className="text-sm md:text-base font-bold text-white leading-snug mb-3">
                     {article.title}
                   </h3>
                   <p className="text-xs text-muted leading-relaxed line-clamp-2">

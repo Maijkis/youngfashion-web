@@ -70,7 +70,7 @@ export default function SponsorSection() {
   return (
     <>
       {/* Sponsors 2026 */}
-      <section className="py-12 md:py-20 px-4 md:px-6">
+      <section className="py-12 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="Sponsors" subtitle="Brands powering Young Fashion" />
           <SponsorGrid sponsors={sponsors2026} />
@@ -78,7 +78,7 @@ export default function SponsorSection() {
       </section>
 
       {/* Information Partners */}
-      <section className="py-12 md:py-20 px-4 md:px-6">
+      <section className="py-12 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="Information Partners" subtitle="Media partners amplifying our voice" />
           <SponsorGrid sponsors={infoPartners} />
@@ -86,7 +86,7 @@ export default function SponsorSection() {
       </section>
 
       {/* Past Partners */}
-      <section className="py-12 md:py-20 px-4 md:px-6">
+      <section className="py-12 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-6xl mx-auto">
           <SectionHeader title="Past Partners" subtitle="Brands that have supported our journey" />
           <Marquee sponsors={pastPartners} />
