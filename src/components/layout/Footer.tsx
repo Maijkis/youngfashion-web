@@ -35,7 +35,14 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
+      {/* Big brand text */}
+      <div className="px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-12 md:pb-16">
+        <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-bold uppercase tracking-[-0.02em] leading-[0.95] text-white/[0.06]">
+          Young Fashion
+        </h2>
+      </div>
+
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 pb-12 md:pb-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           {/* Brand */}
           <div>
@@ -49,10 +56,10 @@ export default function Footer() {
                 alt="Young Fashion"
                 width={620}
                 height={100}
-                className="h-8 md:h-9 w-auto"
+                className="h-6 md:h-7 w-auto"
               />
             </Link>
-            <p className="text-muted text-xs md:text-sm leading-relaxed">
+            <p className="text-white/40 text-xs md:text-sm leading-relaxed">
               Empowering young designers in Vilnius since 2022. A platform where
               emerging talent meets the fashion world.
             </p>
@@ -60,7 +67,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted mb-5 md:mb-6">
+            <h4 className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-5 md:mb-6">
               Navigation
             </h4>
             <ul className="space-y-3">
@@ -68,7 +75,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs md:text-sm text-muted hover:text-white transition-colors duration-300 min-h-[44px] md:min-h-0 flex items-center md:inline"
+                    className="text-xs md:text-sm text-white/40 hover:text-white transition-colors duration-300 min-h-[44px] md:min-h-0 flex items-center md:inline"
                   >
                     {link.label}
                   </Link>
@@ -79,7 +86,7 @@ export default function Footer() {
 
           {/* Social + Newsletter */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-muted mb-5 md:mb-6">
+            <h4 className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-5 md:mb-6">
               Stay Connected
             </h4>
             <div className="flex gap-5 mb-8">
@@ -87,7 +94,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-3"
+                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-3"
                 aria-label="Instagram"
               >
                 <Instagram size={18} />
@@ -96,7 +103,7 @@ export default function Footer() {
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="TikTok"
               >
                 <TikTokIcon size={18} />
@@ -105,7 +112,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
@@ -118,9 +125,9 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email"
-                className="flex-1 glass-input px-4 py-3 text-xs text-white placeholder:text-muted rounded-none"
+                className="flex-1 glass-input px-4 py-3 text-xs text-white placeholder:text-white/30 rounded-none"
               />
-              <button className="bg-white text-black px-4 md:px-5 py-3 text-[10px] uppercase tracking-[0.15em] hover:bg-muted-light transition-colors cursor-pointer whitespace-nowrap">
+              <button className="bg-white text-black px-5 md:px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/90 transition-colors cursor-pointer whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -130,11 +137,11 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-5 md:py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[10px] md:text-xs text-muted/60">
+        <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 py-5 md:py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-[10px] md:text-xs text-white/20 font-medium">
             &copy; {new Date().getFullYear()} Young Fashion. All rights reserved.
           </p>
-          <p className="text-[10px] md:text-xs text-muted/60">Vilnius, Lithuania</p>
+          <p className="text-[10px] md:text-xs text-white/20">Vilnius, Lithuania</p>
         </div>
       </div>
     </footer>

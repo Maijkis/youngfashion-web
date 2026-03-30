@@ -1,384 +1,322 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
-import { CustomEase } from "gsap/CustomEase";
-import styles from "./VerticalWarpSlideshow.module.css";
 
 const SLIDES = [
   {
     image: "/events/2022/DSC_6382.jpg",
-    lines: ["YOUNG", "FASHION"],
-    title: "Vilnius — Est. 2022",
-    desc: "A creative platform empowering emerging designers in Lithuania.",
+    heading: "YOUNG\nFASHION",
+    sub: "Vilnius Est. 2022",
   },
   {
     image: "/events/2022/DSC_6421.jpg",
-    lines: ["EMERGING", "DESIGNERS"],
-    title: "New Voices from Lithuania",
-    desc: "Bold new perspectives from the next generation of creators.",
+    heading: "EMERGING\nDESIGNERS",
+    sub: "New voices from Lithuania",
   },
   {
     image: "/behind-the-scenes/2025/IMG_0049.jpg",
-    lines: ["RUNWAY", "REIMAGINED"],
-    title: "National Art Gallery 2024",
-    desc: "Placing emerging design in Vilnius's most important cultural spaces.",
+    heading: "RUNWAY\nREIMAGINED",
+    sub: "National Art Gallery 2024",
   },
   {
     image: "/events/2022/DSC_6436.jpg",
-    lines: ["CRAFTED WITH", "PURPOSE"],
-    title: "Craftsmanship",
-    desc: "Every stitch tells a story of passion and precision.",
+    heading: "CRAFTED\nWITH PURPOSE",
+    sub: "Every stitch tells a story",
   },
   {
     image: "/behind-the-scenes/2025/IMG_0115.jpg",
-    lines: ["JOIN THE", "MOVEMENT"],
-    title: "Looking Forward",
-    desc: "Building a sustainable creative community in Vilnius and beyond.",
+    heading: "JOIN THE\nMOVEMENT",
+    sub: "Vilnius and beyond",
   },
 ];
 
-const TOTAL = String(SLIDES.length).padStart(2, "0");
-
 export default function Hero() {
-  const slideshowRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const counterStripRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const headingRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const subRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const progressRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(CustomEase);
-    CustomEase.create("slideInOut", "0.25, 1, 0.5, 1");
-    CustomEase.create("textReveal", "0.77, 0, 0.175, 1");
-    CustomEase.create("imageWarp", "0.22, 1, 0.36, 1");
-
-    const slideshow = slideshowRef.current;
-    const cursor = cursorRef.current;
-    const counterStrip = counterStripRef.current;
-    if (!slideshow) return;
-
-    const slides = Array.from(
-      slideshow.querySelectorAll<HTMLElement>(`.${styles.slide}`)
-    );
-    const slideImages = Array.from(
-      slideshow.querySelectorAll<HTMLElement>(`.${styles.slideImg}`)
-    );
-
-    let currentIndex = 0;
-    let isAnimating = false;
-    let mouseX = 0;
-    const NEXT = 1;
-    const PREV = -1;
-    const SLIDE_DURATION = 1.5;
-
-    // Set initial counter position
-    gsap.set(counterStrip, { y: 0 });
-
-    // Animate in the first slide's text
-    const firstTextLines = slides[0]?.querySelectorAll<HTMLElement>(
-      `.${styles.slideTextLine}`
-    );
-    if (firstTextLines) {
-      gsap.to(firstTextLines, {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.1,
-        delay: 0.5,
-        ease: "textReveal",
-      });
-    }
-
-    function animateCounter(
-      targetIndex: number,
-      tl: gsap.core.Timeline
-    ) {
-      if (!counterStrip) return;
-      const targetY = -targetIndex * 1.2;
-      tl.to(
-        counterStrip,
-        { y: `${targetY}em`, duration: SLIDE_DURATION, ease: "slideInOut" },
-        0.2
-      );
-    }
-
-    function navigate(direction: number) {
-      if (isAnimating) return;
-      const prevIndex = currentIndex;
-      currentIndex =
-        direction === NEXT
-          ? currentIndex < slides.length - 1
-            ? currentIndex + 1
-            : 0
-          : currentIndex > 0
-          ? currentIndex - 1
-          : slides.length - 1;
-      performNavigation(prevIndex, currentIndex, direction);
-    }
-
-    function performNavigation(
-      prevIndex: number,
-      nextIndex: number,
-      direction: number
-    ) {
-      isAnimating = true;
-
-      const currentSlide = slides[prevIndex];
-      const currentImage = slideImages[prevIndex];
-      const currentTextLines = currentSlide.querySelectorAll<HTMLElement>(
-        `.${styles.slideTextLine}`
-      );
-
-      const nextSlide = slides[nextIndex];
-      const nextImage = slideImages[nextIndex];
-      const nextTextLines = nextSlide.querySelectorAll<HTMLElement>(
-        `.${styles.slideTextLine}`
-      );
-
-      gsap.set(nextSlide, {
-        visibility: "visible",
-        y: direction * 100 + "%",
-      });
-
-      gsap.set(nextImage, {
-        y: -direction * 40 + "%",
-        scale: 1.4,
-        scaleY: 1.8,
-        rotation: -direction * 8,
-        transformOrigin: direction === NEXT ? "0% 0%" : "100% 100%",
-      });
-
-      gsap.set(nextTextLines, { y: "100%", opacity: 0 });
+  const goTo = useCallback(
+    (next: number) => {
+      if (isAnimating || next === current) return;
+      setIsAnimating(true);
 
       const tl = gsap.timeline({
-        defaults: { duration: SLIDE_DURATION, ease: "slideInOut" },
         onComplete: () => {
-          gsap.set(currentSlide, { visibility: "hidden" });
-          currentSlide.classList.remove(styles.active);
-          nextSlide.classList.add(styles.active);
-          isAnimating = false;
+          setCurrent(next);
+          setIsAnimating(false);
         },
       });
 
-      animateCounter(nextIndex, tl);
-
-      tl.to(
-        currentTextLines,
-        {
-          y: "-80%",
+      // Fade out current heading lines
+      const currentLines = headingRefs.current[current]?.querySelectorAll(".hero-line");
+      if (currentLines) {
+        tl.to(currentLines, {
+          y: -60,
           opacity: 0,
-          duration: 0.7,
+          duration: 0.4,
           stagger: 0.05,
+          ease: "power3.in",
+        }, 0);
+      }
+
+      // Fade out current sub
+      if (subRefs.current[current]) {
+        tl.to(subRefs.current[current], {
+          opacity: 0,
+          y: -20,
+          duration: 0.3,
           ease: "power2.in",
-        },
-        0
-      );
+        }, 0);
+      }
 
-      tl.to(currentSlide, { y: -direction * 100 + "%" }, 0.2);
+      // Crossfade images
+      if (imageRefs.current[current]) {
+        tl.to(imageRefs.current[current], {
+          opacity: 0,
+          scale: 1.05,
+          duration: 0.8,
+          ease: "power2.inOut",
+        }, 0.1);
+      }
 
-      tl.to(
-        currentImage,
-        {
-          y: direction * 40 + "%",
-          scale: 1.4,
-          scaleY: 1.8,
-          rotation: direction * 8,
-          ease: "imageWarp",
-          transformOrigin:
-            direction === NEXT ? "0% 100%" : "100% 0%",
-        },
-        0.2
-      );
-
-      tl.to(nextSlide, { y: "0%" }, 0.2);
-
-      tl.to(
-        nextImage,
-        {
-          y: "0%",
+      if (imageRefs.current[next]) {
+        gsap.set(imageRefs.current[next], { opacity: 0, scale: 1.1 });
+        tl.to(imageRefs.current[next], {
+          opacity: 1,
           scale: 1,
-          scaleY: 1,
-          rotation: 0,
-          ease: "imageWarp",
-        },
-        0.2
-      );
+          duration: 0.8,
+          ease: "power2.inOut",
+        }, 0.2);
+      }
 
-      tl.to(
-        nextTextLines,
-        {
+      // Reveal next heading lines
+      const nextLines = headingRefs.current[next]?.querySelectorAll(".hero-line");
+      if (nextLines) {
+        gsap.set(nextLines, { y: 80, opacity: 0 });
+        tl.to(nextLines, {
           y: 0,
           opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "textReveal",
-          delay: 0.6,
-        },
-        0.9
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power3.out",
+        }, 0.4);
+      }
+
+      // Reveal next sub
+      if (subRefs.current[next]) {
+        gsap.set(subRefs.current[next], { opacity: 0, y: 20 });
+        tl.to(subRefs.current[next], {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        }, 0.6);
+      }
+    },
+    [current, isAnimating]
+  );
+
+  const next = useCallback(() => {
+    goTo((current + 1) % SLIDES.length);
+  }, [current, goTo]);
+
+  // Auto-advance every 4s
+  useEffect(() => {
+    autoPlayRef.current = setInterval(next, 4000);
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [next]);
+
+  // Reset autoplay on manual interaction
+  const resetAutoplay = useCallback(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(next, 4000);
+  }, [next]);
+
+  // Initial animation
+  useEffect(() => {
+    const lines = headingRefs.current[0]?.querySelectorAll(".hero-line");
+    if (lines) {
+      gsap.fromTo(
+        lines,
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: "power3.out", delay: 0.3 }
+      );
+    }
+    if (subRefs.current[0]) {
+      gsap.fromTo(
+        subRefs.current[0],
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.8 }
       );
     }
 
-    // ─── Event handlers ──────────────────────────────────────
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (!cursor) return;
-      gsap.to(cursor, { left: e.clientX, top: e.clientY, duration: 0.1 });
-      mouseX = e.clientX;
-      cursor.classList.add(styles.cursorActive);
-
-      if (e.clientX < window.innerWidth / 2) {
-        cursor.classList.remove(styles.cursorNext);
-        cursor.classList.add(styles.cursorPrev);
-      } else {
-        cursor.classList.remove(styles.cursorPrev);
-        cursor.classList.add(styles.cursorNext);
-      }
-
-      clearTimeout(
-        (window as Window & { _yfCursorTimer?: ReturnType<typeof setTimeout> })
-          ._yfCursorTimer
+    // Progress bar animation
+    if (progressRef.current) {
+      gsap.fromTo(
+        progressRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 4, ease: "none", repeat: -1 }
       );
-      (
-        window as Window & { _yfCursorTimer?: ReturnType<typeof setTimeout> }
-      )._yfCursorTimer = setTimeout(
-        () => cursor.classList.remove(styles.cursorActive),
-        2000
-      );
-    };
-
-    const onMouseLeave = () => cursor?.classList.remove(styles.cursorActive);
-
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      navigate(e.deltaY > 0 ? NEXT : PREV);
-    };
-
-    let touchStartY = 0;
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.changedTouches[0].screenY;
-    };
-    const onTouchEnd = (e: TouchEvent) => {
-      const endY = e.changedTouches[0].screenY;
-      if (touchStartY > endY + 5) navigate(NEXT);
-      else if (touchStartY < endY - 5) navigate(PREV);
-    };
-
-    const onClick = (e: MouseEvent) => {
-      // Ignore clicks on the scroll-down hint
-      if ((e.target as HTMLElement).closest(`.${styles.scrollHint}`)) return;
-      navigate(mouseX < window.innerWidth / 2 ? PREV : NEXT);
-    };
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") navigate(NEXT);
-      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") navigate(PREV);
-    };
-
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", onMouseLeave);
-    slideshow.addEventListener("wheel", onWheel, { passive: false });
-    slideshow.addEventListener("touchstart", onTouchStart);
-    slideshow.addEventListener("touchend", onTouchEnd);
-    slideshow.addEventListener("click", onClick);
-    document.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseleave", onMouseLeave);
-      slideshow.removeEventListener("wheel", onWheel);
-      slideshow.removeEventListener("touchstart", onTouchStart);
-      slideshow.removeEventListener("touchend", onTouchEnd);
-      slideshow.removeEventListener("click", onClick);
-      document.removeEventListener("keydown", onKeyDown);
-    };
+    }
   }, []);
 
+  // Restart progress bar on slide change
+  useEffect(() => {
+    if (progressRef.current) {
+      gsap.killTweensOf(progressRef.current);
+      gsap.fromTo(
+        progressRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 4, ease: "none", repeat: -1 }
+      );
+    }
+  }, [current]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left;
+    if (x < rect.width / 2) {
+      goTo(current === 0 ? SLIDES.length - 1 : current - 1);
+    } else {
+      goTo((current + 1) % SLIDES.length);
+    }
+    resetAutoplay();
+  };
+
   const scrollPast = () => {
-    const slideshow = slideshowRef.current;
-    if (!slideshow) return;
-    const next = slideshow.nextElementSibling as HTMLElement | null;
-    if (next) {
-      next.scrollIntoView({ behavior: "smooth" });
+    const el = containerRef.current;
+    if (!el) return;
+    const nextSection = el.nextElementSibling as HTMLElement | null;
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
     } else {
       window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
     }
   };
 
   return (
-    <>
-      <div ref={slideshowRef} className={styles.slideshow}>
-        {/* Slides */}
+    <div
+      ref={containerRef}
+      onClick={handleClick}
+      className="relative w-full h-screen overflow-hidden bg-black cursor-pointer select-none"
+    >
+      {/* Images */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          ref={(el) => { imageRefs.current[i] = el; }}
+          className="absolute inset-0"
+          style={{ opacity: i === 0 ? 1 : 0 }}
+        >
+          <Image
+            src={slide.image}
+            alt={slide.heading.replace("\n", " ")}
+            fill
+            sizes="100vw"
+            priority={i === 0}
+            quality={80}
+            className="object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        </div>
+      ))}
+
+      {/* Text content */}
+      <div className="absolute inset-0 flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-12 lg:px-20 z-10">
         {SLIDES.map((slide, i) => (
           <div
             key={i}
-            className={`${styles.slide}${i === 0 ? ` ${styles.active}` : ""}`}
+            ref={(el) => { headingRefs.current[i] = el; }}
+            className={`absolute bottom-24 md:bottom-32 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 ${
+              i === current ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+            style={{ display: i === current ? "block" : "none" }}
           >
-            <div className={styles.slideImg}>
-              <Image
-                src={slide.image}
-                alt={slide.lines.join(" ")}
-                fill
-                sizes="100vw"
-                priority={i === 0}
-                quality={80}
-              />
-            </div>
-            <div className={styles.slideText}>
-              {slide.lines.map((line, j) => (
-                <span key={j} className={styles.slideTextLine}>
-                  {line}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-
-        {/* Controls hint — top right */}
-        <div className={styles.controls}>
-          <span className={styles.controlsText}>scroll / drag</span>
-        </div>
-
-        {/* Counter — bottom center */}
-        <div className={styles.slideCounter}>
-          <div className={styles.counterContainer}>
-            <div ref={counterStripRef} className={styles.counterStrip}>
-              {SLIDES.map((_, i) => (
-                <div key={i} className={styles.counterNumber}>
-                  {String(i + 1).padStart(2, "0")}
+            <div className="overflow-hidden mb-4">
+              {slide.heading.split("\n").map((line, j) => (
+                <div
+                  key={j}
+                  className="hero-line overflow-hidden"
+                >
+                  <span className="block text-[clamp(3rem,10vw,9rem)] font-bold leading-[0.9] tracking-[-0.03em] text-white uppercase">
+                    {line}
+                  </span>
                 </div>
               ))}
             </div>
+            <span
+              ref={(el) => { subRefs.current[i] = el; }}
+              className="block text-xs md:text-sm uppercase tracking-[0.25em] text-white/60 font-light"
+              style={{ opacity: i === 0 ? 1 : 0 }}
+            >
+              {slide.sub}
+            </span>
           </div>
-          <div className={styles.counterSeparator} />
-          <div className={styles.counterTotal}>{TOTAL}</div>
-        </div>
-
-        {/* Slide info — top left (below navbar) */}
-        <div className={styles.slideInfo}>
-          <div className={styles.slideInfoTitle}>Young Fashion</div>
-          Vilnius — a creative platform for emerging designers.
-        </div>
-
-        {/* Scroll-down hint — bottom right */}
-        <button
-          className={styles.scrollHint}
-          onClick={scrollPast}
-          aria-label="Scroll past slideshow"
-        >
-          <span className={styles.scrollHintText}>explore</span>
-          <span className={styles.scrollHintLine} />
-        </button>
+        ))}
       </div>
 
-      {/* Custom cursor (fixed, outside section to avoid stacking context issues) */}
-      <div ref={cursorRef} className={styles.cursor}>
-        <span className={`${styles.cursorArrow} ${styles.cursorArrowPrev}`}>
-          ←
-        </span>
-        <span className={`${styles.cursorArrow} ${styles.cursorArrowNext}`}>
-          →
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-20 z-20 flex items-center gap-3">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(i);
+              resetAutoplay();
+            }}
+            className={`h-[2px] transition-all duration-500 ${
+              i === current ? "w-10 bg-white" : "w-5 bg-white/30 hover:bg-white/50"
+            }`}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
+        <span className="ml-3 text-[10px] uppercase tracking-[0.2em] text-white/40 tabular-nums">
+          {String(current + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}
         </span>
       </div>
-    </>
+
+      {/* Progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10 z-20">
+        <div
+          ref={progressRef}
+          className="h-full bg-white/50 origin-left"
+        />
+      </div>
+
+      {/* Scroll indicator */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          scrollPast();
+        }}
+        className="absolute bottom-8 md:bottom-12 right-6 md:right-12 lg:right-20 z-20 flex flex-col items-center gap-2 group"
+        aria-label="Scroll down"
+      >
+        <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors writing-vertical-rl">
+          scroll
+        </span>
+        <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent group-hover:from-white/70 transition-colors animate-pulse" />
+      </button>
+
+      {/* Brand watermark top-left */}
+      <div className="absolute top-24 md:top-28 left-6 md:left-12 lg:left-20 z-10">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">
+          Young Fashion &mdash; Vilnius
+        </span>
+      </div>
+    </div>
   );
 }

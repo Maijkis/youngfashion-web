@@ -21,10 +21,12 @@ export default function Button({
   rel,
 }: ButtonProps) {
   const base =
-    "inline-block px-6 py-3 md:px-8 md:py-3 text-[11px] md:text-xs uppercase tracking-[0.2em] font-sans transition-all duration-300 cursor-pointer text-center";
+    "inline-flex items-center gap-2 px-7 py-3.5 md:px-9 md:py-4 text-[11px] md:text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 cursor-pointer text-center";
   const variants = {
-    primary: "bg-white text-black hover:bg-muted-light",
-    outline: "border border-white/40 text-white hover:bg-white hover:text-black",
+    primary:
+      "bg-white text-black hover:bg-white/90 hover:tracking-[0.25em]",
+    outline:
+      "border border-white/30 text-white hover:bg-white hover:text-black hover:border-white",
     glass: "glass-light text-white hover:bg-white/15",
   };
 

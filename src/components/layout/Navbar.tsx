@@ -30,7 +30,6 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -41,11 +40,11 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ${
           scrolled
-            ? "bg-black/80 backdrop-blur-md"
-            : "bg-black/60 backdrop-blur-sm"
+            ? "bg-black/90 backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between w-full h-16 md:h-20">
+        <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between w-full h-16 md:h-20">
           <Link
             href="/"
             className="flex items-center hover:opacity-80 transition-opacity"
@@ -57,27 +56,27 @@ export default function Navbar() {
               width={620}
               height={100}
               priority
-              className="h-6 md:h-7 w-auto"
+              className="h-5 md:h-6 w-auto"
             />
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-8 lg:gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[11px] uppercase tracking-[0.15em] transition-colors duration-300 ${
+                className={`text-[11px] uppercase tracking-[0.18em] font-medium transition-colors duration-300 ${
                   pathname === link.href
                     ? "text-white"
-                    : "text-muted hover:text-white"
+                    : "text-white/40 hover:text-white"
                 }`}
               >
                 {link.label}
                 {pathname === link.href && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="h-px bg-white/60 mt-1"
+                    className="h-px bg-white mt-1"
                     transition={{ duration: 0.3 }}
                   />
                 )}
@@ -104,23 +103,23 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-black flex flex-col items-start justify-end pb-20 px-6"
           >
-            <nav className="flex flex-col items-center gap-7">
+            <nav className="flex flex-col gap-2">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.3 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06, duration: 0.3 }}
                 >
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-xl font-light uppercase tracking-[0.2em] transition-colors min-h-[44px] flex items-center ${
+                    className={`text-3xl font-bold uppercase tracking-[-0.01em] transition-colors min-h-[44px] flex items-center ${
                       pathname === link.href
                         ? "text-white"
-                        : "text-muted hover:text-white"
+                        : "text-white/30 hover:text-white"
                     }`}
                   >
                     {link.label}
