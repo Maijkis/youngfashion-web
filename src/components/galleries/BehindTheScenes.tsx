@@ -97,7 +97,7 @@ export default function BehindTheScenes({
         <div className="mt-8 md:mt-10 flex justify-center">
           <Button
             href="/galleries/behind-the-scenes-2025"
-            variant="glass"
+            variant="frost"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2"

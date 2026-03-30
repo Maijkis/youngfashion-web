@@ -49,7 +49,7 @@ export default function ContactSection() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-white text-black py-3 text-[11px] uppercase tracking-[0.2em] hover:bg-muted-light transition-colors cursor-pointer rounded-sm"
+                className="frosted-btn relative overflow-hidden w-full bg-white/[0.08] backdrop-blur-xl text-white border border-white/[0.15] py-3.5 text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300 cursor-pointer rounded-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_4px_20px_rgba(0,0,0,0.2)]"
               >
                 Send Message
               </button>

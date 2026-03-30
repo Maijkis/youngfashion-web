@@ -127,7 +127,7 @@ export default function Footer() {
                 placeholder="Your email"
                 className="flex-1 glass-input px-4 py-3 text-xs text-white placeholder:text-white/30 rounded-none"
               />
-              <button className="bg-white text-black px-5 md:px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/90 transition-colors cursor-pointer whitespace-nowrap">
+              <button className="frosted-btn relative overflow-hidden bg-white/[0.08] backdrop-blur-xl text-white border border-white/[0.15] px-5 md:px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300 cursor-pointer whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
                 Subscribe
               </button>
             </div>

@@ -50,7 +50,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
             <p className="text-xs md:text-sm text-white/60 max-w-lg mb-6 md:mb-8 leading-relaxed">
               {event.description}
             </p>
-            <Button href={`/events/${event.slug}`} variant="glass">
+            <Button href={`/events/${event.slug}`} variant="frost">
               See More
               <ArrowRight size={14} className="inline ml-2" />
             </Button>
@@ -108,7 +108,7 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
             </p>
 
             <div className="mt-5 md:mt-6">
-              <Button href={`/events/${event.slug}`} variant="glass">
+              <Button href={`/events/${event.slug}`} variant="frost">
                 See More
                 <ArrowRight size={14} className="inline ml-2" />
               </Button>

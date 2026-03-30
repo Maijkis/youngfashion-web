@@ -132,6 +132,31 @@ html.lenis, html.lenis body {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
+/* ——— Frosted Glass Button ——— */
+
+.frosted-btn {
+  --shine-x: 50%;
+  --shine-y: 50%;
+}
+
+.frosted-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 80px at var(--shine-x) var(--shine-y),
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.frosted-btn:hover::before {
+  opacity: 1;
+}
+
 /* ——— Magnetic Button ——— */
 
 .magnetic-btn {
