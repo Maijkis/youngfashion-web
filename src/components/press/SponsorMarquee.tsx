@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { sponsors2026, pastPartners, Sponsor } from "@/lib/mockData";
+import { sponsors2026, infoPartners, pastPartners, Sponsor } from "@/lib/mockData";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeader from "@/components/ui/SectionHeader";
 
@@ -72,8 +72,16 @@ export default function SponsorSection() {
       {/* Sponsors 2026 */}
       <section className="py-12 md:py-20 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
-          <SectionHeader title="Sponsors 2026" subtitle="Brands powering the next edition" />
+          <SectionHeader title="Sponsors" subtitle="Brands powering Young Fashion" />
           <SponsorGrid sponsors={sponsors2026} />
+        </div>
+      </section>
+
+      {/* Information Partners */}
+      <section className="py-12 md:py-20 px-4 md:px-6">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader title="Information Partners" subtitle="Media partners amplifying our voice" />
+          <SponsorGrid sponsors={infoPartners} />
         </div>
       </section>
 

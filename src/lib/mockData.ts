@@ -58,67 +58,75 @@ export interface BtsPhoto {
 export const designers: Designer[] = [
   {
     id: "d1",
-    name: "Austėja Rimkutė",
-    year: 2022,
+    name: "Karina Panina",
+    year: 2025,
     image: "/events/2022/DSC_6387.jpg",
     description:
-      "Exploring deconstructed tailoring with sustainable Lithuanian linen and raw-edge finishes.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d2",
-    name: "Lukas Jonaitis",
-    year: 2022,
+    name: "Valdemara Jasulaitytė",
+    year: 2025,
     image: "/events/2022/DSC_6412.jpg",
     description:
-      "Streetwear meets brutalist architecture — oversized silhouettes in monochromatic palettes.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d3",
-    name: "Ieva Kazlauskaitė",
-    year: 2023,
+    name: "Emilija Bilevičiūtė",
+    year: 2025,
     image: "/events/2022/DSC_6423.jpg",
     description:
-      "Fluid draping inspired by Baltic coastlines, rendered in organic cotton and silk.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d4",
-    name: "Dominykas Petrauskas",
-    year: 2023,
+    name: "Liutauras Suvorovas",
+    year: 2025,
     image: "/events/2022/DSC_6439.jpg",
     description:
-      "Digital-age couture blending 3D-printed accessories with hand-sewn garments.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d5",
-    name: "Gabrielė Stankevičiūtė",
-    year: 2024,
+    name: "Aušrinė Kepežinskaitė",
+    year: 2025,
     image: "/events/2022/DSC_6456.jpg",
     description:
-      "Minimalist knitwear collections championing zero-waste pattern cutting techniques.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d6",
-    name: "Matas Urbšys",
-    year: 2024,
+    name: "Adelė Burokaitė",
+    year: 2025,
     image: "/events/2022/DSC_6458.jpg",
     description:
-      "Gender-fluid evening wear with bold geometric cuts and reflective metallic fabrics.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d7",
-    name: "Emilija Daubaraitė",
+    name: "Margarita Stračkaitytė",
     year: 2025,
     image: "/events/2022/DSC_6460.jpg",
     description:
-      "Avant-garde streetwear infused with Lithuanian folk motifs and upcycled denim.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
   {
     id: "d8",
-    name: "Rokas Tamošaitis",
+    name: "Kamilė Ginelevičiūtė",
     year: 2025,
     image: "/events/2022/DSC_6462.jpg",
     description:
-      "Sculptural outerwear exploring the tension between softness and structure.",
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
+  },
+  {
+    id: "d9",
+    name: "Jomilė Balvočiūtė",
+    year: 2025,
+    image: "/events/2022/DSC_6491.jpg",
+    description:
+      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
 ];
 
@@ -161,21 +169,29 @@ export const teamMembers: TeamMember[] = [
   },
 ];
 
-// ——— Sponsors: 2026 (Current) vs Past Partners ———
+// ——— Sponsors & Partners ———
 
 export const sponsors2026: Sponsor[] = [
-  { id: "s1", name: "Baltic Textile Co.", logo: "https://placehold.co/200x80/111/fff?text=Baltic+Textile" },
-  { id: "s2", name: "Vilnius City Council", logo: "https://placehold.co/200x80/111/fff?text=Vilnius+City" },
-  { id: "s3", name: "LT Fashion Fund", logo: "https://placehold.co/200x80/111/fff?text=LT+Fashion+Fund" },
-  { id: "s4", name: "Nordica Studios", logo: "https://placehold.co/200x80/111/fff?text=Nordica+Studios" },
+  { id: "s1", name: "Jung", logo: "https://placehold.co/200x80/111/fff?text=Jung" },
+  { id: "s2", name: "Make Up Forever", logo: "https://placehold.co/200x80/111/fff?text=Make+Up+Forever" },
+  { id: "s3", name: "Keune", logo: "https://placehold.co/200x80/111/fff?text=Keune" },
+  { id: "s4", name: "Femina Bona", logo: "https://placehold.co/200x80/111/fff?text=Femina+Bona" },
+  { id: "s5", name: "Akvilė", logo: "https://placehold.co/200x80/111/fff?text=Akvil%C4%97" },
+  { id: "s6", name: "1664 Kronenbourg", logo: "https://placehold.co/200x80/111/fff?text=1664+Kronenbourg" },
+];
+
+export const infoPartners: Sponsor[] = [
+  { id: "ip1", name: "ELLE Lithuania", logo: "https://placehold.co/200x80/111/fff?text=ELLE" },
+  { id: "ip2", name: "Delfi", logo: "https://placehold.co/200x80/111/fff?text=Delfi" },
+  { id: "ip3", name: "Piksel", logo: "https://placehold.co/200x80/111/fff?text=Piksel" },
 ];
 
 export const pastPartners: Sponsor[] = [
-  { id: "pp1", name: "Atelier Supply", logo: "https://placehold.co/200x80/111/fff?text=Atelier+Supply" },
-  { id: "pp2", name: "MONO Magazine", logo: "https://placehold.co/200x80/111/fff?text=MONO+Magazine" },
-  { id: "pp3", name: "Vilnius Academy of Arts", logo: "https://placehold.co/200x80/111/fff?text=VDA" },
-  { id: "pp4", name: "Creative Europe", logo: "https://placehold.co/200x80/111/fff?text=Creative+Europe" },
-  { id: "pp5", name: "Linen House LT", logo: "https://placehold.co/200x80/111/fff?text=Linen+House" },
+  { id: "pp1", name: "ELLE Lithuania", logo: "https://placehold.co/200x80/111/fff?text=ELLE" },
+  { id: "pp2", name: "Delfi", logo: "https://placehold.co/200x80/111/fff?text=Delfi" },
+  { id: "pp3", name: "Piksel", logo: "https://placehold.co/200x80/111/fff?text=Piksel" },
+  { id: "pp4", name: "Jung", logo: "https://placehold.co/200x80/111/fff?text=Jung" },
+  { id: "pp5", name: "Make Up Forever", logo: "https://placehold.co/200x80/111/fff?text=Make+Up+Forever" },
 ];
 
 export const pressArticles: PressArticle[] = [
@@ -224,38 +240,46 @@ export const pressArticles: PressArticle[] = [
 // ——— Events: Real Timeline ———
 
 export const events: EventItem[] = [
-  // 2026 — Upcoming
+  // 2026 — Upcoming (5th edition)
   {
     id: "e-upcoming",
     slug: "young-fashion-2026",
     title: "Young Fashion 2026",
     type: "runway",
-    date: "2026-10-01",
+    date: "2026-09-01",
     description:
-      "The next chapter of Young Fashion is coming. Stay tuned for the 2026 edition — our biggest and most ambitious event yet.",
+      "The fifth edition of Young Fashion is coming September 2026. Stay tuned for our biggest and most ambitious event yet.",
     images: [
       "/behind-the-scenes/2025/IMG_0160.jpg",
     ],
     upcoming: true,
     location: "Vilnius, Lithuania",
     longDescription:
-      "Young Fashion 2026 is currently in development and will continue the platform's mission of spotlighting emerging fashion talent in Vilnius through a new edition of runway-led programming.",
+      "Young Fashion 2026 is currently in development and will continue the platform's mission of spotlighting emerging fashion talent in Vilnius. The fifth edition will build on four years of runway shows, workshops, and community-building.",
   },
-  // 2025
+  // 2025 — 4th edition
   {
     id: "e-2025",
     slug: "young-fashion-2025-closing-vilnius-fashion-week",
     title: "Young Fashion 2025 — Closing of Vilnius Fashion Week",
     type: "runway",
-    date: "2025-10-18",
+    date: "2025-09-06",
     description:
-      "The latest edition of Young Fashion closed Vilnius Fashion Week at K2 Comedy Club, bringing the platform's energy into one of the city's most unconventional venues.",
+      "The fourth edition of Young Fashion officially closed Vilnius Fashion Week. The program featured a 'Future of Fashion' discussion with Odeta Jace and presentations by nine emerging designers.",
     images: [
       "/behind-the-scenes/2025/IMG_0170.jpg",
     ],
-    location: "K2 Comedy Club, Vilnius",
+    location: "K2 Comedy Club, A. Goštauto g. 25, Vilnius",
     longDescription:
-      "As the closing event of Vilnius Fashion Week, Young Fashion 2025 transformed K2 Comedy Club into a charged runway environment that celebrated new talent and contemporary fashion culture.",
+      "Young Fashion 2025 closed Vilnius Fashion Week on September 6 at K2 Comedy Club. The evening featured a 'Future of Fashion' discussion with Odeta Jace followed by collections from Karina Panina, Valdemara Jasulaitytė, Emilija Bilevičiūtė, Liutauras Suvorovas, Aušrinė Kepežinskaitė, Adelė Burokaitė, Margarita Stračkaitytė, Kamilė Ginelevičiūtė, and Jomilė Balvočiūtė.",
+    sponsors: [
+      { id: "ev25-s1", name: "Jung", logo: "https://placehold.co/320x120/111/fff?text=Jung" },
+      { id: "ev25-s2", name: "Make Up Forever", logo: "https://placehold.co/320x120/111/fff?text=Make+Up+Forever" },
+      { id: "ev25-s3", name: "Keune", logo: "https://placehold.co/320x120/111/fff?text=Keune" },
+      { id: "ev25-s4", name: "Femina Bona", logo: "https://placehold.co/320x120/111/fff?text=Femina+Bona" },
+      { id: "ev25-s5", name: "Akvilė", logo: "https://placehold.co/320x120/111/fff?text=Akvil%C4%97" },
+      { id: "ev25-s6", name: "1664 Kronenbourg", logo: "https://placehold.co/320x120/111/fff?text=1664+Kronenbourg" },
+    ],
   },
   // 2023
   {

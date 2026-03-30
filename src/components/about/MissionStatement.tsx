@@ -20,12 +20,13 @@ export default function MissionStatement() {
           </h1>
           <div className="mt-8 md:mt-10 w-12 md:w-16 h-px bg-white/20 mx-auto" />
           <p className="mt-8 md:mt-10 text-white/50 text-xs md:text-sm leading-relaxed max-w-2xl mx-auto">
-            Founded in Vilnius in 2022, Young Fashion is more than a runway
-            show — it&apos;s an ecosystem for emerging designers. We provide
-            mentorship, production support, media exposure, and direct
-            connections to the fashion industry. Our goal is to make Lithuanian
-            and Baltic design talent visible on the global stage while fostering
-            a community rooted in sustainability, innovation, and artistic
+            Founded in Vilnius in 2022, Young Fashion has grown through four
+            editions — from its debut to closing Vilnius Fashion Week 2025 at
+            K2 Comedy Club, and showcasing at the National Art Gallery in 2024.
+            We provide emerging designers with a platform, production support,
+            and direct connections to the fashion industry. Our goal is to make
+            Lithuanian and Baltic design talent visible on the global stage
+            while fostering a community rooted in innovation and artistic
             freedom.
           </p>
         </motion.div>
