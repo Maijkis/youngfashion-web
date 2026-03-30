@@ -13,6 +13,20 @@ export const metadata: Metadata = {
   title: "Young Fashion — Empowering Young Designers in Vilnius",
   description:
     "Young Fashion is a Vilnius-based platform empowering emerging designers since 2022. Discover runway shows, galleries, events, and more.",
+  openGraph: {
+    title: "Young Fashion",
+    description:
+      "Empowering emerging designers in Vilnius since 2022. Runway shows, galleries, events, and more.",
+    siteName: "Young Fashion",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Young Fashion",
+    description:
+      "Empowering emerging designers in Vilnius since 2022.",
+  },
 };
 
 export default function RootLayout({

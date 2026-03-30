@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import SponsorSection from "@/components/press/SponsorMarquee";
 import PressGrid from "@/components/press/PressGrid";
 import SectionHeader from "@/components/ui/SectionHeader";
+
+export const metadata: Metadata = {
+  title: "Press & Partners | Young Fashion",
+  description:
+    "Young Fashion in the media — press coverage, sponsor partnerships, and brand collaborations from Vilnius's emerging fashion platform.",
+};
 
 export default function PressPartnersPage() {
   return (

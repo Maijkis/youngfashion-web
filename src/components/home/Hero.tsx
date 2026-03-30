@@ -1,43 +1,39 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import styles from "./VerticalWarpSlideshow.module.css";
 
 const SLIDES = [
   {
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80",
+    image: "/events/2022/DSC_6382.jpg",
     lines: ["YOUNG", "FASHION"],
     title: "Vilnius — Est. 2022",
     desc: "A creative platform empowering emerging designers in Lithuania.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&q=80",
+    image: "/events/2022/DSC_6421.jpg",
     lines: ["EMERGING", "DESIGNERS"],
-    title: "New Voices",
+    title: "New Voices from Lithuania",
     desc: "Bold new perspectives from the next generation of creators.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1920&q=80",
-    lines: ["RUNWAY", "COLLECTION"],
-    title: "Spring 2025",
-    desc: "Four runway shows featuring 30+ original collections.",
+    image: "/behind-the-scenes/2025/IMG_0049.jpg",
+    lines: ["RUNWAY", "REIMAGINED"],
+    title: "National Art Gallery 2024",
+    desc: "Placing emerging design in Vilnius's most important cultural spaces.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=80",
+    image: "/events/2022/DSC_6436.jpg",
     lines: ["CRAFTED WITH", "PURPOSE"],
     title: "Craftsmanship",
     desc: "Every stitch tells a story of passion and precision.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1920&q=80",
-    lines: ["BEYOND THE", "FABRIC"],
+    image: "/behind-the-scenes/2025/IMG_0115.jpg",
+    lines: ["JOIN THE", "MOVEMENT"],
     title: "Looking Forward",
     desc: "Building a sustainable creative community in Vilnius and beyond.",
   },
@@ -317,10 +313,16 @@ export default function Hero() {
             key={i}
             className={`${styles.slide}${i === 0 ? ` ${styles.active}` : ""}`}
           >
-            <div
-              className={styles.slideImg}
-              style={{ backgroundImage: `url('${slide.image}')` }}
-            />
+            <div className={styles.slideImg}>
+              <Image
+                src={slide.image}
+                alt={slide.lines.join(" ")}
+                fill
+                sizes="100vw"
+                priority={i === 0}
+                quality={80}
+              />
+            </div>
             <div className={styles.slideText}>
               {slide.lines.map((line, j) => (
                 <span key={j} className={styles.slideTextLine}>

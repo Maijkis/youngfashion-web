@@ -60,7 +60,7 @@ export const designers: Designer[] = [
     id: "d1",
     name: "Austėja Rimkutė",
     year: 2022,
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+    image: "/events/2022/DSC_6387.jpg",
     description:
       "Exploring deconstructed tailoring with sustainable Lithuanian linen and raw-edge finishes.",
   },
@@ -68,7 +68,7 @@ export const designers: Designer[] = [
     id: "d2",
     name: "Lukas Jonaitis",
     year: 2022,
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80",
+    image: "/events/2022/DSC_6412.jpg",
     description:
       "Streetwear meets brutalist architecture — oversized silhouettes in monochromatic palettes.",
   },
@@ -76,7 +76,7 @@ export const designers: Designer[] = [
     id: "d3",
     name: "Ieva Kazlauskaitė",
     year: 2023,
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=80",
+    image: "/events/2022/DSC_6423.jpg",
     description:
       "Fluid draping inspired by Baltic coastlines, rendered in organic cotton and silk.",
   },
@@ -84,7 +84,7 @@ export const designers: Designer[] = [
     id: "d4",
     name: "Dominykas Petrauskas",
     year: 2023,
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80",
+    image: "/events/2022/DSC_6439.jpg",
     description:
       "Digital-age couture blending 3D-printed accessories with hand-sewn garments.",
   },
@@ -92,7 +92,7 @@ export const designers: Designer[] = [
     id: "d5",
     name: "Gabrielė Stankevičiūtė",
     year: 2024,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+    image: "/events/2022/DSC_6456.jpg",
     description:
       "Minimalist knitwear collections championing zero-waste pattern cutting techniques.",
   },
@@ -100,7 +100,7 @@ export const designers: Designer[] = [
     id: "d6",
     name: "Matas Urbšys",
     year: 2024,
-    image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80",
+    image: "/events/2022/DSC_6458.jpg",
     description:
       "Gender-fluid evening wear with bold geometric cuts and reflective metallic fabrics.",
   },
@@ -108,7 +108,7 @@ export const designers: Designer[] = [
     id: "d7",
     name: "Emilija Daubaraitė",
     year: 2025,
-    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80",
+    image: "/events/2022/DSC_6460.jpg",
     description:
       "Avant-garde streetwear infused with Lithuanian folk motifs and upcycled denim.",
   },
@@ -116,7 +116,7 @@ export const designers: Designer[] = [
     id: "d8",
     name: "Rokas Tamošaitis",
     year: 2025,
-    image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=800&q=80",
+    image: "/events/2022/DSC_6462.jpg",
     description:
       "Sculptural outerwear exploring the tension between softness and structure.",
   },
@@ -127,37 +127,37 @@ export const teamMembers: TeamMember[] = [
     id: "t1",
     name: "Nerija Kanapkaitė",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0005.jpg",
   },
   {
     id: "t2",
     name: "Žygimantas Juška",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0008.jpg",
   },
   {
     id: "t3",
     name: "Rusnė Butrimaitė",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0014.jpg",
   },
   {
     id: "t4",
     name: "Jonas Latoža",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0020.jpg",
   },
   {
     id: "t5",
     name: "Ąžuolas Stabingis",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0031.jpg",
   },
   {
     id: "t6",
     name: "Karolis Danys",
     role: "Team Member",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80",
+    image: "/behind-the-scenes/2025/IMG_0037.jpg",
   },
 ];
 
@@ -187,7 +187,7 @@ export const pressArticles: PressArticle[] = [
     link: "#",
     excerpt:
       "The annual showcase has quickly become a must-watch event for scouts seeking fresh talent from the Baltics.",
-    thumbnail: "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&q=80",
+    thumbnail: "/events/2022/DSC_6491.jpg",
   },
   {
     id: "p2",
@@ -197,7 +197,7 @@ export const pressArticles: PressArticle[] = [
     link: "#",
     excerpt:
       "This year's edition proved that eco-conscious design and high-fashion aesthetics are not mutually exclusive.",
-    thumbnail: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80",
+    thumbnail: "/behind-the-scenes/2025/IMG_0076.jpg",
   },
   {
     id: "p3",
@@ -207,7 +207,7 @@ export const pressArticles: PressArticle[] = [
     link: "#",
     excerpt:
       "From Vilnius to the world — how a grassroots platform is nurturing the next wave of European designers.",
-    thumbnail: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=80",
+    thumbnail: "/behind-the-scenes/2025/IMG_0082.jpg",
   },
   {
     id: "p4",
@@ -217,7 +217,7 @@ export const pressArticles: PressArticle[] = [
     link: "#",
     excerpt:
       "The inaugural edition delivered an electrifying mix of streetwear, couture, and experimental design.",
-    thumbnail: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80",
+    thumbnail: "/events/2022/DSC_6382.jpg",
   },
 ];
 
@@ -234,7 +234,7 @@ export const events: EventItem[] = [
     description:
       "The next chapter of Young Fashion is coming. Stay tuned for the 2026 edition — our biggest and most ambitious event yet.",
     images: [
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      "/behind-the-scenes/2025/IMG_0160.jpg",
     ],
     upcoming: true,
     location: "Vilnius, Lithuania",
@@ -251,7 +251,7 @@ export const events: EventItem[] = [
     description:
       "The latest edition of Young Fashion closed Vilnius Fashion Week at K2 Comedy Club, bringing the platform's energy into one of the city's most unconventional venues.",
     images: [
-      "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80",
+      "/behind-the-scenes/2025/IMG_0170.jpg",
     ],
     location: "K2 Comedy Club, Vilnius",
     longDescription:
@@ -267,7 +267,7 @@ export const events: EventItem[] = [
     description:
       "Young Fashion expanded beyond the runway with a dedicated workshop focused on creative development, process, and emerging designer support.",
     images: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+      "/behind-the-scenes/2025/IMG_0182.jpg",
     ],
     location: "Vilnius, Lithuania",
     longDescription:
@@ -282,7 +282,7 @@ export const events: EventItem[] = [
     description:
       "A special collaborative pop-up with Sample Research, bringing fashion, community, and experimental retail together in Vilnius.",
     images: [
-      "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=800&q=80",
+      "/behind-the-scenes/2025/IMG_0201.jpg",
     ],
     location: "Vilnius, Lithuania",
     longDescription:
@@ -297,7 +297,7 @@ export const events: EventItem[] = [
     description:
       "The main runway show at the National Art Gallery marked Young Fashion's most ambitious edition yet, placing emerging design in one of Vilnius's most important cultural spaces.",
     images: [
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+      "/events/2022/DSC_6453 2.jpg",
     ],
     location: "National Art Gallery, Vilnius",
     longDescription:
@@ -313,7 +313,7 @@ export const events: EventItem[] = [
     description:
       "The second Young Fashion event built on the momentum of the debut and further established the platform within Vilnius's creative scene.",
     images: [
-      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80",
+      "/events/2022/DSC_6426 2.jpg",
     ],
     location: "Vilnius, Lithuania",
     longDescription:
@@ -382,14 +382,14 @@ export const events: EventItem[] = [
 ];
 
 export const btsPhotos: BtsPhoto[] = [
-  { id: "b1", src: "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&q=80", alt: "Backstage preparations", year: 2025 },
-  { id: "b2", src: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80", alt: "Model fitting session", year: 2025 },
-  { id: "b3", src: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80", alt: "Runway rehearsal", year: 2024 },
-  { id: "b4", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=80", alt: "Designer at work", year: 2024 },
-  { id: "b5", src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80", alt: "Behind the curtain", year: 2023 },
-  { id: "b6", src: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80", alt: "Makeup station", year: 2023 },
-  { id: "b7", src: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80", alt: "Final touches before show", year: 2022 },
-  { id: "b8", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80", alt: "Crowd at the venue", year: 2022 },
+  { id: "b1", src: "/behind-the-scenes/2025/IMG_0086.jpg", alt: "Backstage preparations", year: 2025 },
+  { id: "b2", src: "/behind-the-scenes/2025/IMG_0095.jpg", alt: "Model fitting session", year: 2025 },
+  { id: "b3", src: "/behind-the-scenes/2025/IMG_0105.jpg", alt: "Runway rehearsal", year: 2024 },
+  { id: "b4", src: "/behind-the-scenes/2025/IMG_0134.jpg", alt: "Designer at work", year: 2024 },
+  { id: "b5", src: "/behind-the-scenes/2025/IMG_0139.jpg", alt: "Behind the curtain", year: 2023 },
+  { id: "b6", src: "/behind-the-scenes/2025/IMG_0169.jpg", alt: "Makeup station", year: 2023 },
+  { id: "b7", src: "/behind-the-scenes/2025/IMG_0174.jpg", alt: "Final touches before show", year: 2022 },
+  { id: "b8", src: "/behind-the-scenes/2025/IMG_0210.jpg", alt: "Crowd at the venue", year: 2022 },
 ];
 
 export const photowallPhotos2025: BtsPhoto[] = [

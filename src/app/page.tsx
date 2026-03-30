@@ -1,7 +1,12 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
-import UpcomingEvents from "@/components/home/UpcomingEvents";
-import IntroSection from "@/components/home/IntroSection";
-import FeaturedGrid from "@/components/home/FeaturedGrid";
+
+const UpcomingEvents = dynamic(() => import("@/components/home/UpcomingEvents"));
+const IntroSection = dynamic(() => import("@/components/home/IntroSection"));
+const DesignersShowcase = dynamic(() => import("@/components/home/DesignersShowcase"));
+const FeaturedGrid = dynamic(() => import("@/components/home/FeaturedGrid"));
+const NewsSection = dynamic(() => import("@/components/home/NewsSection"));
+const PartnersStrip = dynamic(() => import("@/components/home/PartnersStrip"));
 
 export default function HomePage() {
   return (
@@ -9,7 +14,10 @@ export default function HomePage() {
       <Hero />
       <UpcomingEvents />
       <IntroSection />
+      <DesignersShowcase />
       <FeaturedGrid />
+      <NewsSection />
+      <PartnersStrip />
     </>
   );
 }

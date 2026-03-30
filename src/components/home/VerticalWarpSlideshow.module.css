@@ -32,9 +32,13 @@
   left: -10%;
   width: 120%;
   height: 120%;
-  background-size: cover;
-  background-position: center;
   will-change: transform;
+}
+
+.slideImg img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .slideImg::after {

@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { behindTheScenesPhotos2025 } from "@/lib/mockData";
 import BehindTheScenes from "@/components/galleries/BehindTheScenes";
+
+export const metadata: Metadata = {
+  title: "Behind the Scenes 2025 | Young Fashion",
+  description:
+    "Go behind the scenes of Young Fashion 2025 — exclusive backstage photos from the closing of Vilnius Fashion Week.",
+};
 
 export default function BehindTheScenes2025Page() {
   return (

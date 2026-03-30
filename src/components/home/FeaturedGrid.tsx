@@ -7,19 +7,19 @@ const features = [
   {
     title: "Galleries",
     subtitle: "Designer Collections",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+    image: "/photowall/2025/KristinaPetrikonyte-4184835.jpg",
     href: "/galleries",
   },
   {
     title: "Events",
     subtitle: "Runway & Beyond",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+    image: "/events/2022/DSC_6421.jpg",
     href: "/events",
   },
   {
     title: "Press",
     subtitle: "In the Media",
-    image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80",
+    image: "/behind-the-scenes/2025/IMG_0049.jpg",
     href: "/press-partners",
   },
 ];
