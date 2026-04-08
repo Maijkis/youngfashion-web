@@ -87,6 +87,24 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
           </div>
         </section>
 
+        {event.video && (
+          <section className="mb-16 md:mb-20">
+            <SectionHeader title="Aftermovie" subtitle="Watch the recap" />
+            <div className="relative w-full aspect-video overflow-hidden bg-black border border-white/10">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={event.videoPoster ?? event.images[0]}
+                className="w-full h-full object-cover"
+              >
+                <source src={event.video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </section>
+        )}
+
         {event.sponsors && event.sponsors.length > 0 && (
           <section className="mb-16 md:mb-20">
             <SectionHeader
