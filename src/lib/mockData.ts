@@ -394,6 +394,8 @@ export const events: EventItem[] = [
     location: "Vilnius, Lithuania",
     longDescription:
       "This collaborative pop-up with Sample Research expanded Young Fashion into a retail and community experience, presenting emerging design in a more direct, public-facing format.",
+    video: "/videos/young-fashion-popup-2024.mp4",
+    videoPoster: "/behind-the-scenes/2025/IMG_0201.jpg",
   },
   {
     id: "e-2024-runway",
@@ -425,8 +427,6 @@ export const events: EventItem[] = [
     location: "Vilnius, Lithuania",
     longDescription:
       "The second edition of Young Fashion expanded the platform's reach and confirmed the appetite for a dedicated space focused on emerging fashion voices in Vilnius. The 2023 lineup brought together ten designers across runway, presentation, and editorial formats: Ugnė Petkutė, Nyctophilia, Raimedas, Neringa, Patricija, Indrė, Aušrinė, Emilija, Justina, and Augustė.",
-    video: "/videos/eventyoungfashion-2023.mp4",
-    videoPoster: "/events/2023/petkute/IMG_0865.jpg",
     galleryPhotos: [
       // Petkutė
       "/events/2023/petkute/IMGP0011.jpg",
