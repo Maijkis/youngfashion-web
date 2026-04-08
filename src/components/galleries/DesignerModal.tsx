@@ -27,13 +27,16 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
     setLightboxIndex((lightboxIndex + 1) % photos.length);
   }, [lightboxIndex, photos.length]);
 
-  // Lock body scroll while modal is open
+  // Lock body scroll and stop Lenis while modal is open
   useEffect(() => {
     if (!designer) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const lenis = (window as Window & { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    lenis?.stop();
     return () => {
       document.body.style.overflow = prev;
+      lenis?.start();
     };
   }, [designer]);
 
@@ -79,6 +82,7 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-md overflow-y-auto"
+          data-lenis-prevent
         >
           {/* Header */}
           <div className="sticky top-0 z-10 bg-black/90 backdrop-blur-xl border-b border-white/10">
