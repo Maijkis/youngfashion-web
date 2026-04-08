@@ -44,6 +44,18 @@ export default function BehindTheScenes({
   const visiblePhotos = previewCount ? photos.slice(0, previewCount) : photos;
   const isPreview = typeof previewCount === "number";
 
+  // Derive year and photographers from the displayed photos
+  const year = photos[0]?.year;
+  const photographers = Array.from(
+    new Set(photos.map((p) => p.photographer).filter(Boolean) as string[])
+  );
+  const photographerLabel =
+    photographers.length === 0
+      ? null
+      : photographers.length === 1
+      ? `Photos by ${photographers[0]}`
+      : `Photos by ${photographers.slice(0, -1).join(", ")} & ${photographers[photographers.length - 1]}`;
+
   return (
     <section className="mt-16 md:mt-24">
       <SectionHeader
@@ -53,11 +65,13 @@ export default function BehindTheScenes({
 
       <div className="mb-6 md:mb-8 max-w-3xl mx-auto text-center px-4">
         <p className="text-xs md:text-sm text-white/50 leading-relaxed">
-          Candid moments from Young Fashion 2025.
+          Candid moments from Young Fashion {year}.
         </p>
-        <p className="mt-2 text-[11px] md:text-xs uppercase tracking-[0.16em] text-white/35">
-          Photos by Ugnė Narbutaitė
-        </p>
+        {photographerLabel && (
+          <p className="mt-2 text-[11px] md:text-xs uppercase tracking-[0.16em] text-white/35">
+            {photographerLabel}
+          </p>
+        )}
       </div>
 
       <div className={isPreview ? "grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" : "masonry-grid"}>
@@ -153,12 +167,13 @@ export default function BehindTheScenes({
                         Photo Details
                       </p>
                       <h3 className="text-base md:text-lg font-bold uppercase tracking-[0.08em] text-white mb-3">
-                        Behind the Scenes 2025
+                        Behind the Scenes {selectedPhoto.year}
                       </h3>
                       <div className="space-y-2 text-xs md:text-sm text-white/55 leading-relaxed">
-                        <p>Young Fashion 2025</p>
-                        <p>Location: K2 Comedy Club</p>
-                        <p>Photos by Ugnė Narbutaitė</p>
+                        <p>Young Fashion {selectedPhoto.year}</p>
+                        {selectedPhoto.photographer && (
+                          <p>Photo by {selectedPhoto.photographer}</p>
+                        )}
                       </div>
                     </div>
 
