@@ -98,7 +98,7 @@ export const designers: Designer[] = [
     year: 2025,
     image: "/events/2022/DSC_6456.jpg",
     description:
-      "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
+      "Collection 'Body without borders'. Presented at K2 Comedy Club closing Vilnius Fashion Week 2025. Previously showed at the 2023 edition.",
   },
   {
     id: "d6",
@@ -132,6 +132,14 @@ export const designers: Designer[] = [
     description:
       "Young Fashion 2025 designer — presented at K2 Comedy Club closing Vilnius Fashion Week.",
   },
+  {
+    id: "d-2025-elma",
+    name: "Elma Zemlickaitė",
+    year: 2025,
+    image: "/events/2022/DSC_6382.jpg",
+    description:
+      "Collection 'Delicacies'. Presented at K2 Comedy Club closing Vilnius Fashion Week 2025.",
+  },
   // ——— 2023 Designers ———
   {
     id: "d11",
@@ -139,7 +147,7 @@ export const designers: Designer[] = [
     year: 2023,
     image: "/events/2023/nyctophilia/youngfashion2023-200.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Design duo of Nerija Kanapkaitė and Mateuš Krajevski. Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/nyctophilia/IMG_0779.jpg",
       "/events/2023/nyctophilia/IMG_0788.jpg",
@@ -178,11 +186,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d12",
-    name: "Raimedas",
+    name: "Raimedas Latvys",
     year: 2023,
     image: "/events/2023/raimedas/youngfashion2023-117.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/raimedas/IMG_5670.jpg",
       "/events/2023/raimedas/IMG_5673.jpg",
@@ -219,11 +227,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d13",
-    name: "Neringa",
+    name: "Neringa Ulozaitė",
     year: 2023,
     image: "/events/2023/neringa/youngfashion2023-148.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/neringa/IMG_0247.jpg",
       "/events/2023/neringa/IMG_0288.jpg",
@@ -245,11 +253,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d14",
-    name: "Patricija",
+    name: "Patricija Palubinskaitė",
     year: 2023,
     image: "/events/2023/patricija/youngfashion2023-170.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/patricija/IMG_0378.jpg",
       "/events/2023/patricija/IMG_0392.jpg",
@@ -281,11 +289,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d15",
-    name: "Indrė",
+    name: "Indrė Kirlytė",
     year: 2023,
     image: "/events/2023/indre/youngfashion2023-185.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/indre/IMG_0567.jpg",
       "/events/2023/indre/IMG_0589.jpg",
@@ -306,11 +314,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d16",
-    name: "Aušrinė",
+    name: "Aušrinė Kepežinskaitė",
     year: 2023,
     image: "/events/2023/ausrine/youngfashion2023-228.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023). Returned to the platform in 2025 with the collection 'Body without borders'.",
     photos: [
       "/events/2023/ausrine/youngfashion2023-225.jpg",
       "/events/2023/ausrine/youngfashion2023-226.jpg",
@@ -326,11 +334,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d17",
-    name: "Emilija",
+    name: "Emilija Vansytė",
     year: 2023,
     image: "/events/2023/emilija/IMG_5614.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/emilija/IMG_5596.jpg",
       "/events/2023/emilija/IMG_5601.jpg",
@@ -369,11 +377,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d18",
-    name: "Justina",
+    name: "Justina Kuliešytė",
     year: 2023,
     image: "/events/2023/justina/IMG_5570.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/justina/IMG_5563.jpg",
       "/events/2023/justina/IMG_5565.jpg",
@@ -396,11 +404,11 @@ export const designers: Designer[] = [
   },
   {
     id: "d19",
-    name: "Augustė",
+    name: "Augustė Bukytė",
     year: 2023,
     image: "/events/2023/auguste/youngfashion2023-215.jpg",
     description:
-      "Young Fashion 2023 designer — second edition of Young Fashion in Vilnius.",
+      "Presented at the second Young Fashion edition at Lelijos fabrikas, Vilnius (2023).",
     photos: [
       "/events/2023/auguste/IMG_1028.jpg",
       "/events/2023/auguste/IMG_1037.jpg",
@@ -491,43 +499,94 @@ export const pastPartners: Sponsor[] = [
 export const pressArticles: PressArticle[] = [
   {
     id: "p1",
-    title: "Young Fashion Puts Vilnius on the European Design Map",
-    publication: "Vogue Scandinavia",
-    date: "2024-09-15",
-    link: "#",
+    title: "„Young Fashion“: tarp absurdo ir svajonės",
+    publication: "370 / Diena",
+    date: "2025-09-29",
+    link: "https://370.diena.lt/2025/09/29/young-fashion-tarp-absurdo-ir-svajones/",
     excerpt:
-      "The annual showcase has quickly become a must-watch event for scouts seeking fresh talent from the Baltics.",
-    thumbnail: "/events/2022/DSC_6491.jpg",
+      "Rugsėjo pradžioje „K2 Comedy Club“ erdvė virto mados eksperimentų laboratorija — ketvirtoji „Young Fashion“ karta vainikavo Vilniaus mados savaitę.",
+    thumbnail: "/photowall/2025/KristinaPetrikonyte-4184835.jpg",
   },
   {
     id: "p2",
-    title: "Sustainability Meets Style at Young Fashion 2023",
-    publication: "Dezeen",
-    date: "2023-11-02",
-    link: "#",
+    title:
+      "Naujieji Lietuvos dizaineriai: Vilniuje pristatytos jaunųjų mados talentų kolekcijos",
+    publication: "Panele.lt",
+    date: "2025-09-09",
+    link: "https://panele.lt/kas-naujo/naujieji-lietuvos-dizaineriai",
     excerpt:
-      "This year's edition proved that eco-conscious design and high-fashion aesthetics are not mutually exclusive.",
-    thumbnail: "/behind-the-scenes/2025/IMG_0076.jpg",
+      "Ketvirtasis „Young Fashion“ vakaras K2 Comedy Club erdvėje pristatė dešimt jaunųjų dizainerių ir „Future of Fashion“ pristatymą su Odeta Jacė.",
+    thumbnail: "/behind-the-scenes/2025/IMG_0086.jpg",
   },
   {
     id: "p3",
-    title: "The Rise of Baltic Fashion: A New Generation",
-    publication: "i-D Magazine",
-    date: "2023-06-20",
-    link: "#",
+    title: "Vilniaus mados savaitę uždarė „Young Fashion“ šou",
+    publication: "Delfi Moterys",
+    date: "2025-09-08",
+    link: "https://www.delfi.lt/moterys/vilniaus-mados-savaite/vilniaus-mados-savaite-uzdare-young-fashion-sou-jaunuju-kureju-zvilgsnis-i-mados-ateiti-120147032",
     excerpt:
-      "From Vilnius to the world — how a grassroots platform is nurturing the next wave of European designers.",
-    thumbnail: "/behind-the-scenes/2025/IMG_0082.jpg",
+      "Jaunųjų kūrėjų žvilgsnis į mados ateitį uždarė Vilniaus mados savaitę 2025 — dešimt dizainerių pristatė savo kolekcijas K2 Comedy Club erdvėje.",
+    thumbnail: "/behind-the-scenes/2025/IMG_0095.jpg",
   },
   {
     id: "p4",
-    title: "Young Fashion 2022: A Bold Debut",
-    publication: "Hypebeast",
-    date: "2022-10-08",
-    link: "#",
+    title: "Vilnius Fashion Week showcases sustainability, culture and global talent",
+    publication: "LRT English",
+    date: "2025-08-29",
+    link: "https://www.lrt.lt/en/news-in-english/19/2658453/vilnius-fashion-week-showcases-sustainability-culture-and-global-talent",
     excerpt:
-      "The inaugural edition delivered an electrifying mix of streetwear, couture, and experimental design.",
-    thumbnail: "/events/2022/DSC_6382.jpg",
+      "The week-long festival concludes with Young Fashion at K2 Comedy Club on September 6, highlighting emerging Baltic talent under the theme „Fashion, Reclaimed“.",
+    thumbnail: "/behind-the-scenes/2025/IMG_0049.jpg",
+  },
+  {
+    id: "p5",
+    title: "Vilniaus mados savaitę vainikuos išskirtinis renginys „Young Fashion“",
+    publication: "Delfi Moterys",
+    date: "2025-08-25",
+    link: "https://www.delfi.lt/moterys/vilniaus-mados-savaite/vilniaus-mados-savaite-vainikuos-isskirtinis-renginys-young-fashion-120141194",
+    excerpt:
+      "Vilniaus mados savaitė užbaigiama dešimties jaunųjų dizainerių kolekcijomis K2 Comedy Club erdvėje — vakaro tema „skaidrumas“.",
+    thumbnail: "/behind-the-scenes/2025/IMG_0115.jpg",
+  },
+  {
+    id: "p6",
+    title: "Vilniaus mados savaitę uzbaigs „Young Fashion“ renginys",
+    publication: "ELLE Lithuania",
+    date: "2025-08-15",
+    link: "https://elle.lt/vilniaus-mados-savaite-uzbaigs-young-fashion-renginys/",
+    excerpt:
+      "ELLE Lietuva pristato Vilniaus mados savaitės užbaigtuvių renginį — „Young Fashion“ sugrįžta ketvirtąjį kartą su jaunųjų kūrėjų vakaru.",
+    thumbnail: "/behind-the-scenes/2025/IMG_0134.jpg",
+  },
+  {
+    id: "p7",
+    title: "„Young Fashion“ mados renginyje – nauji vėjai ir inovacijos",
+    publication: "Moteris.lt",
+    date: "2024-05-07",
+    link: "https://www.moteris.lt/lt/mada/g-87389-young-fashion-mados-renginyje-nauji-vejai-ir-inovacijos",
+    excerpt:
+      "Trečiasis „Young Fashion“ Nacionalinėje dailės galerijoje – instaliacija „Each water is unique“, devyni dizaineriai iš Lietuvos, Lenkijos ir Londono.",
+    thumbnail: "/events/2022/DSC_6453 2.jpg",
+  },
+  {
+    id: "p8",
+    title: "„Young Fashion“ – charakteringos šukuosenos ir žingsnis tvarumo link",
+    publication: "Moteris.lt",
+    date: "2023-07-20",
+    link: "https://www.moteris.lt/lt/mada/g-81722-young-fashion-renginyje-susipazinkite-su-mados-ateitimi-kurybiskumo-ir-tvarumo-svente",
+    excerpt:
+      "Antrasis „Young Fashion“ vakaras Lelijos fabrike – dešimt dizainerių, Femina Bona x Keune Academy šukuosenos ir tvarumo žinutė.",
+    thumbnail: "/events/2023/petkute/IMG_0865.jpg",
+  },
+  {
+    id: "p9",
+    title: "„Young Fashion“ renginys: Mados ir tvarumo revoliucija (GALERIJA)",
+    publication: "Moteris.lt",
+    date: "2023-07-14",
+    link: "https://www.moteris.lt/lt/mada/g-82058-young-fashion-renginys-mados-ir-tvarumo-revoliucija-galerija",
+    excerpt:
+      "Lelijos fabrike pristatytos devynių jaunųjų kūrėjų kolekcijos – paskutinis renginys istoriniame fabrike prieš jam tampant „Tech Zity“.",
+    thumbnail: "/events/2023/tomas-juskevicius/_TJP9446.jpg",
   },
 ];
 
@@ -613,31 +672,31 @@ export const events: EventItem[] = [
     slug: "young-fashion-2024-national-art-gallery",
     title: "Young Fashion 2024 — National Art Gallery",
     type: "runway",
-    date: "2024-10-12",
+    date: "2024-05-03",
     description:
-      "The main runway show at the National Art Gallery marked Young Fashion's most ambitious edition yet, placing emerging design in one of Vilnius's most important cultural spaces.",
+      "The third edition placed emerging design inside the National Art Gallery, framed by the „Each water is unique“ installation by Ervinas Blažys & Justina Tarasovaitė. Nine designers from Lithuania, Poland, and London presented collections addressing water pollution and sustainability.",
     images: [
       "/events/2022/DSC_6453 2.jpg",
     ],
-    location: "National Art Gallery, Vilnius",
+    location: "Nacionalinė dailės galerija, Vilnius",
     longDescription:
-      "With the National Art Gallery as its backdrop, the 2024 runway show elevated Young Fashion's cultural presence and framed emerging collections within one of the city's strongest institutional settings.",
+      "Young Fashion 2024 elevated the platform's cultural presence by hosting its main runway show inside the Nacionalinė dailės galerija — one of Vilnius's most important institutional spaces. The evening was anchored by „Each water is unique“, an art installation created by Ervinas Blažys and Justina Tarasovaitė, framing the collections around water pollution and sustainability. The lineup brought together international voices alongside Lithuanian talent: Karina Panina („Ne savo batuose“), Margarita Stračkaitytė (Atira Gram, „Iris Us“), Liutauras Suvorovas („Ne/toksiškas vyriškumas“), Gintaras Repšas, London-based Madlina Haziraj, the Polish design duo Stitchrays, Patricija Palubinskaitė & Gabija Petrauskaitė, Lukas Svirplis („Plikbajoriai“), and Mateuš Krajevski („Nebuvimas“). The night continued with an afterparty at the Lukiškių Prison Church.",
   },
   // 2023 — 2nd edition
   {
     id: "e-2023",
     slug: "young-fashion-2023-second-event",
-    title: "Young Fashion 2023 — The Second Event",
+    title: "Young Fashion 2023 — Mados ir tvarumo revoliucija",
     type: "runway",
-    date: "2023-07-09",
+    date: "2023-07-07",
     description:
-      "The second Young Fashion event featured ten emerging designers — Ugnė Petkutė, Nyctophilia, Raimedas, Neringa, Patricija, Indrė, Aušrinė, Emilija, Justina, and Augustė — and further established the platform within Vilnius's creative scene.",
+      "The second Young Fashion edition took place at the historic Lelija factory — its final event before transforming into Tech Zity. Nine emerging Lithuanian designers presented under a sustainability theme, with hair styling led by Femina Bona x Keune Academy.",
     images: [
       "/events/2023/petkute/IMG_0865.jpg",
     ],
-    location: "Vilnius, Lithuania",
+    location: "Lelijos fabrikas, Panerių g. 43, Vilnius",
     longDescription:
-      "The second edition of Young Fashion expanded the platform's reach and confirmed the appetite for a dedicated space focused on emerging fashion voices in Vilnius. The 2023 lineup brought together ten designers across runway, presentation, and editorial formats: Ugnė Petkutė, Nyctophilia, Raimedas, Neringa, Patricija, Indrė, Aušrinė, Emilija, Justina, and Augustė.",
+      "The second edition of Young Fashion was held at the historic Lelija factory in Vilnius (Panerių g. 43) — notably the last event hosted at the building before it became the Tech Zity headquarters. Programming spanned two days: upcycling and sustainable design workshops led by Reda Paula on July 6, followed by the main runway and presentations on July 7. The lineup featured Aušrinė Kepežinskaitė, Indrė Kirlytė, Augustė Bukytė, Patricija Palubinskaitė, Nyctophilia (Nerija Kanapkaitė & Mateuš Krajevski), Neringa Ulozaitė, Justina Kuliešytė, Emilija Vansytė, and Raimedas Latvys. Hair styling was a Femina Bona x Keune Academy collaboration with creative direction by Edita Kavaliauskienė. The night also featured a sustainability-themed dance performance by Neila and Ema Lavrenovičiai, the „Portmantò“ exhibition, and student presentations from Medeina Biliūtė, Marija Neimantaitė, and Kristina Savarauskaitė.",
     galleryPhotos: [
       // Petkutė
       "/events/2023/petkute/IMGP0011.jpg",
