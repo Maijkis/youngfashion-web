@@ -1,27 +1,21 @@
 import dynamic from "next/dynamic";
-import Hero from "@/components/home/Hero";
+import Cover from "@/components/home/Cover";
 
-const MarqueeText = dynamic(() => import("@/components/home/MarqueeText"));
-const UpcomingEvents = dynamic(() => import("@/components/home/UpcomingEvents"));
 const IntroSection = dynamic(() => import("@/components/home/IntroSection"));
-const ParallaxBand = dynamic(() => import("@/components/home/ParallaxBand"));
-const DesignersShowcase = dynamic(() => import("@/components/home/DesignersShowcase"));
-const FeaturedGrid = dynamic(() => import("@/components/home/FeaturedGrid"));
+const DesignerGrid = dynamic(() => import("@/components/home/DesignerGrid"));
+const UpcomingEvents = dynamic(() => import("@/components/home/UpcomingEvents"));
 const NewsSection = dynamic(() => import("@/components/home/NewsSection"));
 const PartnersStrip = dynamic(() => import("@/components/home/PartnersStrip"));
 
 export default function HomePage() {
   return (
-    <>
-      <Hero />
-      <MarqueeText />
-      <UpcomingEvents />
+    <div className="theme-editorial">
+      <Cover />
       <IntroSection />
-      <ParallaxBand />
-      <DesignersShowcase />
-      <FeaturedGrid />
+      <DesignerGrid />
+      <UpcomingEvents />
       <NewsSection />
       <PartnersStrip />
-    </>
+    </div>
   );
 }

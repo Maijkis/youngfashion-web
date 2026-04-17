@@ -1,9 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Instagram, Facebook } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const SHOW_DATE = new Date("2026-09-19T19:00:00+03:00");
+
+function getDaysUntil(target: Date) {
+  const diff = Math.max(0, target.getTime() - Date.now());
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -13,7 +19,7 @@ const quickLinks = [
   { label: "Press & Partners", href: "/press-partners" },
 ];
 
-function TikTokIcon({ size = 20 }: { size?: number }) {
+function TikTokIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -31,51 +37,75 @@ function TikTokIcon({ size = 20 }: { size?: number }) {
 }
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
+  const [days, setDays] = useState(() => getDaysUntil(SHOW_DATE));
+
+  useEffect(() => {
+    const id = setInterval(() => setDays(getDaysUntil(SHOW_DATE)), 60_000 * 10);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <footer className="border-t border-white/5">
-      {/* Big brand text */}
-      <div className="px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-12 md:pb-16">
-        <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-bold uppercase tracking-[-0.02em] leading-[0.95] text-white/[0.06]">
-          Young Fashion
-        </h2>
-      </div>
-
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 pb-12 md:pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-          {/* Brand */}
-          <div>
-            <Link
-              href="/"
-              className="inline-flex items-center mb-4 hover:opacity-80 transition-opacity"
-              aria-label="Young Fashion home"
-            >
-              <Image
-                src="/branding/logo-white.png"
-                alt="Young Fashion"
-                width={620}
-                height={100}
-                className="h-6 md:h-7 w-auto"
-              />
-            </Link>
-            <p className="text-white/40 text-xs md:text-sm leading-relaxed">
-              Empowering young designers in Vilnius since 2022. A platform where
-              emerging talent meets the fashion world.
-            </p>
+    <footer className="bg-white text-[var(--color-ink)] border-t border-[var(--color-hairline)]">
+      {/* Countdown moment */}
+      <div className="px-5 md:px-10 lg:px-16 pt-20 md:pt-28 pb-16 md:pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-6 md:mb-10">
+            <span className="w-8 md:w-12 h-px bg-[var(--color-ink)]/40" />
+            <span className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium">
+              The next show
+            </span>
           </div>
 
-          {/* Quick Links */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end">
+            {/* Huge days-until */}
+            <div className="md:col-span-7">
+              <div className="flex items-baseline gap-4 md:gap-6">
+                <span className="font-light text-[var(--color-ink)] leading-none tracking-[-0.03em] text-[clamp(5rem,18vw,14rem)] tabular-nums">
+                  {days}
+                </span>
+                <span className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium pb-2 md:pb-4">
+                  Days
+                </span>
+              </div>
+              <div className="mt-2 md:mt-4 flex items-center gap-4 flex-wrap">
+                <span className="text-sm md:text-base font-light text-[var(--color-ink)] tracking-[-0.005em]">
+                  19 September 2026
+                </span>
+                <span className="w-4 h-px bg-[var(--color-ink)]/40" />
+                <span className="text-sm md:text-base font-light text-[var(--color-ink)] tracking-[-0.005em]">
+                  Vilnius, Lithuania
+                </span>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="md:col-span-5 md:justify-self-end">
+              <Link
+                href="/events/young-fashion-2026"
+                className="group inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+              >
+                RSVP for No. 5
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom block — nav + social + contact */}
+      <div className="border-t border-[var(--color-hairline)]">
+        <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+          {/* Navigation */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-5 md:mb-6">
-              Navigation
+            <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium mb-5">
+              Index
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs md:text-sm text-white/40 hover:text-white transition-colors duration-300 min-h-[44px] md:min-h-0 flex items-center md:inline"
+                    className="text-sm font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors duration-300 min-h-[44px] flex items-center md:min-h-0 md:inline tracking-[-0.005em]"
                   >
                     {link.label}
                   </Link>
@@ -84,64 +114,70 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social + Newsletter */}
+          {/* Contact */}
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-5 md:mb-6">
-              Stay Connected
+            <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium mb-5">
+              Contact
             </h4>
-            <div className="flex gap-5 mb-8">
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="mailto:youngfashionevent@gmail.com"
+                  className="text-sm font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors break-all"
+                >
+                  youngfashionevent@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Follow */}
+          <div>
+            <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium mb-5">
+              Follow
+            </h4>
+            <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/youngfashion.lt/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-3"
+                className="text-[var(--color-ink)]/60 hover:text-[var(--color-ink)] transition-colors min-h-[44px] min-w-[44px] -ml-3 flex items-center justify-center"
                 aria-label="Instagram"
               >
                 <Instagram size={18} />
               </a>
               <a
-                href="https://tiktok.com"
+                href="https://www.tiktok.com/@youngfashion.lt"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="text-[var(--color-ink)]/60 hover:text-[var(--color-ink)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="TikTok"
               >
                 <TikTokIcon size={18} />
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/youngfashion.lt"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/30 hover:text-white transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="text-[var(--color-ink)]/60 hover:text-[var(--color-ink)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
               </a>
             </div>
-
-            <div className="flex">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
-                className="flex-1 glass-input px-4 py-3 text-xs text-white placeholder:text-white/30 rounded-none"
-              />
-              <button className="frosted-btn relative overflow-hidden bg-white/[0.08] backdrop-blur-xl text-white border border-white/[0.15] px-5 md:px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300 cursor-pointer whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
-                Subscribe
-              </button>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/5">
-        <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 py-5 md:py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[10px] md:text-xs text-white/20 font-medium">
-            &copy; {new Date().getFullYear()} Young Fashion. All rights reserved.
+      {/* Fine print */}
+      <div className="border-t border-[var(--color-hairline)]">
+        <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-5 md:py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink-muted)] font-medium">
+            &copy; {new Date().getFullYear()} Young Fashion · No. 5
           </p>
-          <p className="text-[10px] md:text-xs text-white/20">Vilnius, Lithuania</p>
+          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink-muted)] font-medium">
+            Vilnius, LT
+          </p>
         </div>
       </div>
     </footer>

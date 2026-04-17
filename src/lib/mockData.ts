@@ -597,11 +597,11 @@ export const events: EventItem[] = [
   {
     id: "e-upcoming",
     slug: "young-fashion-2026",
-    title: "Young Fashion 2026",
+    title: "Young Fashion 2026 — Fifth Anniversary",
     type: "runway",
-    date: "2026-09-01",
+    date: "2026-09-19",
     description:
-      "The fifth edition of Young Fashion is coming September 2026. Stay tuned for our biggest and most ambitious event yet.",
+      "Five years in. The fifth edition of Young Fashion lands on September 19, 2026 — marking half a decade of Lithuanian emerging talent on the runway.",
     images: [
       "/behind-the-scenes/2025/IMG_0160.jpg",
     ],

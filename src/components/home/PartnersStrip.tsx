@@ -9,40 +9,36 @@ export default function PartnersStrip() {
   const doubled = [...allSponsors, ...allSponsors, ...allSponsors];
 
   return (
-    <section className="py-12 md:py-16 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-6">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-muted/60 text-center">
-          Our Partners
+    <section className="py-20 md:py-24 border-t border-[var(--color-hairline)] bg-white">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 mb-10 text-center">
+        <p className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium">
+          In partnership with
         </p>
       </div>
 
       <div className="relative overflow-hidden">
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-black to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-white to-transparent z-10" />
 
         <motion.div
           className="flex items-center gap-12 md:gap-16"
           animate={{ x: [0, -200 * allSponsors.length] }}
           transition={{
-            x: {
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            },
+            x: { duration: 36, repeat: Infinity, ease: "linear" },
           }}
           style={{ width: "fit-content" }}
         >
           {doubled.map((sponsor, i) => (
             <div
               key={`${sponsor.id}-${i}`}
-              className="flex-shrink-0 opacity-30 hover:opacity-60 transition-opacity duration-300"
+              className="flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
             >
               <Image
                 src={sponsor.logo}
                 alt={sponsor.name}
                 width={160}
                 height={64}
-                className="h-7 md:h-9 w-auto object-contain invert"
+                className="h-7 md:h-9 w-auto object-contain"
               />
             </div>
           ))}

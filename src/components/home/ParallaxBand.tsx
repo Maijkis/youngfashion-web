@@ -8,20 +8,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ParallaxBand() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax image
       if (imageRef.current) {
         gsap.fromTo(
           imageRef.current,
-          { y: "-15%" },
+          { y: "-12%" },
           {
-            y: "15%",
+            y: "12%",
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -33,21 +32,20 @@ export default function ParallaxBand() {
         );
       }
 
-      // Text reveal on scroll
       lineRefs.current.forEach((line, i) => {
         if (!line) return;
         gsap.fromTo(
           line,
-          { y: 60, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: 1,
             delay: i * 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: textRef.current,
-              start: "top 80%",
+              start: "top 82%",
               toggleActions: "play none none none",
             },
           }
@@ -58,43 +56,40 @@ export default function ParallaxBand() {
     return () => ctx.revert();
   }, []);
 
-  const words = ["NOT JUST", "FASHION.", "A CULTURE."];
+  const lines = ["Not just fashion.", "A culture."];
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden"
+      className="relative w-full h-[75vh] md:h-[85vh] overflow-hidden bg-black"
     >
-      {/* Parallax image */}
-      <div
-        ref={imageRef}
-        className="absolute inset-[-15%] w-[100%] h-[130%]"
-      >
+      <div ref={imageRef} className="absolute inset-[-12%] w-[100%] h-[124%]">
         <Image
-          src="/behind-the-scenes/2025/IMG_0250.jpg"
-          alt="Young Fashion atmosphere"
+          src="/photowall/2025/KristinaPetrikonyte-4185075.jpg"
+          alt=""
           fill
           sizes="100vw"
           className="object-cover"
-          quality={80}
+          quality={75}
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* Centered bold text */}
       <div
         ref={textRef}
-        className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6"
+        className="absolute inset-0 flex flex-col items-start justify-center z-10 px-5 md:px-10 lg:px-16"
       >
-        {words.map((word, i) => (
-          <span
-            key={i}
-            ref={(el) => { lineRefs.current[i] = el; }}
-            className="block text-[clamp(2.5rem,8vw,7rem)] font-bold leading-[0.95] tracking-[-0.02em] text-white uppercase text-center"
-          >
-            {word}
-          </span>
-        ))}
+        <div className="max-w-[22ch]">
+          {lines.map((line, i) => (
+            <span
+              key={i}
+              ref={(el) => { lineRefs.current[i] = el; }}
+              className="block font-light leading-[1.02] tracking-[-0.015em] text-white text-[clamp(2.5rem,9vw,8rem)]"
+            >
+              {line}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );
