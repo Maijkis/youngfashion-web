@@ -8,47 +8,54 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function PressGrid() {
   return (
-    <section className="py-12 md:py-24 px-6 md:px-12 lg:px-20">
+    <section className="py-16 md:py-24 px-5 md:px-10 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title="In the Press" subtitle="What the media says about us" />
+        <SectionHeader title="In the press" subtitle="What the media said" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
           {pressArticles.map((article, i) => (
-            <AnimatedSection key={article.id} delay={i * 0.08}>
+            <AnimatedSection key={article.id} delay={i * 0.06}>
               <a
                 href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block overflow-hidden"
+                className="group block"
               >
-                <div className="relative aspect-[16/9] overflow-hidden mb-4">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[var(--color-paper-deep)] border border-hairline mb-5">
                   <Image
                     src={article.thumbnail}
                     alt={article.title}
                     fill
-                    className="object-cover transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                    className="object-cover transition-all duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
 
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/30 mb-2 font-medium">
-                  {article.publication} &middot;{" "}
-                  {new Date(article.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                  })}
-                </p>
-                <h3 className="text-sm md:text-base font-bold uppercase tracking-[-0.01em] text-white mb-2 leading-snug">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="mono-label text-[var(--color-ink-muted)]">
+                    {article.publication}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-[var(--color-ink)]/30" />
+                  <span className="mono-label text-[var(--color-ink-muted)]">
+                    {new Date(article.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
+
+                <h3 className="font-light text-[var(--color-ink)] leading-[1.2] tracking-[-0.01em] text-lg md:text-xl mb-3">
                   {article.title}
                 </h3>
-                <p className="text-xs text-white/40 leading-relaxed mb-3">
+
+                <p className="text-sm text-[var(--color-ink)]/65 font-light leading-relaxed mb-4 line-clamp-3">
                   {article.excerpt}
                 </p>
-                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white group-hover:gap-3 transition-all duration-300 font-bold">
-                  Read Article
-                  <ArrowUpRight size={12} />
-                </div>
+
+                <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
+                  Read article
+                  <ArrowUpRight size={14} />
+                </span>
               </a>
             </AnimatedSection>
           ))}

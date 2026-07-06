@@ -7,28 +7,27 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function TeamGrid() {
   return (
-    <section className="py-16 md:py-28 px-6 md:px-12 lg:px-20">
+    <section className="py-20 md:py-28 px-5 md:px-10 lg:px-16 bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title="The Team" subtitle="The people behind the platform" />
+        <SectionHeader title="The team" subtitle="The people behind the platform" />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {teamMembers.map((member, i) => (
-            <AnimatedSection key={member.id} delay={i * 0.08}>
-              <div className="group overflow-hidden">
-                <div className="relative w-full aspect-[3/4] overflow-hidden mb-3">
+            <AnimatedSection key={member.id} delay={i * 0.06}>
+              <div className="group">
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-[var(--color-paper-deep)] mb-3 md:mb-4">
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-[0.02em] text-white/80 group-hover:text-white transition-colors">
+                <h3 className="font-light text-[var(--color-ink)] text-base md:text-lg tracking-[-0.005em]">
                   {member.name}
                 </h3>
-                <p className="text-[10px] text-white/30 mt-0.5 uppercase tracking-[0.2em] font-medium">
+                <p className="mono-label text-[var(--color-ink-muted)] mt-1">
                   {member.role}
                 </p>
               </div>

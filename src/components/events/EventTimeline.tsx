@@ -1,15 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { CalendarDays, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { events, EventItem } from "@/lib/mockData";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeader from "@/components/ui/SectionHeader";
-import Button from "@/components/ui/Button";
 
 const typeLabels: Record<string, string> = {
-  runway: "Runway Show",
-  "pop-up": "Pop-Up",
+  runway: "Runway",
+  "pop-up": "Pop-up",
   workshop: "Workshop",
   dinner: "Dinner",
   other: "Initiative",
@@ -18,104 +17,97 @@ const typeLabels: Record<string, string> = {
 function UpcomingCard({ event }: { event: EventItem }) {
   return (
     <AnimatedSection>
-      <div className="glass-strong rounded-sm overflow-hidden">
-        <div className="relative aspect-[16/9] md:aspect-[21/9]">
-          <Image
-            src={event.images[0]}
-            alt={event.title}
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col items-center justify-end p-6 md:p-12 text-center">
-            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 mb-4 md:mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/80">
-                Upcoming
-              </span>
-            </div>
-            <h3 className="text-xl md:text-3xl lg:text-4xl font-bold uppercase tracking-[-0.02em] text-white mb-3 md:mb-4">
-              {event.title}
-            </h3>
-            <div className="flex items-center gap-2 text-white/50 mb-4 md:mb-6">
-              <CalendarDays size={14} />
-              <span className="text-[11px] uppercase tracking-[0.15em]">
-                {new Date(event.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                })}
-              </span>
-            </div>
-            <p className="text-xs md:text-sm text-white/60 max-w-lg mb-6 md:mb-8 leading-relaxed">
-              {event.description}
-            </p>
-            <Button href={`/events/${event.slug}`} variant="frost">
-              See More
-              <ArrowRight size={14} className="inline ml-2" />
-            </Button>
+      <Link href={`/events/${event.slug}`} className="group block relative aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[var(--color-paper-deep)]">
+        <Image
+          src={event.images[0]}
+          alt={event.title}
+          fill
+          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-12">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="mono-label text-white">
+              Upcoming · {typeLabels[event.type]}
+            </span>
           </div>
+          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-white leading-[0.95] tracking-[-0.02em] text-[clamp(1.75rem,5vw,3.75rem)] mb-4">
+            {event.title}
+          </h3>
+          <p className="mono-label text-white/80 mb-5">
+            {new Date(event.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            {event.location && ` · ${event.location}`}
+          </p>
+          <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-white font-medium border-b border-white/80 pb-1 group-hover:gap-3 transition-all">
+            View event
+            <span>→</span>
+          </span>
         </div>
-      </div>
+      </Link>
     </AnimatedSection>
   );
 }
 
 function PastEventCard({ event, index }: { event: EventItem; index: number }) {
   const isEven = index % 2 === 0;
-
   return (
-    <AnimatedSection delay={index * 0.08}>
-      <div className="glass-card rounded-sm overflow-hidden">
-        <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"}`}>
-          {/* Image */}
-          <div className="relative aspect-[16/9] md:aspect-auto md:w-2/5 flex-shrink-0">
-            <Image
-              src={event.images[0]}
-              alt={event.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 40vw"
-            />
-            <div className="absolute inset-0 bg-black/20" />
-          </div>
-
-          {/* Content */}
-          <div className="p-5 md:p-8 flex flex-col justify-center flex-1">
-            <div className="flex items-center gap-3 mb-3 md:mb-4">
-              <span className="glass text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-white/70 px-3 py-1 rounded-full">
-                {typeLabels[event.type]}
-              </span>
-              <span className="text-[10px] text-white/40 uppercase tracking-[0.1em]">
-                {new Date(event.date).getFullYear()}
-              </span>
-            </div>
-
-            <h3 className="text-base md:text-xl font-bold uppercase tracking-[-0.01em] text-white mb-2 md:mb-3">
-              {event.title}
-            </h3>
-
-            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-white/40 mb-2 md:mb-3">
-              {new Date(event.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-
-            <p className="text-xs md:text-sm text-white/50 leading-relaxed">
-              {event.description}
-            </p>
-
-            <div className="mt-5 md:mt-6">
-              <Button href={`/events/${event.slug}`} variant="frost">
-                See More
-                <ArrowRight size={14} className="inline ml-2" />
-              </Button>
-            </div>
-          </div>
+    <AnimatedSection delay={index * 0.06}>
+      <Link
+        href={`/events/${event.slug}`}
+        className={`group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center py-10 md:py-14 border-b border-[var(--color-hairline)] ${isEven ? "" : "md:[&>div:first-child]:order-2"}`}
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-[var(--color-paper-deep)]">
+          <Image
+            src={event.images[0]}
+            alt={event.title}
+            fill
+            className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
         </div>
-      </div>
+
+        <div>
+          <div className="flex items-center gap-3 mb-5 md:mb-6">
+            <span className="section-num">({String(index + 1).padStart(2, "0")})</span>
+            <span className="mono-label text-[var(--color-ink-muted)]">
+              {typeLabels[event.type]}
+            </span>
+            <span className="w-6 h-px bg-[var(--color-ink)]/30" />
+            <span className="mono-label text-[var(--color-ink-muted)] tabular-nums">
+              {new Date(event.date).getFullYear()}
+            </span>
+          </div>
+
+          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(1.5rem,3.5vw,2.75rem)] mb-4">
+            {event.title}
+          </h3>
+
+          <p className="mono-label text-[var(--color-ink-muted)] mb-5">
+            {new Date(event.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            {event.location && ` · ${event.location}`}
+          </p>
+
+          <p className="text-sm md:text-base text-[var(--color-ink)]/65 font-light leading-relaxed mb-6 max-w-xl">
+            {event.description}
+          </p>
+
+          <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
+            Read more
+            <span>→</span>
+          </span>
+        </div>
+      </Link>
     </AnimatedSection>
   );
 }
@@ -126,9 +118,8 @@ export default function EventTimeline() {
 
   return (
     <div>
-      {/* Upcoming Events */}
       {upcomingEvents.length > 0 && (
-        <div className="mb-16 md:mb-24">
+        <div className="mb-20 md:mb-28">
           <SectionHeader title="Upcoming" subtitle="What's next" />
           <div className="space-y-6">
             {upcomingEvents.map((event) => (
@@ -138,10 +129,9 @@ export default function EventTimeline() {
         </div>
       )}
 
-      {/* Past Events */}
       <div>
-        <SectionHeader title="Past Events" subtitle="Our journey so far" />
-        <div className="space-y-4 md:space-y-6">
+        <SectionHeader title="Past events" subtitle="Our journey so far" />
+        <div>
           {pastEvents.map((event, i) => (
             <PastEventCard key={event.id} event={event} index={i} />
           ))}

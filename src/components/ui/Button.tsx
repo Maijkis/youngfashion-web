@@ -1,16 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode, useRef, useCallback } from "react";
+import { ReactNode } from "react";
+import useMagnetic from "@/hooks/useMagnetic";
 
 interface ButtonProps {
   children: ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "outline" | "frost";
+  variant?: "primary" | "outline" | "frost" | "accent";
   className?: string;
   target?: string;
   rel?: string;
+  /** Renders an inert, dimmed state (e.g. a ticket link before the URL is live) instead of navigating. */
+  disabled?: boolean;
+  /** Nudges toward the cursor on desktop — reserve for the one or two primary CTAs per page. */
+  magnetic?: boolean;
+  /** Marks this as a tracked ticket CTA (see CtaTracker) — e.g. "hero", "lineup". */
+  dataCta?: string;
 }
 
 export default function Button({
@@ -21,42 +28,49 @@ export default function Button({
   className = "",
   target,
   rel,
+  disabled = false,
+  magnetic = false,
+  dataCta,
 }: ButtonProps) {
-  const btnRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const el = btnRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    el.style.setProperty("--shine-x", `${x}%`);
-    el.style.setProperty("--shine-y", `${y}%`);
-  }, []);
-
+  const magneticRef = useMagnetic<HTMLAnchorElement | HTMLButtonElement>();
   const base =
-    "frosted-btn inline-flex items-center gap-2 px-7 py-3.5 md:px-9 md:py-4 text-[11px] md:text-xs uppercase tracking-[0.2em] font-bold transition-all duration-400 cursor-pointer text-center relative overflow-hidden";
+    "inline-flex items-center gap-2 min-h-[44px] text-[11px] uppercase tracking-[0.28em] font-medium transition-all cursor-pointer";
 
   const variants = {
+    // Underlined editorial link — primary CTA
     primary:
-      "bg-white/95 text-black backdrop-blur-sm border border-white/20 hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:tracking-[0.25em]",
+      "text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 hover:gap-3",
+    // Bordered box CTA
     outline:
-      "bg-white/[0.06] text-white backdrop-blur-xl border border-white/[0.15] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_4px_20px_rgba(0,0,0,0.2)] hover:bg-white/[0.12] hover:border-white/30 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.3)]",
+      "text-[var(--color-ink)] border border-[var(--color-ink)] px-5 py-3 hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)]",
+    // Muted tertiary link
     frost:
-      "bg-white/[0.08] text-white backdrop-blur-2xl border border-white/[0.12] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_24px_rgba(0,0,0,0.15)] hover:bg-white/[0.14] hover:border-white/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_8px_40px_rgba(0,0,0,0.2)]",
+      "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
+    // Solid accent CTA — the site's primary "get tickets" moment, used sparingly
+    accent:
+      "bg-[var(--color-accent)] text-[var(--color-ink)] px-6 py-3.5 hover:opacity-90",
   };
 
-  const classes = `${base} ${variants[variant]} ${className}`;
+  const disabledClasses = "opacity-40 cursor-not-allowed pointer-events-none";
+  const classes = `${base} ${variants[variant]} ${disabled ? disabledClasses : ""} ${className}`;
+
+  if (disabled) {
+    return (
+      <span className={classes} aria-disabled="true">
+        {children}
+      </span>
+    );
+  }
 
   if (href) {
     return (
       <Link
         href={href}
-        ref={btnRef as React.Ref<HTMLAnchorElement>}
+        ref={magnetic ? (magneticRef as React.Ref<HTMLAnchorElement>) : undefined}
         className={classes}
         target={target}
         rel={rel}
-        onMouseMove={handleMouseMove}
+        data-cta={dataCta}
       >
         {children}
       </Link>
@@ -65,10 +79,10 @@ export default function Button({
 
   return (
     <button
-      ref={btnRef as React.Ref<HTMLButtonElement>}
+      ref={magnetic ? (magneticRef as React.Ref<HTMLButtonElement>) : undefined}
       onClick={onClick}
       className={classes}
-      onMouseMove={handleMouseMove}
+      data-cta={dataCta}
     >
       {children}
     </button>

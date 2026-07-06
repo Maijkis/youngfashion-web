@@ -1,0 +1,61 @@
+import Image from "next/image";
+
+interface MediaSlotProps {
+  src: string | null;
+  alt: string;
+  label: string;
+  sublabel?: string;
+  aspect?: string;
+  sizes?: string;
+  priority?: boolean;
+  mark?: "star" | "asterisk";
+  /** Renders full color instead of the house b&w filter — for deliberate exceptions only. */
+  color?: boolean;
+  className?: string;
+}
+
+export default function MediaSlot({
+  src,
+  alt,
+  label,
+  sublabel,
+  aspect = "aspect-[3/4]",
+  sizes = "(max-width: 768px) 100vw, 50vw",
+  priority = false,
+  mark = "star",
+  color = false,
+  className = "",
+}: MediaSlotProps) {
+  if (src) {
+    return (
+      <div className={`relative overflow-hidden bg-[var(--color-paper-deep)] ${aspect} ${className}`}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes={sizes}
+          className={`object-cover ${color ? "" : "img-bw img-bw-hover"}`}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`relative overflow-hidden border border-hairline bg-[var(--color-paper-deep)] ${aspect} ${className}`}
+      style={{
+        backgroundImage:
+          "linear-gradient(135deg, transparent calc(50% - 0.5px), var(--color-hairline) 50%, transparent calc(50% + 0.5px))",
+      }}
+    >
+      <span className="mono-label absolute top-3 left-3 text-[var(--color-ink-muted)]">{label}</span>
+      <span className="absolute top-3 right-3 text-xl leading-none text-[var(--color-accent-text)]/40">
+        {mark === "star" ? "★" : "*"}
+      </span>
+      {sublabel && (
+        <span className="mono-label absolute bottom-3 left-3 text-[var(--color-ink-muted)]">{sublabel}</span>
+      )}
+    </div>
+  );
+}

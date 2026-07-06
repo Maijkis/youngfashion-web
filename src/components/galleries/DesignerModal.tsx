@@ -28,12 +28,10 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
     setFocusedIndex((focusedIndex + 1) % photos.length);
   }, [focusedIndex, photos.length]);
 
-  // Reset focused state whenever a different designer opens
   useEffect(() => {
     setFocusedIndex(null);
   }, [designer?.id]);
 
-  // Lock body scroll and stop Lenis while modal is open
   useEffect(() => {
     if (!designer) return;
     const prev = document.body.style.overflow;
@@ -46,16 +44,12 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
     };
   }, [designer]);
 
-  // Keyboard handling
   useEffect(() => {
     if (!designer) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (isFocused) {
-          closeFocused();
-        } else {
-          onClose();
-        }
+        if (isFocused) closeFocused();
+        else onClose();
       }
       if (isFocused) {
         if (e.key === "ArrowLeft") showPrev();
@@ -87,50 +81,50 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-md overflow-y-auto"
+          className="fixed inset-0 z-[80] bg-[var(--color-paper)] overflow-y-auto"
           data-lenis-prevent
         >
           {/* Header */}
-          <div className="sticky top-0 z-10 bg-black/90 backdrop-blur-xl border-b border-white/10">
-            <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 py-5 md:py-6 flex items-center justify-between gap-4">
+          <div className="sticky top-0 z-10 bg-[var(--color-paper)]/90 backdrop-blur-md border-b border-[var(--color-hairline)] safe-top">
+            <div className="max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 py-5 md:py-6 flex items-center justify-between gap-4">
               <div className="min-w-0 flex items-center gap-4">
                 {isFocused && (
                   <button
                     onClick={closeFocused}
                     aria-label="Back to grid"
-                    className="frosted-btn relative overflow-hidden bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] p-2.5 text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300 flex-shrink-0"
+                    className="p-2 -ml-2 text-[var(--color-ink)] hover:text-[var(--color-ink-muted)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   >
                     <ArrowLeft size={18} />
                   </button>
                 )}
                 <div className="min-w-0">
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-1">
+                  <p className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium mb-1.5">
                     {isFocused
-                      ? `Photo ${String(focusedIndex! + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`
-                      : `Year ${designer.year} · ${photos.length} photos`}
+                      ? `${String(focusedIndex! + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`
+                      : `${designer.year} · ${photos.length} photos`}
                   </p>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.02em] text-white truncate">
+                  <h2 className="font-light text-[var(--color-ink)] tracking-[-0.015em] leading-[1.1] text-xl md:text-3xl truncate">
                     {designer.name}
                   </h2>
                 </div>
               </div>
-              <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
                 {isFocused ? (
                   <a
                     href={photos[focusedIndex!]}
                     download={photos[focusedIndex!].split("/").pop()}
-                    className="frosted-btn relative overflow-hidden hidden sm:inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] px-4 py-2.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300"
+                    className="hidden sm:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
                   >
-                    <Download size={12} />
+                    <Download size={14} />
                     Download
                   </a>
                 ) : (
                   photos.length > 0 && (
                     <button
                       onClick={downloadAll}
-                      className="frosted-btn relative overflow-hidden hidden sm:inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] px-4 py-2.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300"
+                      className="hidden sm:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
                     >
-                      <Download size={12} />
+                      <Download size={14} />
                       Download all
                     </button>
                   )
@@ -138,9 +132,9 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                 <button
                   onClick={isFocused ? closeFocused : onClose}
                   aria-label={isFocused ? "Back to grid" : "Close"}
-                  className="frosted-btn relative overflow-hidden bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] p-2.5 text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300"
+                  className="p-2 -mr-2 text-[var(--color-ink)] hover:text-[var(--color-ink-muted)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 >
-                  <X size={18} />
+                  <X size={20} />
                 </button>
               </div>
             </div>
@@ -149,27 +143,24 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
           {/* Body */}
           <AnimatePresence mode="wait">
             {isFocused ? (
-              /* Focused single photo view */
               <motion.div
                 key="focused"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="relative min-h-[calc(100vh-100px)] flex items-center justify-center px-4 md:px-12 lg:px-20 py-8"
+                className="relative min-h-[calc(100svh-100px)] flex items-center justify-center px-4 md:px-12 lg:px-20 py-8"
               >
-                {/* Prev arrow */}
                 {photos.length > 1 && (
                   <button
                     onClick={showPrev}
                     aria-label="Previous photo"
-                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] p-3 text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300"
+                    className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 p-3 text-[var(--color-ink)] hover:text-[var(--color-ink-muted)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   >
-                    <ArrowLeft size={20} />
+                    <ArrowLeft size={22} />
                   </button>
                 )}
 
-                {/* The photo */}
                 <motion.div
                   key={focusedIndex}
                   initial={{ opacity: 0, scale: 0.98 }}
@@ -188,60 +179,53 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                   />
                 </motion.div>
 
-                {/* Next arrow */}
                 {photos.length > 1 && (
                   <button
                     onClick={showNext}
                     aria-label="Next photo"
-                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] p-3 text-white hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300"
+                    className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 p-3 text-[var(--color-ink)] hover:text-[var(--color-ink-muted)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   >
-                    <ArrowRight size={20} />
+                    <ArrowRight size={22} />
                   </button>
                 )}
 
-                {/* Mobile download button */}
                 <a
                   href={photos[focusedIndex!]}
                   download={photos[focusedIndex!].split("/").pop()}
-                  className="frosted-btn relative overflow-hidden sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] px-4 py-2.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white hover:bg-white/[0.15] transition-all duration-300"
+                  className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px]"
                 >
-                  <Download size={12} />
+                  <Download size={14} />
                   Download
                 </a>
               </motion.div>
             ) : (
-              /* Grid view */
               <motion.div
                 key="grid"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12"
+                className="max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 py-8 md:py-12"
               >
                 {photos.length === 0 ? (
-                  <p className="text-white/40 text-sm">No photos available for this designer yet.</p>
+                  <p className="text-[var(--color-ink-muted)] font-light text-sm">
+                    No photos available for this designer yet.
+                  </p>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                     {photos.map((src, i) => (
                       <button
                         key={src}
                         onClick={() => setFocusedIndex(i)}
-                        className="group relative aspect-[3/4] overflow-hidden bg-white/[0.03] cursor-pointer"
+                        className="group relative aspect-[3/4] overflow-hidden bg-[var(--color-paper-deep)] cursor-pointer"
                       >
                         <Image
                           src={src}
                           alt={`${designer.name} photo ${i + 1}`}
                           fill
                           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          className="object-cover transition-all duration-700 group-hover:scale-105"
+                          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
-                        <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/80 font-bold">
-                            {String(i + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
-                          </span>
-                        </div>
                       </button>
                     ))}
                   </div>

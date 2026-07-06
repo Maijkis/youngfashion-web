@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { event, ticketHref, ticketIsExternal } from "@/lib/content";
+import useMagnetic from "@/hooks/useMagnetic";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -19,10 +20,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const isEditorial = pathname === "/";
+  const ticketMagneticRef = useMagnetic<HTMLAnchorElement>();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -37,59 +39,77 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const bgClass = scrolled
-    ? isEditorial
-      ? "bg-white/85 backdrop-blur-md border-b border-[var(--color-hairline)]"
-      : "bg-black/90 backdrop-blur-md"
+    ? "bg-[var(--color-paper)]/85 backdrop-blur-md border-b border-hairline"
     : "bg-transparent";
-
-  const inkOnScrolled = scrolled && isEditorial;
-  const logoSrc = inkOnScrolled ? "/branding/logo-black.png" : "/branding/logo-white.png";
-  const linkBase = inkOnScrolled ? "text-[var(--color-ink)]/50 hover:text-[var(--color-ink)]" : "text-white/50 hover:text-white";
-  const linkActive = inkOnScrolled ? "text-[var(--color-ink)]" : "text-white";
-  const iconColor = inkOnScrolled ? "text-[var(--color-ink)]" : "text-white";
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 w-full safe-top transition-all duration-500 ${bgClass}`}
       >
-        <div className="max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 flex items-center justify-between w-full h-16 md:h-20">
+        <div
+          className={`max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 flex items-center justify-between w-full transition-[height] duration-500 ${
+            scrolled ? "h-12 md:h-14" : "h-16 md:h-20"
+          }`}
+        >
           <Link
             href="/"
-            className="flex items-center hover:opacity-80 transition-opacity min-h-[44px]"
+            className="flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
             aria-label="Young Fashion home"
           >
-            <Image
-              src={logoSrc}
-              alt="Young Fashion"
-              width={620}
-              height={100}
-              priority
-              className="h-5 md:h-6 w-auto"
-            />
+            <span
+              className={`font-display font-semibold text-lg md:text-xl uppercase tracking-tight text-[var(--color-ink)] origin-left transition-transform duration-500 ${
+                scrolled ? "scale-[0.85]" : "scale-100"
+              }`}
+            >
+              Young Fashion<span className="text-[var(--color-accent-text)]">*</span>
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 lg:gap-10">
+          <div className="hidden md:flex items-center gap-7 lg:gap-9">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[11px] uppercase tracking-[0.22em] font-medium transition-colors duration-300 ${
-                  pathname === link.href ? linkActive : linkBase
+                className={`link-underline font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  pathname === link.href
+                    ? "text-[var(--color-ink)]"
+                    : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
+            <Link
+              href={ticketHref}
+              ref={ticketMagneticRef}
+              data-cta="masthead"
+              target={ticketIsExternal ? "_blank" : undefined}
+              rel={ticketIsExternal ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center min-h-[44px] px-4 bg-[var(--color-accent)] text-[var(--color-ink)] font-mono text-[11px] uppercase tracking-[0.2em] hover:opacity-90 transition-opacity"
+            >
+              Tickets
+            </Link>
           </div>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className={`md:hidden p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center ${iconColor}`}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-1 md:hidden">
+            <Link
+              href={ticketHref}
+              data-cta="masthead"
+              target={ticketIsExternal ? "_blank" : undefined}
+              rel={ticketIsExternal ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center min-h-[44px] px-3 bg-[var(--color-accent)] text-[var(--color-ink)] font-mono text-[10px] uppercase tracking-[0.18em]"
+            >
+              Tickets
+            </Link>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--color-ink)]"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -100,11 +120,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`fixed inset-0 z-40 flex flex-col items-start justify-end pb-20 px-6 safe-bottom ${
-              isEditorial ? "bg-white" : "bg-black"
-            }`}
+            className="fixed inset-0 z-40 flex flex-col items-start justify-end pb-24 px-6 safe-bottom bg-[var(--color-paper)]"
           >
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1 w-full">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -115,14 +133,10 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`font-light text-4xl md:text-5xl tracking-[-0.015em] transition-colors min-h-[56px] flex items-center ${
-                      isEditorial
-                        ? pathname === link.href
-                          ? "text-[var(--color-ink)]"
-                          : "text-[var(--color-ink)]/40"
-                        : pathname === link.href
-                        ? "text-white"
-                        : "text-white/30"
+                    className={`font-display font-medium text-4xl md:text-5xl tracking-[-0.01em] transition-colors min-h-[56px] flex items-center ${
+                      pathname === link.href
+                        ? "text-[var(--color-ink)]"
+                        : "text-[var(--color-ink)]/40"
                     }`}
                   >
                     {link.label}
@@ -130,18 +144,27 @@ export default function Navbar() {
                 </motion.div>
               ))}
             </nav>
-            <div className="mt-10 flex items-center gap-3">
-              <span
-                className={`w-8 h-px ${
-                  isEditorial ? "bg-[var(--color-ink)]/40" : "bg-white/40"
-                }`}
-              />
-              <span
-                className={`text-[10px] uppercase tracking-[0.32em] font-medium ${
-                  isEditorial ? "text-[var(--color-ink-muted)]" : "text-white/40"
-                }`}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: navLinks.length * 0.06, duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+              className="w-full mt-6"
+            >
+              <Link
+                href={ticketHref}
+                data-cta="masthead"
+                target={ticketIsExternal ? "_blank" : undefined}
+                rel={ticketIsExternal ? "noopener noreferrer" : undefined}
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex items-center justify-center min-h-[52px] w-full bg-[var(--color-accent)] text-[var(--color-ink)] font-mono text-[12px] uppercase tracking-[0.2em]"
               >
-                Vilnius · Est. 2022
+                Get Tickets
+              </Link>
+            </motion.div>
+            <div className="mt-8 flex items-center gap-3">
+              <span className="w-8 h-px bg-[var(--color-ink)]/40" />
+              <span className="mono-label text-[var(--color-ink-muted)]">
+                Vilnius · Est. 2022 · {event.editionShort}
               </span>
             </div>
           </motion.div>

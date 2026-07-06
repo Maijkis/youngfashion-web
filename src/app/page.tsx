@@ -1,21 +1,29 @@
 import dynamic from "next/dynamic";
-import Cover from "@/components/home/Cover";
+import Ticker from "@/components/show/Ticker";
+import Hero from "@/components/show/Hero";
+import Countdown from "@/components/show/Countdown";
+import StickyTicketsBar from "@/components/show/StickyTicketsBar";
 
-const IntroSection = dynamic(() => import("@/components/home/IntroSection"));
-const DesignerGrid = dynamic(() => import("@/components/home/DesignerGrid"));
-const UpcomingEvents = dynamic(() => import("@/components/home/UpcomingEvents"));
-const NewsSection = dynamic(() => import("@/components/home/NewsSection"));
-const PartnersStrip = dynamic(() => import("@/components/home/PartnersStrip"));
+const Manifesto = dynamic(() => import("@/components/show/Manifesto"));
+const Lineup = dynamic(() => import("@/components/show/Lineup"));
+const Schedule = dynamic(() => import("@/components/show/Schedule"));
+const Partners = dynamic(() => import("@/components/show/Partners"));
+const PastEditions = dynamic(() => import("@/components/show/PastEditions"));
+const TicketsCta = dynamic(() => import("@/components/show/TicketsCta"));
 
 export default function HomePage() {
   return (
-    <div className="theme-editorial">
-      <Cover />
-      <IntroSection />
-      <DesignerGrid />
-      <UpcomingEvents />
-      <NewsSection />
-      <PartnersStrip />
-    </div>
+    <>
+      <Ticker />
+      <Hero />
+      <Countdown />
+      <Manifesto />
+      <Lineup />
+      <Schedule />
+      <Partners />
+      <PastEditions />
+      <TicketsCta />
+      <StickyTicketsBar />
+    </>
   );
 }

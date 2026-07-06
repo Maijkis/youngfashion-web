@@ -3,10 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EventItem } from "@/lib/mockData";
 import SectionHeader from "@/components/ui/SectionHeader";
-import Button from "@/components/ui/Button";
 
 interface EventDetailPageProps {
   event: EventItem;
@@ -24,73 +23,64 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
   const hasMorePhotos = galleryPhotos.length > 3;
 
   return (
-    <div className="pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12 lg:px-20">
+    <div className="pt-28 md:pt-36 pb-20 md:pb-28 px-5 md:px-10 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 md:mb-10">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.18em] text-white/60 hover:text-white transition-colors"
-          >
-            <ArrowLeft size={14} />
-            Back to Events
-          </Link>
-        </div>
+        <Link
+          href="/events"
+          className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors mb-10 md:mb-14 min-h-[44px]"
+        >
+          <ArrowLeft size={14} />
+          Back to events
+        </Link>
 
-        <section className="mb-16 md:mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)] gap-6 md:gap-8 items-start">
-            <div className="glass-card rounded-sm p-5 md:p-6">
-              <p className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-white/40 mb-3">
-                Event Overview
-              </p>
-              <h1 className="text-xl md:text-3xl font-bold uppercase tracking-[-0.02em] text-white leading-tight mb-4">
-                {event.title}
-              </h1>
+        {/* Hero */}
+        <section className="mb-20 md:mb-28">
+          <div className="relative aspect-[16/10] md:aspect-[21/9] overflow-hidden bg-[var(--color-paper-deep)] mb-10 md:mb-14">
+            <Image
+              src={event.images[0]}
+              alt={event.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
 
-              <div className="space-y-3 mb-5 md:mb-6">
-                <div className="flex items-center gap-2 text-white/50">
-                  <CalendarDays size={14} />
-                  <span className="text-[11px] md:text-xs uppercase tracking-[0.12em]">
-                    {new Date(event.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+            <div className="md:col-span-7">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="mono-label text-[var(--color-ink-muted)]">
+                  {new Date(event.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
                 {event.location && (
-                  <div className="flex items-center gap-2 text-white/50">
-                    <MapPin size={14} />
-                    <span className="text-[11px] md:text-xs uppercase tracking-[0.12em]">
+                  <>
+                    <span className="w-6 h-px bg-[var(--color-ink)]/30" />
+                    <span className="mono-label text-[var(--color-ink-muted)]">
                       {event.location}
                     </span>
-                  </div>
+                  </>
                 )}
               </div>
-
-              <p className="text-xs md:text-sm text-white/55 leading-relaxed">
+              <h1 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(2rem,6vw,4.5rem)]">
+                {event.title}
+              </h1>
+            </div>
+            <div className="md:col-span-5 md:pt-2">
+              <p className="text-[var(--color-ink)]/70 font-light leading-relaxed text-base md:text-lg">
                 {event.longDescription ?? event.description}
               </p>
-            </div>
-
-            <div className="glass-card rounded-sm overflow-hidden">
-              <div className="relative aspect-[16/10] md:aspect-[16/9]">
-                <Image
-                  src={event.images[0]}
-                  alt={event.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                  priority
-                />
-              </div>
             </div>
           </div>
         </section>
 
         {event.video && (
-          <section className="mb-16 md:mb-20">
+          <section className="mb-20 md:mb-28">
             <SectionHeader title="Aftermovie" subtitle="Watch the recap" />
-            <div className="relative w-full aspect-video overflow-hidden bg-black border border-white/10">
+            <div className="relative w-full aspect-video overflow-hidden bg-black">
               <video
                 controls
                 playsInline
@@ -106,23 +96,20 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
         )}
 
         {event.sponsors && event.sponsors.length > 0 && (
-          <section className="mb-16 md:mb-20">
-            <SectionHeader
-              title="Sponsors"
-              subtitle="Supporters of this event"
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <section className="mb-20 md:mb-28">
+            <SectionHeader title="Sponsors" subtitle="Supporters of this event" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
               {event.sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
-                  className="glass-card rounded-sm p-5 md:p-6 flex items-center justify-center aspect-[16/8]"
+                  className="flex items-center justify-center aspect-[3/2] border border-[var(--color-hairline)]"
                 >
                   <Image
                     src={sponsor.logo}
                     alt={sponsor.name}
                     width={260}
                     height={100}
-                    className="h-10 md:h-12 w-auto object-contain invert opacity-75"
+                    className="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
                   />
                 </div>
               ))}
@@ -131,43 +118,36 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
         )}
 
         <section>
-          <SectionHeader
-            title="Photos"
-            subtitle="A closer look at the event"
-          />
+          <SectionHeader title="Photos" subtitle="A closer look" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {previewPhotos.map((photo, index) => (
               <div
                 key={`${photo}-${index}`}
-                className="glass-card rounded-sm overflow-hidden"
+                className="relative aspect-[3/4] overflow-hidden bg-[var(--color-paper-deep)]"
               >
-                <div className="relative aspect-[3/4]">
-                  <Image
-                    src={photo}
-                    alt={`${event.title} photo ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
+                <Image
+                  src={photo}
+                  alt={`${event.title} photo ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
             ))}
           </div>
 
           {hasMorePhotos && (
-            <div className="mt-8 flex justify-center">
+            <div className="mt-10 md:mt-12 flex justify-center">
               <button
                 type="button"
                 onClick={() => setExpanded((prev) => !prev)}
-                className="frosted-btn relative overflow-hidden inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-xl border border-white/[0.15] px-5 py-3 text-[11px] md:text-xs uppercase tracking-[0.2em] font-bold text-white hover:bg-white/[0.12] hover:border-white/30 transition-all duration-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
-                {expanded ? "Show Less" : "See More"}
+                {expanded ? "Show less" : `See all ${galleryPhotos.length}`}
                 <ArrowRight
                   size={14}
-                  className={`transition-transform duration-300 ${
-                    expanded ? "rotate-90" : ""
-                  }`}
+                  className={`transition-transform duration-300 ${expanded ? "rotate-90" : ""}`}
                 />
               </button>
             </div>

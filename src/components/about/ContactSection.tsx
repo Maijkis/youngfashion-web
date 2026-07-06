@@ -6,102 +6,106 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactSection() {
   return (
-    <section className="py-16 md:py-28 px-6 md:px-12 lg:px-20">
+    <section className="py-20 md:py-32 px-5 md:px-10 lg:px-16 bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title="Get in Touch" subtitle="We'd love to hear from you" />
+        <SectionHeader title="Get in touch" subtitle="We'd love to hear from you" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
-          {/* Contact Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20">
+          {/* Contact info — lead */}
           <AnimatedSection>
+            <div className="space-y-10">
+              <p className="font-light text-[var(--color-ink)]/75 text-base md:text-lg leading-relaxed max-w-md">
+                Designer submissions, partnership inquiries, or press — drop us a line.
+              </p>
+
+              <ul className="space-y-6">
+                <li className="flex items-start gap-4 border-t border-[var(--color-hairline)] pt-6">
+                  <Mail size={16} className="text-[var(--color-ink)]/50 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="mono-label text-[var(--color-ink-muted)] mb-1.5">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:youngfashionevent@gmail.com"
+                      className="text-sm md:text-base text-[var(--color-ink)] font-light hover:underline underline-offset-4 break-all"
+                    >
+                      youngfashionevent@gmail.com
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4 border-t border-[var(--color-hairline)] pt-6">
+                  <Phone size={16} className="text-[var(--color-ink)]/50 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="mono-label text-[var(--color-ink-muted)] mb-1.5">
+                      Phone
+                    </p>
+                    <a
+                      href="tel:+37068380903"
+                      className="text-sm md:text-base text-[var(--color-ink)] font-light hover:underline underline-offset-4"
+                    >
+                      +370 683 80903
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4 border-t border-[var(--color-hairline)] pt-6">
+                  <MapPin size={16} className="text-[var(--color-ink)]/50 mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="mono-label text-[var(--color-ink-muted)] mb-1.5">
+                      Location
+                    </p>
+                    <p className="text-sm md:text-base text-[var(--color-ink)] font-light">
+                      Vilnius, Lithuania
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </AnimatedSection>
+
+          {/* Minimalist form */}
+          <AnimatedSection delay={0.1}>
             <form
-              className="glass-card rounded-sm p-5 md:p-8 space-y-5 md:space-y-6"
+              className="space-y-6 md:space-y-8"
               onSubmit={(e) => e.preventDefault()}
             >
-              <div>
-                <label className="block text-[10px] uppercase tracking-[0.15em] text-white/40 mb-2">
+              <div className="border-b border-hairline pb-2 transition-colors focus-within:border-[var(--color-accent)]">
+                <label className="mono-label block text-[var(--color-ink-muted)] mb-2">
                   Name
                 </label>
                 <input
                   type="text"
-                  className="w-full glass-input px-4 py-3 text-xs md:text-sm text-white placeholder:text-white/20 rounded-sm"
+                  className="w-full bg-transparent text-[var(--color-ink)] placeholder:text-[var(--color-ink)]/25 font-light text-base focus:outline-none"
                   placeholder="Your full name"
                 />
               </div>
-              <div>
-                <label className="block text-[10px] uppercase tracking-[0.15em] text-white/40 mb-2">
+              <div className="border-b border-hairline pb-2 transition-colors focus-within:border-[var(--color-accent)]">
+                <label className="mono-label block text-[var(--color-ink-muted)] mb-2">
                   Email
                 </label>
                 <input
                   type="email"
-                  className="w-full glass-input px-4 py-3 text-xs md:text-sm text-white placeholder:text-white/20 rounded-sm"
+                  className="w-full bg-transparent text-[var(--color-ink)] placeholder:text-[var(--color-ink)]/25 font-light text-base focus:outline-none"
                   placeholder="your@email.com"
                 />
               </div>
-              <div>
-                <label className="block text-[10px] uppercase tracking-[0.15em] text-white/40 mb-2">
+              <div className="border-b border-hairline pb-2 transition-colors focus-within:border-[var(--color-accent)]">
+                <label className="mono-label block text-[var(--color-ink-muted)] mb-2">
                   Message
                 </label>
                 <textarea
-                  rows={5}
-                  className="w-full glass-input px-4 py-3 text-xs md:text-sm text-white placeholder:text-white/20 rounded-sm resize-none"
-                  placeholder="Tell us about your inquiry..."
+                  rows={4}
+                  className="w-full bg-transparent text-[var(--color-ink)] placeholder:text-[var(--color-ink)]/25 font-light text-base focus:outline-none resize-none"
+                  placeholder="Tell us about your inquiry…"
                 />
               </div>
               <button
                 type="submit"
-                className="frosted-btn relative overflow-hidden w-full bg-white/[0.08] backdrop-blur-xl text-white border border-white/[0.15] py-3.5 text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-white/[0.15] hover:border-white/30 transition-all duration-300 cursor-pointer rounded-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_4px_20px_rgba(0,0,0,0.2)]"
+                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
-                Send Message
+                Send message
+                <span>→</span>
               </button>
             </form>
-          </AnimatedSection>
-
-          {/* Contact Info */}
-          <AnimatedSection delay={0.15}>
-            <div className="space-y-6 md:space-y-8">
-              <div>
-                <h3 className="text-base md:text-xl font-bold uppercase tracking-[-0.01em] text-white mb-4 md:mb-6">
-                  Contact Information
-                </h3>
-                <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">
-                  Whether you&apos;re a designer looking to showcase your work, a
-                  brand interested in partnering, or a press member seeking
-                  information — we&apos;re here to help.
-                </p>
-              </div>
-
-              <div className="space-y-5 md:space-y-6">
-                <div className="flex items-start gap-4 glass-card rounded-sm p-4">
-                  <Mail size={16} className="text-white/40 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/40 mb-1">
-                      Email
-                    </p>
-                    <p className="text-xs md:text-sm text-white">eventyoungfashion@gmail.com</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 glass-card rounded-sm p-4">
-                  <Phone size={16} className="text-white/40 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/40 mb-1">
-                      Phone
-                    </p>
-                    <p className="text-xs md:text-sm text-white">+370 683 80903</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 glass-card rounded-sm p-4">
-                  <MapPin size={16} className="text-white/40 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/40 mb-1">
-                      Location
-                    </p>
-                    <p className="text-xs md:text-sm text-white">
-                      Vilnius, Lithuania
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </AnimatedSection>
         </div>
       </div>

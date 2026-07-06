@@ -11,6 +11,8 @@ interface SectionHeaderProps {
   subtitle?: string;
   className?: string;
   centered?: boolean;
+  /** Section index — renders an accent "(0N)" glyph beside the subtitle. */
+  num?: number;
 }
 
 export default function SectionHeader({
@@ -18,29 +20,34 @@ export default function SectionHeader({
   subtitle,
   className = "",
   centered = false,
+  num,
 }: SectionHeaderProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!ref.current) return;
-      gsap.fromTo(
-        ref.current,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, ref);
-    return () => ctx.revert();
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        if (!ref.current) return;
+        gsap.fromTo(
+          ref.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ref.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }, ref);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
   }, []);
 
   return (
@@ -49,11 +56,16 @@ export default function SectionHeader({
       className={`mb-10 md:mb-14 ${centered ? "text-center" : ""} ${className}`}
     >
       {subtitle && (
-        <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 font-bold mb-3">
+        <p
+          className={`mono-label text-[var(--color-ink-muted)] mb-3 md:mb-4 flex items-center gap-2.5 ${
+            centered ? "justify-center" : ""
+          }`}
+        >
+          {num !== undefined && <span className="section-num">({String(num).padStart(2, "0")})</span>}
           {subtitle}
         </p>
       )}
-      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[-0.02em] leading-[0.95] text-white">
+      <h2 className="font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(2rem,6vw,4.5rem)]">
         {title}
       </h2>
     </div>
