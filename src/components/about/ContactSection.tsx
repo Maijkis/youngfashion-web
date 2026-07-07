@@ -6,7 +6,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactSection() {
   return (
-    <section className="py-section border-t border-[var(--color-hairline)]">
+    <section className="py-section bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
       <div className="container">
         <SectionHeader title="Get in touch" subtitle="We'd love to hear from you" />
 

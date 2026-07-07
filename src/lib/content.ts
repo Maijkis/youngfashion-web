@@ -158,7 +158,7 @@ export const schedule: ScheduleItem[] = [
   { time: "18:00", title: "Doors open" },
   { time: "19:00", title: "Welcome" },
   { time: "19:15", title: "Runway", detail: "Nine designers, one collection each" },
-  { time: "21:00", title: "Afterparty" },
+  { time: "23:00", title: "Afterparty", detail: "Location TBA" },
 ];
 
 // ----------------------------------------------------------------------------

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageShell from "@/components/layout/PageShell";
 import SectionHeader from "@/components/ui/SectionHeader";
 import EventTimeline from "@/components/events/EventTimeline";
 
@@ -11,12 +10,12 @@ export const metadata: Metadata = {
 
 export default function EventsPage() {
   return (
-    <PageShell className="container pt-28 md:pt-36 pb-section">
+    <div className="container pt-28 md:pt-36 pb-section">
       <SectionHeader
         title="Events & Initiatives"
         subtitle="Runway shows, pop-ups, workshops, and more"
       />
       <EventTimeline />
-    </PageShell>
+    </div>
   );
 }

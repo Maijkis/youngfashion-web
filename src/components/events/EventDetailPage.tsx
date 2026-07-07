@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EventItem } from "@/lib/mockData";
-import PageShell from "@/components/layout/PageShell";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 interface EventDetailPageProps {
@@ -24,7 +23,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
   const hasMorePhotos = galleryPhotos.length > 3;
 
   return (
-    <PageShell className="container pt-28 md:pt-36 pb-section">
+    <div className="container pt-28 md:pt-36 pb-section">
         <Link
           href="/events"
           className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors mb-12 min-h-[44px]"
@@ -159,6 +158,6 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
             </div>
           )}
         </section>
-    </PageShell>
+    </div>
   );
 }

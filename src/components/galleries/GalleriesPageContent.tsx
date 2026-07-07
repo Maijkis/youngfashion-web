@@ -7,7 +7,6 @@ import {
   photowallPhotos2025,
   behindTheScenesPhotos2025,
 } from "@/lib/mockData";
-import PageShell from "@/components/layout/PageShell";
 import YearFilter from "@/components/galleries/YearFilter";
 import DesignerGrid from "@/components/galleries/DesignerGrid";
 import BehindTheScenes from "@/components/galleries/BehindTheScenes";
@@ -25,7 +24,7 @@ export default function GalleriesPageContent() {
   const showLocalBts = activeYear === 2025;
 
   return (
-    <PageShell className="container pt-28 md:pt-36 pb-section">
+    <div className="container pt-28 md:pt-36 pb-section">
         <SectionHeader
           title="Galleries"
           subtitle="Designer collections by year"
@@ -52,6 +51,6 @@ export default function GalleriesPageContent() {
           previewCount={showLocalBts ? 6 : undefined}
           showSeeMore={showLocalBts}
         />
-    </PageShell>
+    </div>
   );
 }

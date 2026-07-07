@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import PageShell from "@/components/layout/PageShell";
 import { photowallPhotos2025 } from "@/lib/mockData";
 import PhotowallGallery from "@/components/galleries/PhotowallGallery";
 
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Photowall2025Page() {
   return (
-    <PageShell className="container pt-28 md:pt-36 pb-section">
+    <div className="container pt-28 md:pt-36 pb-section">
         <div className="mb-8 md:mb-10">
           <Link
             href="/galleries"
@@ -25,6 +24,6 @@ export default function Photowall2025Page() {
         </div>
 
         <PhotowallGallery photos={photowallPhotos2025} />
-    </PageShell>
+    </div>
   );
 }

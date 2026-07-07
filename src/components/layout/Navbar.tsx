@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -51,11 +52,19 @@ export default function Navbar() {
         <div className="container flex items-center justify-between w-full h-14 md:h-16">
           <Link
             href="/"
-            className="flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
+            className="flex items-center gap-1 hover:opacity-70 transition-opacity min-h-[44px]"
             aria-label="Young Fashion home"
           >
-            <span className="font-display font-semibold text-lg md:text-xl uppercase tracking-tight text-[var(--color-ink)]">
-              Young Fashion<span className="text-[var(--color-accent-text)]">*</span>
+            <Image
+              src="/assets/branding/logo-wordmark.png"
+              alt="Young Fashion"
+              width={1774}
+              height={164}
+              priority
+              className="h-4 md:h-5 w-auto"
+            />
+            <span className="font-display font-semibold text-lg md:text-xl leading-none text-[var(--color-accent-text)]">
+              *
             </span>
           </Link>
 
