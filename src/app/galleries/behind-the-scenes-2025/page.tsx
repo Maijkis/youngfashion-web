@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import PageShell from "@/components/layout/PageShell";
 import { behindTheScenesPhotos2025 } from "@/lib/mockData";
 import BehindTheScenes from "@/components/galleries/BehindTheScenes";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function BehindTheScenes2025Page() {
   return (
-    <div className="container pt-28 md:pt-36 pb-section">
+    <PageShell className="container pt-28 md:pt-36 pb-section">
         <div className="mb-8 md:mb-10">
           <Link
             href="/galleries"
@@ -24,6 +25,6 @@ export default function BehindTheScenes2025Page() {
         </div>
 
         <BehindTheScenes photos={behindTheScenesPhotos2025} />
-    </div>
+    </PageShell>
   );
 }

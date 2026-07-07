@@ -37,30 +37,24 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  // Solid paper once scrolled — never a translucent blur (it composites to a
+  // muddy grey over the dark panels). One clean transparent→paper swap.
   const bgClass = scrolled
-    ? "bg-[var(--color-paper)]/85 backdrop-blur-md border-b border-hairline"
+    ? "bg-[var(--color-paper)] border-b border-hairline"
     : "bg-transparent";
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full safe-top transition-all duration-500 ${bgClass}`}
+        className={`fixed top-0 left-0 right-0 z-50 w-full safe-top transition-colors duration-500 ${bgClass}`}
       >
-        <div
-          className={`container flex items-center justify-between w-full transition-[height] duration-500 ${
-            scrolled ? "h-12 md:h-14" : "h-16 md:h-20"
-          }`}
-        >
+        <div className="container flex items-center justify-between w-full h-14 md:h-16">
           <Link
             href="/"
             className="flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
             aria-label="Young Fashion home"
           >
-            <span
-              className={`font-display font-semibold text-lg md:text-xl uppercase tracking-tight text-[var(--color-ink)] origin-left transition-transform duration-500 ${
-                scrolled ? "scale-[0.85]" : "scale-100"
-              }`}
-            >
+            <span className="font-display font-semibold text-lg md:text-xl uppercase tracking-tight text-[var(--color-ink)]">
               Young Fashion<span className="text-[var(--color-accent-text)]">*</span>
             </span>
           </Link>
@@ -84,7 +78,7 @@ export default function Navbar() {
               data-cta="masthead"
               target={ticketIsExternal ? "_blank" : undefined}
               rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center min-h-[36px] px-4 border border-[var(--color-ink)] text-[var(--color-ink)] font-mono text-label uppercase tracking-label hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+              className="mono-label inline-flex items-center min-h-[36px] px-4 border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
             >
               Tickets
             </Link>
@@ -101,7 +95,7 @@ export default function Navbar() {
               rel={ticketIsExternal ? "noopener noreferrer" : undefined}
               aria-hidden={scrolled}
               tabIndex={scrolled ? -1 : 0}
-              className={`inline-flex items-center min-h-[44px] px-3 border border-[var(--color-ink)] text-[var(--color-ink)] font-mono text-label uppercase tracking-label transition-[opacity,transform] duration-300 ease-[var(--ease)] ${
+              className={`mono-label inline-flex items-center min-h-[44px] px-3 border border-[var(--color-ink)] text-[var(--color-ink)] transition-[opacity,transform] duration-300 ease-[var(--ease)] ${
                 scrolled ? "opacity-0 -translate-y-1 pointer-events-none" : "opacity-100 translate-y-0"
               }`}
             >
@@ -127,7 +121,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 flex flex-col items-start justify-end pb-24 px-6 safe-bottom bg-[var(--color-paper)]"
           >
-            <nav className="flex flex-col gap-1 w-full">
+            <nav className="flex flex-col gap-2 w-full">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -138,7 +132,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`font-display font-medium text-4xl md:text-5xl tracking-[-0.01em] transition-colors min-h-[56px] flex items-center ${
+                    className={`font-display font-semibold uppercase text-h2 leading-none tracking-tight transition-colors min-h-[56px] flex items-center ${
                       pathname === link.href
                         ? "text-[var(--color-ink)]"
                         : "text-[var(--color-ink)]/40"
@@ -161,7 +155,7 @@ export default function Navbar() {
                 target={ticketIsExternal ? "_blank" : undefined}
                 rel={ticketIsExternal ? "noopener noreferrer" : undefined}
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex items-center justify-center min-h-[52px] w-full bg-[var(--color-accent)] text-[var(--color-ink)] font-mono text-label uppercase tracking-label"
+                className="mono-label inline-flex items-center justify-center min-h-[52px] w-full bg-[var(--color-accent)] text-[var(--color-ink)]"
               >
                 Get Tickets
               </Link>

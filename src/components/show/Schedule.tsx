@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import SectionTag from "@/components/ui/SectionTag";
+import GridLines from "@/components/ui/GridLines";
 import { schedule, sectionIndex, event } from "@/lib/content";
 
 export default function Schedule() {
@@ -20,8 +21,9 @@ export default function Schedule() {
   };
 
   return (
-    <section id="schedule" className="py-section">
-      <div className="container">
+    <section id="schedule" className="relative py-section">
+      <GridLines className="opacity-40" />
+      <div className="container relative z-10">
       <SectionTag index={sectionIndex("schedule")} label="Running Order" className="mb-12" />
 
       {/* Desktop — archive folder tabs */}
@@ -53,14 +55,14 @@ export default function Schedule() {
                   the whole button would drop the accent section-num below AA contrast. */}
               <span className="section-num">({String(i + 1).padStart(2, "0")})</span>
               <span
-                className={`font-mono text-sm tabular-nums transition-colors ${
+                className={`mono-label tabular-nums transition-colors ${
                   active === i ? "text-[var(--color-ink)]" : "text-[var(--color-ink-muted)]"
                 }`}
               >
                 {row.time}
               </span>
               <span
-                className={`font-display uppercase text-lg leading-none transition-colors ${
+                className={`font-display uppercase text-xl leading-none transition-colors ${
                   active === i
                     ? "text-[var(--color-ink)]"
                     : "text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)]"
@@ -89,7 +91,7 @@ export default function Schedule() {
               <h3 className="font-display font-semibold uppercase text-h1 leading-display tracking-tight mt-3 mb-5">
                 {row.title}
               </h3>
-              <p className="font-mono text-sm tabular-nums text-[var(--color-ink-muted)] mb-4">
+              <p className="mono-label tabular-nums text-[var(--color-ink-muted)] mb-4">
                 {row.time} · {event.venue}
               </p>
               {row.detail && <p className="font-light text-body max-w-[42ch]">{row.detail}</p>}
@@ -112,10 +114,10 @@ export default function Schedule() {
                   className="w-full flex items-center gap-3 py-5 text-left min-h-[44px]"
                 >
                   <span className="section-num">({String(i + 1).padStart(2, "0")})</span>
-                  <span className="font-mono text-sm tabular-nums">{row.time}</span>
-                  <span className="font-display uppercase text-xl leading-none ml-1">{row.title}</span>
+                  <span className="mono-label tabular-nums">{row.time}</span>
+                  <span className="font-display font-semibold uppercase text-h2 leading-none ml-1">{row.title}</span>
                   <span
-                    className={`ml-auto text-lg text-[var(--color-accent-text)] transition-transform duration-300 ${
+                    className={`ml-auto text-2xl text-[var(--color-accent-text)] transition-transform duration-300 ${
                       isOpen ? "rotate-45" : ""
                     }`}
                     aria-hidden

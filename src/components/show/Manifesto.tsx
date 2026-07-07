@@ -27,7 +27,7 @@ function renderMarkers(text: string): ReactNode[] {
 
 export default function Manifesto() {
   return (
-    <WipePanel id="about" className="py-section">
+    <WipePanel id="about" className="py-section" texture>
       <div className="container">
         <SectionTag index={sectionIndex("manifesto")} label="Five Years" className="mb-12" />
 

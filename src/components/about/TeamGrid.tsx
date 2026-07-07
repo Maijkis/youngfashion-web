@@ -7,7 +7,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function TeamGrid() {
   return (
-    <section className="py-section bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
+    <section className="py-section border-t border-[var(--color-hairline)]">
       <div className="container">
         <SectionHeader title="The team" subtitle="The people behind the platform" />
 
@@ -20,7 +20,7 @@ export default function TeamGrid() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[900ms] ease-image group-hover:scale-[1.03]"
+                    className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 </div>

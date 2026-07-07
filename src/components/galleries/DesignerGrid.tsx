@@ -38,7 +38,7 @@ export default function DesignerGrid({ designers }: DesignerGridProps) {
                     alt={designer.name}
                     fill
                     priority={i < 2}
-                    className="object-cover transition-all duration-[900ms] ease-image group-hover:scale-[1.03] grayscale group-hover:grayscale-0"
+                    className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03]"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   {/* Explore label on hover */}

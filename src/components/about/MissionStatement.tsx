@@ -34,7 +34,7 @@ export default function MissionStatement() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-section bg-[var(--color-paper)]">
+    <section ref={sectionRef} className="py-section">
       <div className="container">
         <div className="max-w-5xl">
           <p className="mono-label text-[var(--color-ink-muted)] mb-4">Our mission</p>

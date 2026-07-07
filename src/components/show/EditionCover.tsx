@@ -35,17 +35,32 @@ export default function EditionCover({
         <span className="mono-label text-[var(--color-panel-ink)]/70">Issue {edition.issue}</span>
       </div>
 
-      <MediaSlot
-        src={edition.cover}
-        alt={`${edition.title} — Issue ${edition.issue}`}
-        label={`No.${edition.issue}`}
-        sublabel={edition.year}
-        aspect="aspect-[4/5]"
-        priority={priority}
-      />
+      {edition.cover ? (
+        <MediaSlot
+          src={edition.cover}
+          alt={`${edition.title} — Issue ${edition.issue}`}
+          label={`No.${edition.issue}`}
+          sublabel={edition.year}
+          aspect="aspect-[4/5]"
+          priority={priority}
+        />
+      ) : (
+        /* No cover yet (the current issue) — a designed typographic cover
+           instead of an empty-looking paper window. */
+        <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 border border-[rgba(244,241,234,0.16)]">
+          <span className="text-6xl leading-none text-[var(--color-accent)]/40">★</span>
+          <span className="mono-label text-[var(--color-panel-ink)]/70">{edition.title}</span>
+          <span className="mono-label absolute top-3 left-3 text-[var(--color-panel-ink)]/50">
+            No.{edition.issue}
+          </span>
+          <span className="mono-label absolute bottom-3 left-3 text-[var(--color-panel-ink)]/50">
+            {edition.year}
+          </span>
+        </div>
+      )}
 
       <div className="mt-3 flex items-end justify-between gap-3">
-        <span className="font-display font-semibold text-[var(--color-panel-ink)] text-4xl leading-none">
+        <span className="font-display font-semibold text-[var(--color-panel-ink)] text-h2 leading-none tracking-tight">
           N°{edition.issue}
         </span>
         <span className="mono-label text-[var(--color-panel-ink)]/70 text-right leading-relaxed">

@@ -21,9 +21,11 @@ export default function StickyTicketsBar() {
       ([entry]) => setPastHero(!entry.isIntersecting),
       { threshold: 0 }
     );
+    // threshold 0: hide the moment the tickets section enters — the bar and the
+    // section are both accent pink, so any overlap frame reads as a glitch.
     const ticketsObserver = new IntersectionObserver(
       ([entry]) => setInTickets(entry.isIntersecting),
-      { threshold: 0.15 }
+      { threshold: 0 }
     );
     // Hide the bar once the footer is on screen so its "Get Tickets" CTA
     // doesn't stack on top of the footer's own ticket link.
@@ -58,7 +60,7 @@ export default function StickyTicketsBar() {
         rel={ticketIsExternal ? "noopener noreferrer" : undefined}
         tabIndex={visible ? 0 : -1}
         data-cta="sticky-bar"
-        className="flex items-center justify-center gap-2 min-h-[52px] w-full bg-[var(--color-accent)] text-[var(--color-ink)] font-mono text-[12px] uppercase tracking-[0.2em]"
+        className="mono-label flex items-center justify-center gap-2 min-h-[52px] w-full bg-[var(--color-accent)] text-[var(--color-ink)]"
       >
         Get Tickets <span aria-hidden>·</span> {event.dateLabel}
       </Link>

@@ -133,7 +133,7 @@ export default function LineupCard({
             </div>
 
             <div className="mt-3 space-y-1.5" aria-hidden>
-              <p className="font-display text-lg leading-tight">{designer.name}</p>
+              <p className="text-body leading-tight">{designer.name}</p>
               <div className="flex items-center justify-between">
                 <span className="mono-label text-[var(--color-ink-muted)]">Showing</span>
                 <span className="mono-label tabular-nums">{showing}</span>
@@ -167,10 +167,11 @@ export default function LineupCard({
             className="card-face card-back panel flex flex-col border border-[var(--color-hairline)] p-5 focus:outline-none"
           >
             <span className="mono-label text-[var(--color-ink-muted)]">Designer / {look}</span>
-            <h3 className="font-display font-semibold uppercase text-2xl leading-[0.95] mt-2 mb-3">
+            <h3 className="font-display font-semibold uppercase text-h2 leading-display mt-2 mb-3">
               {designer.name}
             </h3>
-            <p className="text-sm font-light leading-relaxed text-[var(--color-ink)]/80">
+            {/* Compact body — the card back is height-locked to the front face. */}
+            <p className="text-sm font-light leading-body text-[var(--color-ink)]/80">
               {designer.bio ?? "Bio coming soon — collection details land closer to the show."}
             </p>
 
@@ -188,7 +189,7 @@ export default function LineupCard({
               <button
                 onClick={onViewLook}
                 data-cursor="VIEW"
-                className="inline-flex items-center gap-2 min-h-[44px] w-fit border-b border-[var(--color-ink)] pb-0.5 text-[11px] uppercase tracking-[0.22em] font-medium hover:gap-3 transition-all"
+                className="mono-label inline-flex items-center gap-2 min-h-[44px] w-fit border-b border-[var(--color-ink)] pb-0.5 hover:gap-3 transition-all"
               >
                 View look →
               </button>

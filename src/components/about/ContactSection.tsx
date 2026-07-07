@@ -6,7 +6,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactSection() {
   return (
-    <section className="py-section bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
+    <section className="py-section border-t border-[var(--color-hairline)]">
       <div className="container">
         <SectionHeader title="Get in touch" subtitle="We'd love to hear from you" />
 
@@ -100,7 +100,7 @@ export default function ContactSection() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                className="mono-label inline-flex items-center gap-2 text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
                 Send message
                 <span>→</span>

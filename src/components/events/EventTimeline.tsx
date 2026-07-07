@@ -45,7 +45,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
             })}
             {event.location && ` · ${event.location}`}
           </p>
-          <span className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-white font-medium border-b border-white/80 pb-1 group-hover:gap-3 transition-all">
+          <span className="mono-label inline-flex items-center gap-2 text-white border-b border-white/80 pb-1 group-hover:gap-3 transition-all">
             View event
             <span>→</span>
           </span>
@@ -102,7 +102,7 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
             {event.description}
           </p>
 
-          <span className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
+          <span className="mono-label inline-flex items-center gap-2 text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
             Read more
             <span>→</span>
           </span>

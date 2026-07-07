@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionTag from "@/components/ui/SectionTag";
+import GridLines from "@/components/ui/GridLines";
 import Marquee from "@/components/ui/Marquee";
 import InViewFlag from "@/components/ui/InViewFlag";
 import { partners, sectionIndex } from "@/lib/content";
@@ -10,8 +11,9 @@ export default function Partners() {
   const wall = Array.from({ length: 6 }).flatMap(() => partners.wall);
 
   return (
-    <section id="partners" className="py-section">
-      <div className="container">
+    <section id="partners" className="relative py-section">
+      <GridLines className="opacity-40" />
+      <div className="container relative z-10">
       <SectionTag index={sectionIndex("partners")} label="Partners" className="mb-12" />
 
       {/* Headline partners — each name draws an underline as the block enters

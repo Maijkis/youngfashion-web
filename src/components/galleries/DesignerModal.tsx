@@ -166,7 +166,7 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                 className="container py-8 md:py-12"
               >
                 {photos.length === 0 ? (
-                  <p className="text-[var(--color-ink-muted)] font-light text-sm">
+                  <p className="text-[var(--color-ink-muted)] font-light text-body leading-body">
                     No photos available for this designer yet.
                   </p>
                 ) : (

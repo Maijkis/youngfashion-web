@@ -9,8 +9,6 @@ interface MediaSlotProps {
   sizes?: string;
   priority?: boolean;
   mark?: "star" | "asterisk";
-  /** Renders full color instead of the house b&w filter — for deliberate exceptions only. */
-  color?: boolean;
   className?: string;
 }
 
@@ -23,7 +21,6 @@ export default function MediaSlot({
   sizes = "(max-width: 768px) 100vw, 50vw",
   priority = false,
   mark = "star",
-  color = false,
   className = "",
 }: MediaSlotProps) {
   if (src) {
@@ -35,7 +32,7 @@ export default function MediaSlot({
           fill
           priority={priority}
           sizes={sizes}
-          className={`object-cover ${color ? "" : "img-bw img-bw-hover"}`}
+          className="object-cover"
         />
       </div>
     );

@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTag from "@/components/ui/SectionTag";
+import GridLines from "@/components/ui/GridLines";
 import OdometerDigit from "@/components/ui/OdometerDigit";
 import Scrawl from "@/components/show/Scrawl";
 import useCountdown from "@/hooks/useCountdown";
@@ -26,7 +27,7 @@ function DigitPair({ value }: { value: number | null }) {
     <span className="inline-flex">
       {chars.map((ch, i) =>
         ch === "-" ? (
-          <span key={i} className="inline-block text-[var(--color-ink-muted)]" style={{ width: "1ch" }}>
+          <span key={i} className="inline-block text-center text-[var(--color-ink-muted)]" style={{ width: "1ch" }}>
             –
           </span>
         ) : (
@@ -68,7 +69,8 @@ export default function Countdown() {
       ref={rootRef}
       className="relative border-y border-hairline py-section"
     >
-      <div className="container">
+      <GridLines className="opacity-40" />
+      <div className="container relative z-10">
         <SectionTag index={sectionIndex("countdown")} label="Countdown" className="mb-12" />
 
         {value?.isPast ? (
@@ -83,7 +85,7 @@ export default function Countdown() {
             >
               {UNITS.map((unit) => (
                 <div key={unit.key} className="flex flex-col items-start">
-                  <span className="font-mono tabular-nums text-h1 leading-none text-[var(--color-ink)]">
+                  <span className="font-display font-semibold text-h1 leading-none tracking-tight text-[var(--color-ink)]">
                     <DigitPair value={value ? value[unit.key] : null} />
                   </span>
                   <span className="mono-label text-[var(--color-ink-muted)] mt-2">{unit.label}</span>

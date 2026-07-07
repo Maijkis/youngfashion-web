@@ -13,7 +13,7 @@ export default function Ticker() {
 
   return (
     <div
-      className="border-y border-hairline bg-[var(--color-paper)] mt-[calc(env(safe-area-inset-top)+4rem)] md:mt-[calc(env(safe-area-inset-top)+5rem)]"
+      className="border-y border-hairline bg-[var(--color-paper)] mt-[calc(env(safe-area-inset-top)+3.5rem)] md:mt-[calc(env(safe-area-inset-top)+4rem)]"
     >
       <Marquee durationSec={28} pauseOnHover className="h-9 flex items-center">
         {items.map((item, i) => (

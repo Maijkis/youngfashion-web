@@ -3,7 +3,9 @@ import type { CSSProperties } from "react";
 /**
  * One rolling digit. A fixed 1ch × 1em window holds a stacked 0–9 column that
  * translates to bring the current digit into view — transform-only, so it never
- * reflows (zero CLS regardless of the value). Reduced-motion kills the
+ * reflows (zero CLS regardless of the value). 1ch = the advance width of "0" in
+ * the current font, so every slot is equal even in a proportional display face;
+ * text-center centers narrower digits (the "1"). Reduced-motion kills the
  * transition (globals.css) → the digit snaps in place. Purely decorative; the
  * readable value is announced by the countdown's aria-live region.
  */
@@ -12,7 +14,7 @@ export default function OdometerDigit({ digit }: { digit: number }) {
   const column: CSSProperties = { transform: `translateY(-${digit * 10}%)` };
 
   return (
-    <span className="inline-block overflow-hidden tabular-nums align-top" style={cell} aria-hidden>
+    <span className="inline-block overflow-hidden text-center align-top" style={cell} aria-hidden>
       <span
         className="block transition-transform duration-[450ms] ease-[var(--ease-move)]"
         style={column}

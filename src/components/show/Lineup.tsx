@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTag from "@/components/ui/SectionTag";
+import GridLines from "@/components/ui/GridLines";
 import Button from "@/components/ui/Button";
 import LineupCard from "@/components/show/LineupCard";
 import LineupModal from "@/components/show/LineupModal";
@@ -86,7 +87,8 @@ export default function Lineup() {
 
   return (
     <section id="lineup" className="relative py-section">
-      <div className="container">
+      <GridLines className="opacity-40" />
+      <div className="container relative z-10">
       <SectionTag index={sectionIndex("lineup")} label="Lineup" className="mb-4" />
       <h2 className="font-display font-semibold uppercase leading-display tracking-tight text-h1 mb-16">
         Nine Designers

@@ -30,7 +30,7 @@ function TikTokIcon({ size = 18 }: { size?: number }) {
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-paper)] text-[var(--color-ink)] border-t border-hairline">
-      <div className="container py-section grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      <div className="container py-section grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Wordmark */}
         <div>
           <span className="font-display font-semibold text-xl uppercase tracking-tight">
@@ -41,13 +41,13 @@ export default function Footer() {
 
         {/* Index */}
         <div>
-          <p className="mono-label text-[var(--color-ink-muted)] mb-5">Index</p>
-          <ul className="space-y-2.5">
+          <p className="mono-label text-[var(--color-ink-muted)] mb-3">Index</p>
+          <ul className="space-y-1">
             {quickLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="link-underline text-sm font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors duration-300 min-h-[44px] flex items-center md:min-h-0 md:inline-flex"
+                  className="link-underline text-body font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors duration-300 min-h-[44px] flex items-center md:min-h-0 md:inline-flex"
                 >
                   {link.label}
                 </Link>
@@ -58,10 +58,10 @@ export default function Footer() {
 
         {/* Contact + Follow */}
         <div>
-          <p className="mono-label text-[var(--color-ink-muted)] mb-5">Contact</p>
+          <p className="mono-label text-[var(--color-ink-muted)] mb-3">Contact</p>
           <a
             href={`mailto:${event.email}`}
-            className="link-underline inline-block text-sm font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors break-all mb-5"
+            className="link-underline inline-block text-body font-light text-[var(--color-ink)]/70 hover:text-[var(--color-ink)] transition-colors break-all mb-3"
           >
             {event.email}
           </a>
@@ -98,14 +98,14 @@ export default function Footer() {
 
         {/* Venue + tickets */}
         <div>
-          <p className="mono-label text-[var(--color-ink-muted)] mb-5">No. 5 — {event.dateLabel}</p>
-          <p className="text-sm font-light text-[var(--color-ink)]/70 mb-1">{event.venue}</p>
-          <p className="text-sm font-light text-[var(--color-ink)]/70 mb-5">{event.address}</p>
+          <p className="mono-label text-[var(--color-ink-muted)] mb-3">No. 5 — {event.dateLabel}</p>
+          <p className="text-body font-light text-[var(--color-ink)]/70 mb-1">{event.venue}</p>
+          <p className="text-body font-light text-[var(--color-ink)]/70 mb-3">{event.address}</p>
           <Link
             href={ticketHref}
             target={ticketIsExternal ? "_blank" : undefined}
             rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-            className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+            className="mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
           >
             Get Tickets
             <span>→</span>

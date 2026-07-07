@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GridLines from "@/components/ui/GridLines";
 import { MQ_SCRUB, prefersLiteMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,10 +18,14 @@ gsap.registerPlugin(ScrollTrigger);
 export default function WipePanel({
   id,
   className = "",
+  texture = false,
   children,
 }: {
   id?: string;
   className?: string;
+  /** Faint column grid behind the content — .panel remaps the hairline to
+   *  light, and 0.16 alpha × 0.35 keeps it under the 6% texture budget. */
+  texture?: boolean;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
@@ -55,6 +60,7 @@ export default function WipePanel({
         className="wipe-cover absolute inset-0 z-20 pointer-events-none hidden md:block bg-[#F4F1EA]"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       />
+      {texture && <GridLines className="opacity-[0.35]" />}
       <div className="relative z-10">{children}</div>
     </section>
   );

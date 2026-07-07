@@ -114,6 +114,30 @@
   --ease-image: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* ——— The five type roles ————————————————————————————————————————————————
+   Every text element on the site maps to exactly ONE of these. No bespoke
+   sizes, weights or trackings outside them.
+
+   1. DISPLAY   — Clash Display: font-display font-semibold uppercase
+                  tracking-tight at text-display/h1/h2 + leading-display
+                  (leading-none on single-line rows). List-item scale for
+                  display-face rows inside components = text-xl.
+   2. BODY      — General Sans: font-light text-body leading-body. Compact
+                  variant (text-sm font-light leading-body) ONLY where the
+                  box height is locked (lineup card back, comm-map notes).
+   3. MONO LABEL— .mono-label (or composed font-mono text-label uppercase
+                  tracking-label): every eyebrow, caption, date, time, nav
+                  item, button label and text CTA. Metadata numerals add
+                  tabular-nums.
+   4. SERIF     — Instrument Serif italic at text-quote: pull-quotes only.
+   5. NUMERALS  — standalone display numerals (countdown digits, N°05):
+                  font-display font-semibold leading-none tracking-tight.
+                  Numerals inside labels/metadata stay MONO LABEL.
+
+   Documented decorative exemptions (do not multiply): EditionCover mini
+   masthead (text-xs), MediaSlot placeholder ★ (text-xl), Schedule "+"
+   glyph, VilniusMap cartographic microtype (9-10px). */
+
 /* Hand-written, not Tailwind-generated: Tailwind v4's @theme inline only compiles
    its three standard font keys (sans/serif/mono) — a fourth custom --font-display
    key is silently dropped, so the display font gets its own utility here instead. */
@@ -254,18 +278,9 @@ html.lenis, html.lenis body {
 
 /* ——— Editorial brutalism utilities ——— */
 
-/* B&W-by-default photography — any uploaded photo matches the language automatically */
-.img-bw {
-  filter: grayscale(1) contrast(1.06) brightness(1.02);
-}
-.img-bw-hover {
-  transition: filter 0.9s var(--ease-image);
-}
-@media (hover: hover) {
-  .img-bw-hover:hover {
-    filter: grayscale(0) contrast(1) brightness(1);
-  }
-}
+/* Photography is COLOR by default site-wide — hover-only b&w reveals were dead
+   on touch (most visitors), leaving everything permanently desaturated. Desktop
+   image hovers are zoom-only (per-consumer group-hover:scale). */
 
 /* Mono metadata label — the one label style for every eyebrow, caption, date,
    time, nav item and footer line. Size + tracking come from the type tokens so
@@ -412,8 +427,7 @@ html.lenis, html.lenis body {
 
 /* ——— 3D card flip (lineup credential cards) ———
    Layering rule for Safari: perspective on an outer wrapper, preserve-3d on the
-   flip layer, and NO overflow:hidden or filter on any 3D-transformed ancestor
-   (the .img-bw filter lives on the <img> inside a face, never on these). */
+   flip layer, and NO overflow:hidden or filter on any 3D-transformed ancestor. */
 .card-persp {
   perspective: 900px;
 }

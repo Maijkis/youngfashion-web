@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/PageShell";
 import SponsorSection from "@/components/press/SponsorMarquee";
 import PressGrid from "@/components/press/PressGrid";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PressPartnersPage() {
   return (
-    <div className="pt-28 md:pt-36">
+    <PageShell className="pt-28 md:pt-36">
       <div className="container">
         <SectionHeader
           title="Press & Partners"
@@ -20,6 +21,6 @@ export default function PressPartnersPage() {
       </div>
       <SponsorSection />
       <PressGrid />
-    </div>
+    </PageShell>
   );
 }

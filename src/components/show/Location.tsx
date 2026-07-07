@@ -1,12 +1,14 @@
 import SectionTag from "@/components/ui/SectionTag";
+import GridLines from "@/components/ui/GridLines";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import VilniusMap from "@/components/show/VilniusMap";
 import { event, sectionIndex } from "@/lib/content";
 
 export default function Location() {
   return (
-    <section id="location" className="py-section">
-      <div className="container">
+    <section id="location" className="relative py-section">
+      <GridLines className="opacity-40" />
+      <div className="container relative z-10">
         <SectionTag index={sectionIndex("location")} label="Location" className="mb-12" />
 
         <div className="grid md:grid-cols-[minmax(0,22rem)_1fr] gap-12 items-start">

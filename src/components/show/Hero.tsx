@@ -110,7 +110,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <div className="hero-meta mt-s7 flex justify-center">
+        <div className="hero-meta mt-s6 flex justify-center">
           <span className="mono-label text-[var(--color-ink-muted)]">( Scroll )</span>
         </div>
       </div>

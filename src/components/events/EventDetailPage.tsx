@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EventItem } from "@/lib/mockData";
+import PageShell from "@/components/layout/PageShell";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 interface EventDetailPageProps {
@@ -23,7 +24,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
   const hasMorePhotos = galleryPhotos.length > 3;
 
   return (
-    <div className="container pt-28 md:pt-36 pb-section">
+    <PageShell className="container pt-28 md:pt-36 pb-section">
         <Link
           href="/events"
           className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors mb-12 min-h-[44px]"
@@ -147,7 +148,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
               <button
                 type="button"
                 onClick={() => setExpanded((prev) => !prev)}
-                className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                className="mono-label inline-flex items-center gap-2 text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
                 {expanded ? "Show less" : `See all ${galleryPhotos.length}`}
                 <ArrowRight
@@ -158,6 +159,6 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
             </div>
           )}
         </section>
-    </div>
+    </PageShell>
   );
 }

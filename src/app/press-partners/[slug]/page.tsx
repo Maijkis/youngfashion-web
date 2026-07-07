@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import PageShell from "@/components/layout/PageShell";
 import CommunicationMap from "@/components/press/CommunicationMap";
 import { partnerProfiles } from "@/lib/content";
 
@@ -37,7 +38,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
   }
 
   return (
-    <div className="container pt-28 md:pt-36 pb-section">
+    <PageShell className="container pt-28 md:pt-36 pb-section">
       <Link
         href="/press-partners"
         className="mono-label inline-flex min-h-[44px] items-center gap-2 text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
@@ -97,6 +98,6 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
         </div>
         <CommunicationMap items={partner.comms} partnerName={partner.name} />
       </div>
-    </div>
+    </PageShell>
   );
 }

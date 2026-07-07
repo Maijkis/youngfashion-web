@@ -8,7 +8,7 @@ interface ButtonProps {
   children: ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "outline" | "frost" | "accent";
+  variant?: "primary" | "outline" | "frost" | "accent" | "solid";
   className?: string;
   target?: string;
   rel?: string;
@@ -33,8 +33,9 @@ export default function Button({
   dataCta,
 }: ButtonProps) {
   const magneticRef = useMagnetic<HTMLAnchorElement | HTMLButtonElement>();
+  // Mono-label language (type role 3) — one CTA voice across the site.
   const base =
-    "inline-flex items-center gap-2 min-h-[44px] text-[11px] uppercase tracking-[0.28em] font-medium transition-all cursor-pointer";
+    "inline-flex items-center gap-2 min-h-[44px] font-mono text-label uppercase tracking-label transition-all cursor-pointer";
 
   const variants = {
     // Underlined editorial link — primary CTA
@@ -49,6 +50,9 @@ export default function Button({
     // Solid accent CTA — the site's primary "get tickets" moment, used sparingly
     accent:
       "bg-[var(--color-accent)] text-[var(--color-ink)] px-6 py-3.5 hover:opacity-90",
+    // Ink-filled CTA — strongest weight; e.g. on the accent tickets section
+    solid:
+      "bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-3.5 hover:opacity-90",
   };
 
   const disabledClasses = "opacity-40 cursor-not-allowed pointer-events-none";

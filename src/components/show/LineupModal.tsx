@@ -98,12 +98,11 @@ export default function LineupModal({ designers, index, onClose, onNavigate }: L
                 label="Portrait"
                 sublabel={designer.name}
                 aspect="aspect-[4/5]"
-                color
                 className="max-w-sm mx-auto md:mx-0 w-full"
               />
               <div>
                 <span className="section-num">({String(index! + 1).padStart(2, "0")})</span>
-                <h3 className="font-display font-semibold uppercase text-[clamp(2rem,6vw,4rem)] leading-[0.95] mt-3 mb-6">
+                <h3 className="font-display font-semibold uppercase text-h1 leading-display mt-3 mb-6">
                   {designer.name}
                 </h3>
                 {designer.instagramUrl && (
@@ -111,7 +110,7 @@ export default function LineupModal({ designers, index, onClose, onNavigate }: L
                     href={designer.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                    className="mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
                   >
                     Instagram <span>→</span>
                   </a>
