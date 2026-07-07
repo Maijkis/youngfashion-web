@@ -85,14 +85,15 @@ export default function Lineup() {
   });
 
   return (
-    <section id="lineup" className="relative px-5 md:px-10 lg:px-16 py-20 md:py-32">
+    <section id="lineup" className="relative py-section">
+      <div className="container">
       <SectionTag index={sectionIndex("lineup")} label="Lineup" className="mb-4" />
-      <h2 className="font-display font-semibold uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,9vw,6rem)] mb-14 md:mb-20">
+      <h2 className="font-display font-semibold uppercase leading-display tracking-tight text-h1 mb-16">
         Nine Designers
       </h2>
 
       {/* Desktop scatter grid */}
-      <div ref={gridRef} className="hidden md:grid grid-cols-12 gap-x-6 gap-y-20">
+      <div ref={gridRef} className="hidden md:grid grid-cols-12 gap-x-6 gap-y-16">
         {designers.map((designer, i) => {
           const { r, y } = SCATTER[i % SCATTER.length];
           return (
@@ -109,8 +110,8 @@ export default function Lineup() {
         })}
       </div>
 
-      {/* Mobile swipe deck */}
-      <div className="md:hidden -mx-5">
+      {/* Mobile swipe deck — bleeds the container gutter to the viewport edge */}
+      <div className="md:hidden -mx-gutter">
         <div
           ref={deckRef}
           onScroll={onDeckScroll}
@@ -123,13 +124,13 @@ export default function Lineup() {
             </div>
           ))}
         </div>
-        <p className="mono-label text-[var(--color-ink-muted)] text-center mt-5" aria-live="polite">
+        <p className="mono-label text-[var(--color-ink-muted)] text-center mt-6" aria-live="polite">
           {String(deckIndex + 1).padStart(2, "0")} / {String(designers.length).padStart(2, "0")}
         </p>
       </div>
 
       {/* Section footer CTAs */}
-      <div className="mt-16 md:mt-24 flex flex-wrap items-center gap-x-8 gap-y-5">
+      <div className="mt-16 md:mt-24 flex flex-wrap items-center gap-x-8 gap-y-6">
         <Button variant="outline" href="#schedule">
           See the schedule ↓
         </Button>
@@ -151,6 +152,7 @@ export default function Lineup() {
         onClose={() => setSelected(null)}
         onNavigate={setSelected}
       />
+      </div>
     </section>
   );
 }

@@ -23,6 +23,9 @@ export const MQ_POINTER_FINE = "(hover: hover) and (pointer: fine)";
 export const EASE_EXPO = "cubic-bezier(0.16, 1, 0.3, 1)";
 /** Movements (tabs, tilt, flips) — symmetric ease-in-out, no bounce. */
 export const EASE_MOVE = "cubic-bezier(0.65, 0, 0.35, 1)";
+/** Photo zoom / menu / layout ease-out — framer cubic-bezier tuple mirroring the
+ *  CSS `--ease-image` token, so the same curve is single-sourced across layers. */
+export const EASE_IMAGE: [number, number, number, number] = [0.32, 0.72, 0, 1];
 /** GSAP-string equivalents of the above. */
 export const GSAP_EXPO = "expo.out";
 

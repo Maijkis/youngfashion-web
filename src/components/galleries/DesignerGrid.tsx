@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Designer } from "@/lib/mockData";
 import DesignerModal from "./DesignerModal";
+import { EASE_IMAGE } from "@/lib/motion";
 
 interface DesignerGridProps {
   designers: Designer[];
@@ -26,7 +27,7 @@ export default function DesignerGrid({ designers }: DesignerGridProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+                transition={{ duration: 0.45, ease: EASE_IMAGE }}
                 onClick={() => hasPhotos && setSelectedDesigner(designer)}
                 disabled={!hasPhotos}
                 className="group block text-left cursor-pointer disabled:cursor-default"
@@ -37,20 +38,20 @@ export default function DesignerGrid({ designers }: DesignerGridProps) {
                     alt={designer.name}
                     fill
                     priority={i < 2}
-                    className="object-cover transition-all duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03] grayscale group-hover:grayscale-0"
+                    className="object-cover transition-all duration-[900ms] ease-image group-hover:scale-[1.03] grayscale group-hover:grayscale-0"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   {/* Explore label on hover */}
                   {hasPhotos && (
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/20">
-                      <span className="text-white text-[11px] uppercase tracking-[0.32em] font-medium border border-white/70 px-5 py-2">
+                      <span className="text-white text-label uppercase tracking-[0.32em] font-medium border border-white/70 px-5 py-2">
                         View {designer.photos!.length}
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="flex items-baseline gap-2.5 font-light text-[var(--color-ink)] text-base md:text-lg tracking-[-0.005em]">
+                  <h3 className="flex items-baseline gap-2.5 font-light text-[var(--color-ink)] text-body">
                     <span className="section-num">({String(i + 1).padStart(2, "0")})</span>
                     {designer.name}
                   </h3>

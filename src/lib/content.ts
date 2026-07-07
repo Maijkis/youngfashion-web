@@ -25,6 +25,7 @@ export const sectionOrder = [
   "manifesto",
   "lineup",
   "schedule",
+  "location",
   "partners",
   "editions",
   "tickets",
@@ -60,6 +61,8 @@ export interface ShowEvent {
   venue: string;
   address: string;
   city: string;
+  /** Live Google Maps link for the venue — the Location section's map + "Get Directions" point here. */
+  mapsUrl: string;
   /** Paste the kakava.lt checkout link here when ticketing goes live. */
   ticketUrl: string;
   instagram: { handle: string; url: string };
@@ -77,6 +80,7 @@ export const event: ShowEvent = {
   venue: "City Wave",
   address: "Šv. Stepono g. 41, Vilnius",
   city: "Vilnius, LT",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=City+Wave+%C5%A0v.+Stepono+g.+41+Vilnius",
   ticketUrl: "https://kakava.lt/en/event/young-fashion/12400/25762",
   instagram: { handle: "@eventyoungfashion", url: "https://www.instagram.com/eventyoungfashion/" },
   email: "youngfashionevent@gmail.com",
@@ -91,21 +95,15 @@ export const ticketHref = isPlaceholder(event.ticketUrl) ? "/#tickets" : event.t
 export const ticketIsExternal = !isPlaceholder(event.ticketUrl);
 
 // ----------------------------------------------------------------------------
-// Hero — the one accent info block, plus an optional autoplay loop that wins
-// over the static portrait once all three video files exist.
+// Hero — pure type masthead; the one accent info block is its only furniture.
 // ----------------------------------------------------------------------------
 
 export interface HeroContent {
-  /** "/assets/hero/hero-portrait.jpg" — the type-over-photo image. Null renders the placeholder slot. */
-  portrait: string | null;
-  video: { webm: string; mp4: string; poster: string } | null;
   /** Lines inside the single accent info block on the hero. */
   infoLines: string[];
 }
 
 export const hero: HeroContent = {
-  portrait: null,
-  video: null,
   infoLines: [
     `${event.dayLabel} ${event.dateLabel} — ${event.timeLabel}`,
     `${event.venue}, ${event.address}`,
@@ -146,32 +144,6 @@ export const designers: ShowDesigner[] = [
 ];
 
 // ----------------------------------------------------------------------------
-// Hero annotations — the accent-outlined callout boxes with connector lines
-// pointing at the cover photo. Coords are PERCENTAGES of the photo box, so they
-// survive an image swap: (x, y) is the label's anchor, (tx, ty) the point on
-// the image the connector line reaches. Values may sit outside 0–100 to place a
-// label beside the photo. Only the first shows on mobile (a 360px portrait is
-// too tight for three).
-// ----------------------------------------------------------------------------
-
-export interface HeroAnnotation {
-  label: string;
-  x: number;
-  y: number;
-  tx: number;
-  ty: number;
-  hideOnMobile?: boolean;
-}
-
-export const heroAnnotations: HeroAnnotation[] = [
-  // Top-left label sits in open space beside the type; the other two rest in the
-  // photo's clear upper/lower-right zones (away from the type overlap + edges).
-  { label: "Look 01", x: -52, y: 8, tx: 20, ty: 24 },
-  { label: "5 Years", x: 50, y: 6, tx: 72, ty: 20, hideOnMobile: true },
-  { label: "Vilnius", x: 52, y: 44, tx: 74, ty: 54, hideOnMobile: true },
-];
-
-// ----------------------------------------------------------------------------
 // Schedule — running order for the night. Placeholder times: swap in the real
 // timings once the show flow is finalized; section numbers render from index.
 // ----------------------------------------------------------------------------
@@ -190,31 +162,172 @@ export const schedule: ScheduleItem[] = [
 ];
 
 // ----------------------------------------------------------------------------
-// Partners — main three set big as an editorial list, the rest as a smaller
-// logo wall. logo: null renders the name typeset in mono, no image required.
+// Partners — one profile per partner drives every partner surface: the
+// homepage Partners section (tier "main" = big editorial list, tier "wall" =
+// marquee credits), the Press & Partners sponsor grid, and each partner's
+// /press-partners/<slug> profile page with its communication map.
+//
+// The comms entries below are PLACEHOLDER content — swap titles/dates/copy
+// and drop photos into /public/assets/partners/comms/ (e.g. "comms/aibe-01.jpg")
+// as the collab content ships. image: null renders the on-brand placeholder.
 // ----------------------------------------------------------------------------
 
+export interface CommunicationItem {
+  /** Display date, free text — e.g. "14.03.2026". */
+  date: string;
+  /** Short kind tag shown on the media slot, e.g. "Instagram Reel". */
+  kind: string;
+  title: string;
+  /** 1–2 sentences max — keeps the map scannable. */
+  description: string;
+  /** "/assets/partners/comms/<slug>-01.jpg". Null renders the placeholder slot. */
+  image: string | null;
+  /** Optional link to the live post/article. */
+  link?: string;
+}
+
+export interface PartnerProfile {
+  /** Route segment: /press-partners/<slug> */
+  slug: string;
+  name: string;
+  /** "main" = big editorial list on the homepage; "wall" = marquee credits. */
+  tier: "main" | "wall";
+  /**
+   * Path under /public/assets/partners/. Null typesets the name instead.
+   * Files are ink-on-transparent PNGs (backgrounds keyed out); tiles also
+   * blend-multiply, so a stray white background still disappears on paper.
+   */
+  logo: string | null;
+  url?: string;
+  /** One editorial sentence under the name on the profile page. */
+  blurb: string;
+  /** The communication roadmap, in rough chronological order. */
+  comms: CommunicationItem[];
+}
+
+export const partnerProfiles: PartnerProfile[] = [
+  {
+    slug: "aibe",
+    name: "Aibė",
+    tier: "main",
+    logo: "/assets/partners/partner-aibe.png",
+    blurb: "Retail partner backing young Lithuanian fashion at the No. 5 anniversary show.",
+    comms: [
+      { date: "14.03.2026", kind: "Announcement", title: "Partnership announced", description: "Joint post introducing Aibė as a No. 5 partner across both feeds.", image: null },
+      { date: "02.06.2026", kind: "Instagram Reel", title: "Designer visit", description: "Reel following two lineup designers sourcing materials for their collections.", image: null },
+      { date: "19.09.2026", kind: "On Site", title: "Show-day presence", description: "Branded corner and refreshments for guests at City Wave.", image: null },
+      { date: "26.09.2026", kind: "Recap", title: "Thank-you feature", description: "Closing carousel with the night's photos and a thank-you note.", image: null },
+    ],
+  },
+  {
+    slug: "pepsi",
+    name: "Pepsi",
+    tier: "main",
+    logo: "/assets/partners/partner-pepsi.png",
+    blurb: "Keeping the front row refreshed — drinks partner of the anniversary show.",
+    comms: [
+      { date: "10.04.2026", kind: "Announcement", title: "Partnership announced", description: "Co-branded post confirming Pepsi as the show's drinks partner.", image: null },
+      { date: "28.08.2026", kind: "Stories", title: "Fitting-day coolers", description: "Stories takeover from the first full fitting day, fridge stocked.", image: null },
+      { date: "19.09.2026", kind: "On Site", title: "Bar takeover", description: "Branded bar at City Wave through the show and the afterparty.", image: null },
+      { date: "24.09.2026", kind: "Aftermovie", title: "Aftermovie feature", description: "Logo billing in the official No. 5 aftermovie end card.", image: null },
+    ],
+  },
+  {
+    slug: "huracan-coffee",
+    name: "Huracán Coffee",
+    tier: "main",
+    logo: null,
+    blurb: "Fuel for the 6 a.m. fittings and the midnight run-throughs.",
+    comms: [
+      { date: "05.05.2026", kind: "Announcement", title: "Partnership announced", description: "Joint post welcoming Huracán as the show's coffee partner.", image: null },
+      { date: "30.08.2026", kind: "Instagram Reel", title: "Rehearsal espresso bar", description: "Pop-up bar keeping the crew upright through tech rehearsals.", image: null },
+      { date: "19.09.2026", kind: "On Site", title: "Show-day cart", description: "Coffee cart at the venue entrance from doors to lights-down.", image: null },
+    ],
+  },
+  {
+    slug: "femina-bona-keune",
+    name: "Femina Bona × Keune",
+    tier: "main",
+    logo: null,
+    blurb: "Hair by Femina Bona with Keune — every look that walks the runway.",
+    comms: [
+      { date: "20.05.2026", kind: "Announcement", title: "Partnership announced", description: "Post introducing the hair team behind all nine collections.", image: null },
+      { date: "01.09.2026", kind: "Stories", title: "Look tests", description: "Test-day stories — references, first passes, designer sign-offs.", image: null },
+      { date: "18.09.2026", kind: "Instagram Reel", title: "Backstage prep", description: "Reel from the backstage hair stations the night before the show.", image: null },
+      { date: "19.09.2026", kind: "Credit", title: "Show-night credit", description: "Team credit across the show-night coverage and photo captions.", image: null },
+    ],
+  },
+  {
+    slug: "texas-taxes",
+    name: "Texas Taxes",
+    tier: "main",
+    logo: null,
+    blurb: "The numbers behind the show — accounting partner of Young Fashion.",
+    comms: [
+      { date: "12.06.2026", kind: "Announcement", title: "Partnership announced", description: "Post welcoming Texas Taxes as the show's accounting partner.", image: null },
+      { date: "08.09.2026", kind: "Feature", title: "How a show gets budgeted", description: "Short feature on what it takes to finance an independent runway show.", image: null },
+      { date: "19.09.2026", kind: "Credit", title: "Show-night credit", description: "Partner billing in the programme and closing thanks.", image: null },
+    ],
+  },
+  {
+    slug: "studio-glow",
+    name: "Studio Glow",
+    tier: "main",
+    logo: "/assets/partners/partner-studio-glow.png",
+    blurb: "Make-up partner — faces for all nine collections.",
+    comms: [
+      { date: "22.05.2026", kind: "Announcement", title: "Partnership announced", description: "Post introducing the make-up team for the anniversary show.", image: null },
+      { date: "03.09.2026", kind: "Instagram Reel", title: "Beauty test shoot", description: "Reel from the beauty direction test — nine designers, nine briefs.", image: null },
+      { date: "19.09.2026", kind: "Stories", title: "Backstage counter", description: "Stories from the make-up stations as the first looks go on.", image: null },
+      { date: "25.09.2026", kind: "Recap", title: "Looks recap", description: "Carousel of the finished faces shot on the runway.", image: null },
+    ],
+  },
+  {
+    slug: "citywave-vilnius",
+    name: "Citywave Vilnius",
+    tier: "wall",
+    logo: "/assets/partners/partner-citywave.png",
+    blurb: "The venue — No. 5 happens under the wave on Šv. Stepono g. 41.",
+    comms: [
+      { date: "02.04.2026", kind: "Announcement", title: "Venue reveal", description: "Post announcing City Wave as the home of the anniversary show.", image: null },
+      { date: "15.07.2026", kind: "Instagram Reel", title: "Space walkthrough", description: "Reel walking the empty hall — runway line, seating, light plan.", image: null },
+      { date: "18.09.2026", kind: "Timelapse", title: "Load-in", description: "Timelapse of the build: rig up, runway down, doors in 24 hours.", image: null },
+    ],
+  },
+  {
+    slug: "kakava-lt",
+    name: "Kakava.lt",
+    tier: "wall",
+    logo: null,
+    url: "https://kakava.lt",
+    blurb: "Ticketing partner — every Young Fashion ticket runs through Kakava.",
+    comms: [
+      { date: "01.06.2026", kind: "Announcement", title: "Tickets live", description: "Joint post the morning ticketing opened on kakava.lt.", image: null },
+      { date: "01.09.2026", kind: "Reminder", title: "Price-tier switch", description: "Reminder post before the early-bird tier closed.", image: null },
+      { date: "17.09.2026", kind: "Stories", title: "Last call", description: "Final-tickets countdown stories two days before the show.", image: null },
+    ],
+  },
+];
+
+/** Homepage Partners section shape — derived from the profiles above so the
+ *  two surfaces can never drift apart. */
 export interface Partner {
+  slug: string;
   name: string;
   url?: string;
-  /** Path under /public/assets/partners/, e.g. "/assets/partners/partner-pepsi.svg". */
   logo: string | null;
 }
 
+const toPartner = ({ slug, name, url, logo }: PartnerProfile): Partner => ({
+  slug,
+  name,
+  url,
+  logo,
+});
+
 export const partners: { main: Partner[]; wall: Partner[] } = {
-  main: [
-    { name: "Aibė", logo: null },
-    { name: "Pepsi", logo: null },
-    { name: "Huracán Coffee", logo: null },
-  ],
-  wall: [
-    { name: "Keune", logo: null },
-    { name: "Femina Bona", logo: null },
-    { name: "Glow Studio", logo: null },
-    { name: "Texas Taxes", logo: null },
-    { name: "Citywave Vilnius", logo: null },
-    { name: "Kakava.lt", logo: null, url: "https://kakava.lt" },
-  ],
+  main: partnerProfiles.filter((p) => p.tier === "main").map(toPartner),
+  wall: partnerProfiles.filter((p) => p.tier === "wall").map(toPartner),
 };
 
 // ----------------------------------------------------------------------------

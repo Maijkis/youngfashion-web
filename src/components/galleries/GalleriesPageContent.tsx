@@ -24,8 +24,7 @@ export default function GalleriesPageContent() {
   const showLocalBts = activeYear === 2025;
 
   return (
-    <div className="pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
+    <div className="container pt-28 md:pt-36 pb-section">
         <SectionHeader
           title="Galleries"
           subtitle="Designer collections by year"
@@ -52,7 +51,6 @@ export default function GalleriesPageContent() {
           previewCount={showLocalBts ? 6 : undefined}
           showSeeMore={showLocalBts}
         />
-      </div>
     </div>
   );
 }

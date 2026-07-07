@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, ArrowLeft, ArrowRight } from "lucide-react";
+import { X, ArrowLeft, ArrowRight } from "lucide-react";
 import { Designer } from "@/lib/mockData";
 
 interface DesignerModalProps {
@@ -60,19 +60,6 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [designer, isFocused, closeFocused, onClose, showPrev, showNext]);
 
-  const downloadAll = useCallback(() => {
-    photos.forEach((src, i) => {
-      setTimeout(() => {
-        const a = document.createElement("a");
-        a.href = src;
-        a.download = src.split("/").pop() ?? `photo-${i}.jpg`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }, i * 200);
-    });
-  }, [photos]);
-
   return (
     <AnimatePresence>
       {designer && (
@@ -86,7 +73,7 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
         >
           {/* Header */}
           <div className="sticky top-0 z-10 bg-[var(--color-paper)]/90 backdrop-blur-md border-b border-[var(--color-hairline)] safe-top">
-            <div className="max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 py-5 md:py-6 flex items-center justify-between gap-4">
+            <div className="container py-5 md:py-6 flex items-center justify-between gap-4">
               <div className="min-w-0 flex items-center gap-4">
                 {isFocused && (
                   <button
@@ -98,37 +85,17 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                   </button>
                 )}
                 <div className="min-w-0">
-                  <p className="text-[10px] md:text-[11px] uppercase tracking-[0.32em] text-[var(--color-ink-muted)] font-medium mb-1.5">
+                  <p className="mono-label text-[var(--color-ink-muted)] mb-1.5">
                     {isFocused
                       ? `${String(focusedIndex! + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`
                       : `${designer.year} · ${photos.length} photos`}
                   </p>
-                  <h2 className="font-light text-[var(--color-ink)] tracking-[-0.015em] leading-[1.1] text-xl md:text-3xl truncate">
+                  <h2 className="font-light text-[var(--color-ink)] leading-tight text-xl md:text-3xl truncate">
                     {designer.name}
                   </h2>
                 </div>
               </div>
               <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                {isFocused ? (
-                  <a
-                    href={photos[focusedIndex!]}
-                    download={photos[focusedIndex!].split("/").pop()}
-                    className="hidden sm:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
-                  >
-                    <Download size={14} />
-                    Download
-                  </a>
-                ) : (
-                  photos.length > 0 && (
-                    <button
-                      onClick={downloadAll}
-                      className="hidden sm:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
-                    >
-                      <Download size={14} />
-                      Download all
-                    </button>
-                  )
-                )}
                 <button
                   onClick={isFocused ? closeFocused : onClose}
                   aria-label={isFocused ? "Back to grid" : "Close"}
@@ -188,15 +155,6 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                     <ArrowRight size={22} />
                   </button>
                 )}
-
-                <a
-                  href={photos[focusedIndex!]}
-                  download={photos[focusedIndex!].split("/").pop()}
-                  className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px]"
-                >
-                  <Download size={14} />
-                  Download
-                </a>
               </motion.div>
             ) : (
               <motion.div
@@ -205,7 +163,7 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="max-w-[1800px] mx-auto px-5 md:px-10 lg:px-16 py-8 md:py-12"
+                className="container py-8 md:py-12"
               >
                 {photos.length === 0 ? (
                   <p className="text-[var(--color-ink-muted)] font-light text-sm">
@@ -224,7 +182,7 @@ export default function DesignerModal({ designer, onClose }: DesignerModalProps)
                           alt={`${designer.name} photo ${i + 1}`}
                           fill
                           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                          className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03]"
                         />
                       </button>
                     ))}

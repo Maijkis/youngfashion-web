@@ -66,41 +66,43 @@ export default function Countdown() {
     <section
       id="countdown"
       ref={rootRef}
-      className="relative border-y border-hairline py-16 md:py-24 px-5 md:px-10 lg:px-16"
+      className="relative border-y border-hairline py-section"
     >
-      <SectionTag index={sectionIndex("countdown")} label="Countdown" className="mb-10 md:mb-14" />
+      <div className="container">
+        <SectionTag index={sectionIndex("countdown")} label="Countdown" className="mb-12" />
 
-      {value?.isPast ? (
-        <p className="font-display font-semibold uppercase text-[clamp(2.5rem,8vw,5rem)] leading-none">
-          Show day <span className="text-[var(--color-accent-text)]">★</span>
-        </p>
-      ) : (
-        <>
-          <div
-            className="countdown-row grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6"
-            aria-live="polite"
-          >
-            {UNITS.map((unit) => (
-              <div key={unit.key} className="flex flex-col items-start">
-                <span className="font-mono tabular-nums text-[clamp(2.6rem,13vw,6.5rem)] leading-none text-[var(--color-ink)]">
-                  <DigitPair value={value ? value[unit.key] : null} />
-                </span>
-                <span className="mono-label text-[var(--color-ink-muted)] mt-2">{unit.label}</span>
-              </div>
-            ))}
-          </div>
+        {value?.isPast ? (
+          <p className="font-display font-semibold uppercase text-h1 leading-display tracking-tight">
+            Show day <span className="text-[var(--color-accent-text)]">★</span>
+          </p>
+        ) : (
+          <>
+            <div
+              className="countdown-row grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6"
+              aria-live="polite"
+            >
+              {UNITS.map((unit) => (
+                <div key={unit.key} className="flex flex-col items-start">
+                  <span className="font-mono tabular-nums text-h1 leading-none text-[var(--color-ink)]">
+                    <DigitPair value={value ? value[unit.key] : null} />
+                  </span>
+                  <span className="mono-label text-[var(--color-ink-muted)] mt-2">{unit.label}</span>
+                </div>
+              ))}
+            </div>
 
-          <div className="relative inline-flex items-center mt-12 md:mt-16">
-            <Scrawl
-              whenVisible
-              className="absolute -inset-x-5 -inset-y-3 w-[calc(100%+2.5rem)] h-[calc(100%+1.5rem)] pointer-events-none"
-            />
-            <span className="mono-label relative text-[var(--color-ink)]">
-              {event.dayLabel} {event.dateLabel} · {event.timeLabel} · {event.venue}
-            </span>
-          </div>
-        </>
-      )}
+            <div className="relative inline-flex items-center mt-12 md:mt-16">
+              <Scrawl
+                whenVisible
+                className="absolute -inset-x-5 -inset-y-3 w-[calc(100%+2.5rem)] h-[calc(100%+1.5rem)] pointer-events-none"
+              />
+              <span className="mono-label relative text-[var(--color-ink)]">
+                {event.dayLabel} {event.dateLabel} · {event.timeLabel} · {event.venue}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
     </section>
   );
 }

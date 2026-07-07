@@ -6,15 +6,15 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactSection() {
   return (
-    <section className="py-20 md:py-32 px-5 md:px-10 lg:px-16 bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-section bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
+      <div className="container">
         <SectionHeader title="Get in touch" subtitle="We'd love to hear from you" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20">
           {/* Contact info — lead */}
           <AnimatedSection>
             <div className="space-y-10">
-              <p className="font-light text-[var(--color-ink)]/75 text-base md:text-lg leading-relaxed max-w-md">
+              <p className="font-light text-[var(--color-ink)]/75 text-body leading-body max-w-md">
                 Designer submissions, partnership inquiries, or press — drop us a line.
               </p>
 
@@ -27,7 +27,7 @@ export default function ContactSection() {
                     </p>
                     <a
                       href="mailto:youngfashionevent@gmail.com"
-                      className="text-sm md:text-base text-[var(--color-ink)] font-light hover:underline underline-offset-4 break-all"
+                      className="text-body text-[var(--color-ink)] font-light link-underline break-all"
                     >
                       youngfashionevent@gmail.com
                     </a>
@@ -41,7 +41,7 @@ export default function ContactSection() {
                     </p>
                     <a
                       href="tel:+37068380903"
-                      className="text-sm md:text-base text-[var(--color-ink)] font-light hover:underline underline-offset-4"
+                      className="text-body text-[var(--color-ink)] font-light link-underline"
                     >
                       +370 683 80903
                     </a>
@@ -100,7 +100,7 @@ export default function ContactSection() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
                 Send message
                 <span>→</span>

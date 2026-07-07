@@ -12,12 +12,11 @@ export const metadata: Metadata = {
 
 export default function BehindTheScenes2025Page() {
   return (
-    <div className="pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
+    <div className="container pt-28 md:pt-36 pb-section">
         <div className="mb-8 md:mb-10">
           <Link
             href="/galleries"
-            className="inline-flex items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.18em] text-white/60 hover:text-white transition-colors"
+            className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
           >
             <ArrowLeft size={14} />
             Back to Galleries
@@ -25,7 +24,6 @@ export default function BehindTheScenes2025Page() {
         </div>
 
         <BehindTheScenes photos={behindTheScenesPhotos2025} />
-      </div>
     </div>
   );
 }

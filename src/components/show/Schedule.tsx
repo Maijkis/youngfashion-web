@@ -20,8 +20,9 @@ export default function Schedule() {
   };
 
   return (
-    <section id="schedule" className="px-5 md:px-10 lg:px-16 py-20 md:py-32">
-      <SectionTag index={sectionIndex("schedule")} label="Running Order" className="mb-14 md:mb-20" />
+    <section id="schedule" className="py-section">
+      <div className="container">
+      <SectionTag index={sectionIndex("schedule")} label="Running Order" className="mb-12" />
 
       {/* Desktop — archive folder tabs */}
       <div className="hidden md:grid grid-cols-[minmax(0,22rem)_1fr] gap-12">
@@ -85,13 +86,13 @@ export default function Schedule() {
               }`}
             >
               <span className="section-num">({String(i + 1).padStart(2, "0")})</span>
-              <h3 className="font-display font-semibold uppercase text-[clamp(2rem,7vw,5rem)] leading-[0.9] mt-3 mb-5">
+              <h3 className="font-display font-semibold uppercase text-h1 leading-display tracking-tight mt-3 mb-5">
                 {row.title}
               </h3>
               <p className="font-mono text-sm tabular-nums text-[var(--color-ink-muted)] mb-4">
                 {row.time} · {event.venue}
               </p>
-              {row.detail && <p className="font-light text-lg max-w-[42ch]">{row.detail}</p>}
+              {row.detail && <p className="font-light text-body max-w-[42ch]">{row.detail}</p>}
             </div>
           ))}
         </div>
@@ -130,7 +131,7 @@ export default function Schedule() {
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <p className="font-light pb-6 pr-4">
+                  <p className="font-light text-body pb-6 pr-4">
                     {row.detail ?? `${event.venue}, ${event.address}`}
                   </p>
                 </div>
@@ -138,6 +139,7 @@ export default function Schedule() {
             </div>
           );
         })}
+      </div>
       </div>
     </section>
   );

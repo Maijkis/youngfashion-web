@@ -30,7 +30,7 @@ function TikTokIcon({ size = 18 }: { size?: number }) {
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-paper)] text-[var(--color-ink)] border-t border-hairline">
-      <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-16 md:py-24 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      <div className="container py-section grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
         {/* Wordmark */}
         <div>
           <span className="font-display font-semibold text-xl uppercase tracking-tight">
@@ -105,7 +105,7 @@ export default function Footer() {
             href={ticketHref}
             target={ticketIsExternal ? "_blank" : undefined}
             rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+            className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
           >
             Get Tickets
             <span>→</span>
@@ -115,7 +115,7 @@ export default function Footer() {
 
       {/* Fine print */}
       <div className="border-t border-hairline">
-        <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-5 md:py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="container py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="mono-label text-[var(--color-ink-muted)]">
             © {new Date().getFullYear()} Young Fashion · {event.editionShort}
           </p>

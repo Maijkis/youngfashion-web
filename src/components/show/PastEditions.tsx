@@ -88,10 +88,10 @@ export default function PastEditions() {
   }, []);
 
   return (
-    <WipePanel id="editions" className="py-20 md:py-32">
-      <div className="px-5 md:px-10 lg:px-16">
+    <WipePanel id="editions" className="py-section">
+      <div className="container">
         <SectionTag index={sectionIndex("editions")} label="Past Issues" className="mb-4" />
-        <h2 className="font-display font-semibold uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,9vw,6rem)] mb-12 md:mb-16">
+        <h2 className="font-display font-semibold uppercase leading-display tracking-tight text-h1 mb-16">
           01 — 05
         </h2>
       </div>

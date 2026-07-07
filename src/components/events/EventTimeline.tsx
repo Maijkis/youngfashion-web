@@ -22,7 +22,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
           src={event.images[0]}
           alt={event.title}
           fill
-          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+          className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.02]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/30" />
@@ -34,7 +34,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
               Upcoming · {typeLabels[event.type]}
             </span>
           </div>
-          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-white leading-[0.95] tracking-[-0.02em] text-[clamp(1.75rem,5vw,3.75rem)] mb-4">
+          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-white leading-display tracking-tight text-h2 mb-4">
             {event.title}
           </h3>
           <p className="mono-label text-white/80 mb-5">
@@ -45,7 +45,7 @@ function UpcomingCard({ event }: { event: EventItem }) {
             })}
             {event.location && ` · ${event.location}`}
           </p>
-          <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-white font-medium border-b border-white/80 pb-1 group-hover:gap-3 transition-all">
+          <span className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-white font-medium border-b border-white/80 pb-1 group-hover:gap-3 transition-all">
             View event
             <span>→</span>
           </span>
@@ -68,7 +68,7 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
             src={event.images[0]}
             alt={event.title}
             fill
-            className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
@@ -85,7 +85,7 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
             </span>
           </div>
 
-          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(1.5rem,3.5vw,2.75rem)] mb-4">
+          <h3 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-display tracking-tight text-h2 mb-4">
             {event.title}
           </h3>
 
@@ -98,11 +98,11 @@ function PastEventCard({ event, index }: { event: EventItem; index: number }) {
             {event.location && ` · ${event.location}`}
           </p>
 
-          <p className="text-sm md:text-base text-[var(--color-ink)]/65 font-light leading-relaxed mb-6 max-w-xl">
+          <p className="text-body text-[var(--color-ink)]/65 font-light leading-body mb-6 max-w-xl">
             {event.description}
           </p>
 
-          <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
+          <span className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
             Read more
             <span>→</span>
           </span>

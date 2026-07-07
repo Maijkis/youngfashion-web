@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function PressPartnersPage() {
   return (
-    <div className="pt-28 md:pt-36 pb-16 md:pb-24">
-      <div className="px-6 md:px-12 lg:px-20">
+    <div className="pt-28 md:pt-36">
+      <div className="container">
         <SectionHeader
           title="Press & Partners"
           subtitle="Media coverage and the brands behind Young Fashion"

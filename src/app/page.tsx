@@ -7,6 +7,7 @@ import StickyTicketsBar from "@/components/show/StickyTicketsBar";
 const Manifesto = dynamic(() => import("@/components/show/Manifesto"));
 const Lineup = dynamic(() => import("@/components/show/Lineup"));
 const Schedule = dynamic(() => import("@/components/show/Schedule"));
+const Location = dynamic(() => import("@/components/show/Location"));
 const Partners = dynamic(() => import("@/components/show/Partners"));
 const PastEditions = dynamic(() => import("@/components/show/PastEditions"));
 const TicketsCta = dynamic(() => import("@/components/show/TicketsCta"));
@@ -20,6 +21,7 @@ export default function HomePage() {
       <Manifesto />
       <Lineup />
       <Schedule />
+      <Location />
       <Partners />
       <PastEditions />
       <TicketsCta />

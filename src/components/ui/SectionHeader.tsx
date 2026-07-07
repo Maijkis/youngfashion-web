@@ -53,11 +53,11 @@ export default function SectionHeader({
   return (
     <div
       ref={ref}
-      className={`mb-10 md:mb-14 ${centered ? "text-center" : ""} ${className}`}
+      className={`mb-16 ${centered ? "text-center" : ""} ${className}`}
     >
       {subtitle && (
         <p
-          className={`mono-label text-[var(--color-ink-muted)] mb-3 md:mb-4 flex items-center gap-2.5 ${
+          className={`mono-label text-[var(--color-ink-muted)] mb-4 flex items-center gap-2.5 ${
             centered ? "justify-center" : ""
           }`}
         >
@@ -65,7 +65,7 @@ export default function SectionHeader({
           {subtitle}
         </p>
       )}
-      <h2 className="font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(2rem,6vw,4.5rem)]">
+      <h2 className="font-display font-semibold uppercase text-[var(--color-ink)] leading-display tracking-tight text-h1">
         {title}
       </h2>
     </div>

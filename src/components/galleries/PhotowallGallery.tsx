@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Download, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { BtsPhoto } from "@/lib/mockData";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Button from "@/components/ui/Button";
@@ -52,7 +52,7 @@ export default function PhotowallGallery({
       />
 
       <div className="mb-8 md:mb-12 max-w-3xl mx-auto text-center px-4">
-        <p className="text-base md:text-lg text-[var(--color-ink)]/70 font-light leading-relaxed">
+        <p className="text-body text-[var(--color-ink)]/70 font-light leading-body">
           A dedicated archive of guest portraits captured at the Young Fashion
           2025 photowall.
         </p>
@@ -76,7 +76,7 @@ export default function PhotowallGallery({
                 alt={photo.alt}
                 width={900}
                 height={1200}
-                className={`w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03] ${
+                className={`w-full object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03] ${
                   isPreview ? "aspect-[3/4] h-full" : "h-auto"
                 }`}
                 sizes="(max-width: 768px) 50vw, 33vw"
@@ -140,12 +140,12 @@ export default function PhotowallGallery({
                     />
                   </div>
 
-                  <div className="p-5 md:p-6 flex flex-col justify-between gap-5 border-t lg:border-t-0 lg:border-l border-[var(--color-hairline)]">
+                  <div className="p-5 md:p-6 flex flex-col gap-5 border-t lg:border-t-0 lg:border-l border-[var(--color-hairline)]">
                     <div>
                       <p className="mono-label text-[var(--color-ink-muted)] mb-3">
                         Details
                       </p>
-                      <h3 className="font-light text-[var(--color-ink)] text-lg md:text-xl tracking-[-0.005em] mb-4">
+                      <h3 className="font-light text-[var(--color-ink)] text-lg md:text-xl mb-4">
                         Photowall · 2025
                       </h3>
                       <div className="space-y-2 text-sm text-[var(--color-ink)]/65 font-light leading-relaxed">
@@ -153,16 +153,6 @@ export default function PhotowallGallery({
                         <p>Guest portrait from the Young Fashion 2025 photowall.</p>
                       </div>
                     </div>
-
-                    <a
-                      href={selectedPhoto.src}
-                      download
-                      aria-label="Download image"
-                      className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all self-start"
-                    >
-                      <Download size={14} />
-                      Download
-                    </a>
                   </div>
                 </div>
               </motion.div>

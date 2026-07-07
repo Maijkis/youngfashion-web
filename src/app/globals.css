@@ -24,11 +24,94 @@
   --font-serif: var(--font-serif-accent), Georgia, serif;
 }
 
+/* ——— Layout & type scale (design tokens) ————————————————————————————————
+   One spacing grid, one type scale — registered as Tailwind theme keys so they
+   compile to utilities (px-gutter, py-section, p-s4, gap-s3, mb-s6, text-h1,
+   text-body, tracking-label, leading-display …). These literal values MIRROR
+   the spec-named :root block below (--gutter, --space-4, --t-h1 …); the :root
+   copy is what hand-written CSS (.container) and any var() call sites read.
+   Keep the two in step — they are the same system expressed twice (Tailwind
+   `@theme inline` does not expose its keys as :root vars, so the mirror is how
+   the same values reach both utilities and raw CSS). */
+@theme inline {
+  /* Outer gutter + section rhythm — the clamps carry their own responsiveness,
+     so call sites need no breakpoints (px-gutter, py-section). */
+  --spacing-gutter: clamp(20px, 5vw, 48px);
+  --spacing-section: clamp(64px, 10vw, 128px);
+
+  /* 8px spacing scale → p-s1 … p-s8, gap-s*, mb-s*, mt-s*, etc. */
+  --spacing-s1: 8px;
+  --spacing-s2: 16px;
+  --spacing-s3: 24px;
+  --spacing-s4: 32px;
+  --spacing-s5: 48px;
+  --spacing-s6: 64px;
+  --spacing-s7: 96px;
+  --spacing-s8: 128px;
+
+  /* Type scale → text-display, text-h1, text-h2, text-quote, text-body, text-label */
+  --text-display: clamp(3rem, 12vw, 9rem);
+  --text-h1: clamp(2.5rem, 7vw, 5rem);
+  --text-h2: clamp(1.75rem, 4vw, 3rem);
+  --text-quote: clamp(2rem, 5vw, 3.5rem);
+  --text-body: clamp(1rem, 1.4vw, 1.125rem);
+  --text-label: 0.75rem;
+
+  /* One tracking for every mono label; two leadings (tight display / body) */
+  --tracking-label: 0.12em;
+  --leading-display: 0.95;
+  --leading-body: 1.5;
+
+  /* Photo zoom / desaturate ease (ease-out) — the one curve for image hovers,
+     reused via the `ease-image` utility so it is never inlined per component. */
+  --ease-image: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 /* Shared easings — kept in step with src/lib/motion.ts so CSS transitions and
    GSAP tweens read identically. Reveals settle (expo-out); moves are symmetric. */
 :root {
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ——— Design tokens (spec-named) —————————————————————————————————————————
+   Single source of truth for the layout, type and motion system. The @theme
+   block above aliases these into Tailwind utilities; hand-written CSS and any
+   arbitrary-value call sites read them directly as var(--gutter), var(--t-h1) … */
+:root {
+  /* Layout */
+  --container-max: 1600px;
+  --gutter: clamp(20px, 5vw, 48px);        /* one outer gutter everywhere */
+  --section-py: clamp(64px, 10vw, 128px);  /* one section vertical padding */
+
+  /* 8px spacing scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 128px;
+
+  /* Type scale */
+  --t-display: clamp(3rem, 12vw, 9rem);    /* hero masthead */
+  --t-h1: clamp(2.5rem, 7vw, 5rem);        /* section headings + partner names — all equal */
+  --t-h2: clamp(1.75rem, 4vw, 3rem);
+  --t-quote: clamp(2rem, 5vw, 3.5rem);     /* serif-italic pull-quotes only */
+  --t-body: clamp(1rem, 1.4vw, 1.125rem);
+  --t-label: 0.75rem;                      /* mono eyebrows / metadata / captions / nav */
+
+  --track-label: 0.12em;                   /* one tracking for all mono labels */
+  --lh-tight: 0.95;
+  --lh-body: 1.5;
+
+  /* Motion — one curve, one duration, reused everywhere. --ease matches the
+     existing --ease-move (moves/tabs/flips); reveals keep --ease-expo; photo
+     hovers keep --ease-image (ease-out). */
+  --ease: var(--ease-move);
+  --dur: 0.5s;
+  --ease-image: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* Hand-written, not Tailwind-generated: Tailwind v4's @theme inline only compiles
@@ -141,6 +224,34 @@ html.lenis, html.lenis body {
   }
 }
 
+/* ——— Layout system ——————————————————————————————————————————————————————
+   One container (max-width + auto margins + one gutter) and one responsive
+   editorial grid (12 desktop / 8 tablet / 4 mobile). Every section wraps its
+   content in .container so the whole site shares a single left edge. Defined as
+   plain (unlayered) classes so they win over Tailwind's utility layer. */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid-editorial {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+@media (min-width: 768px) {
+  .grid-editorial {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .grid-editorial {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
 /* ——— Editorial brutalism utilities ——— */
 
 /* B&W-by-default photography — any uploaded photo matches the language automatically */
@@ -148,7 +259,7 @@ html.lenis, html.lenis body {
   filter: grayscale(1) contrast(1.06) brightness(1.02);
 }
 .img-bw-hover {
-  transition: filter 0.9s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: filter 0.9s var(--ease-image);
 }
 @media (hover: hover) {
   .img-bw-hover:hover {
@@ -156,21 +267,24 @@ html.lenis, html.lenis body {
   }
 }
 
-/* Mono metadata label — dates, times, captions, nav, footer */
+/* Mono metadata label — the one label style for every eyebrow, caption, date,
+   time, nav item and footer line. Size + tracking come from the type tokens so
+   all labels are identical everywhere. */
 .mono-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--t-label);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--track-label);
   font-weight: 400;
 }
 
-/* Section number glyph — the accent's main job: (01) (02) (03) */
+/* Section number glyph — the accent's main job: (01) (02) (03). Same size and
+   tracking as .mono-label so the number and its label read as one unit. */
 .section-num {
   font-family: var(--font-mono);
   color: var(--color-accent-text);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: var(--t-label);
+  letter-spacing: var(--track-label);
 }
 
 /* Inverted monochrome section — re-maps the local ink/paper/hairline vars so
@@ -224,6 +338,21 @@ html.lenis, html.lenis body {
 }
 .link-underline:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* Blueprint grid — graph-paper backdrop for the partner communication maps:
+   fine 32px minor lines under 128px major lines, both derived from ink. */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--color-ink) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-ink) 5%, transparent) 1px, transparent 1px);
+  background-size:
+    128px 128px,
+    128px 128px,
+    32px 32px,
+    32px 32px;
 }
 
 /* Rule-draw — a hairline that draws itself once its InViewFlag wrapper enters view. */

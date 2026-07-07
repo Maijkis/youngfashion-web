@@ -34,30 +34,29 @@ export default function MissionStatement() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 px-5 md:px-10 lg:px-16 bg-[var(--color-paper)]">
-      <div className="max-w-5xl">
-        <div className="flex items-center gap-2.5 mb-6 md:mb-10">
-          <span className="section-num">(01)</span>
-          <span className="mono-label text-[var(--color-ink-muted)]">Our mission</span>
+    <section ref={sectionRef} className="py-section bg-[var(--color-paper)]">
+      <div className="container">
+        <div className="max-w-5xl">
+          <p className="mono-label text-[var(--color-ink-muted)] mb-4">Our mission</p>
+          <h1
+            ref={titleRef}
+            className="font-display font-semibold uppercase text-[var(--color-ink)] leading-display tracking-tight text-h1"
+          >
+            We believe in the power of young creative voices to reshape the future of fashion.
+          </h1>
+          <p
+            ref={bodyRef}
+            className="mt-8 md:mt-12 text-[var(--color-ink)]/70 font-light text-body leading-body max-w-2xl"
+          >
+            Founded in Vilnius in 2022, Young Fashion has grown through four
+            editions — from its debut to closing Vilnius Fashion Week 2025 at
+            K2 Comedy Club, and showcasing at the National Art Gallery in 2024.
+            We provide emerging designers with a platform, production support,
+            and direct connections to the fashion industry. Our goal is to make
+            Lithuanian and Baltic design talent visible on the global stage
+            while fostering a community rooted in innovation and artistic freedom.
+          </p>
         </div>
-        <h1
-          ref={titleRef}
-          className="font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(1.75rem,5vw,3.75rem)]"
-        >
-          We believe in the power of young creative voices to reshape the future of fashion.
-        </h1>
-        <p
-          ref={bodyRef}
-          className="mt-8 md:mt-12 text-[var(--color-ink)]/70 font-light text-base md:text-lg leading-relaxed max-w-2xl"
-        >
-          Founded in Vilnius in 2022, Young Fashion has grown through four
-          editions — from its debut to closing Vilnius Fashion Week 2025 at
-          K2 Comedy Club, and showcasing at the National Art Gallery in 2024.
-          We provide emerging designers with a platform, production support,
-          and direct connections to the fashion industry. Our goal is to make
-          Lithuanian and Baltic design talent visible on the global stage
-          while fostering a community rooted in innovation and artistic freedom.
-        </p>
       </div>
     </section>
   );

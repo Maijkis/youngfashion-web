@@ -7,8 +7,8 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function TeamGrid() {
   return (
-    <section className="py-20 md:py-28 px-5 md:px-10 lg:px-16 bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-section bg-[var(--color-paper)] border-t border-[var(--color-hairline)]">
+      <div className="container">
         <SectionHeader title="The team" subtitle="The people behind the platform" />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
@@ -20,11 +20,11 @@ export default function TeamGrid() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[900ms] ease-image group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 </div>
-                <h3 className="font-light text-[var(--color-ink)] text-base md:text-lg tracking-[-0.005em]">
+                <h3 className="font-light text-[var(--color-ink)] text-body">
                   {member.name}
                 </h3>
                 <p className="mono-label text-[var(--color-ink-muted)] mt-1">

@@ -19,7 +19,8 @@ export interface TeamMember {
 export interface Sponsor {
   id: string;
   name: string;
-  logo: string;
+  /** Logo image path/URL — null typesets the name instead, no image required. */
+  logo: string | null;
 }
 
 export interface PressArticle {
@@ -472,15 +473,9 @@ export const teamMembers: TeamMember[] = [
 ];
 
 // ——— Sponsors & Partners ———
-
-export const sponsors2026: Sponsor[] = [
-  { id: "s1", name: "Jung", logo: "https://placehold.co/200x80/111/fff?text=Jung" },
-  { id: "s2", name: "Make Up Forever", logo: "https://placehold.co/200x80/111/fff?text=Make+Up+Forever" },
-  { id: "s3", name: "Keune", logo: "https://placehold.co/200x80/111/fff?text=Keune" },
-  { id: "s4", name: "Femina Bona", logo: "https://placehold.co/200x80/111/fff?text=Femina+Bona" },
-  { id: "s5", name: "Akvilė", logo: "https://placehold.co/200x80/111/fff?text=Akvil%C4%97" },
-  { id: "s6", name: "1664 Kronenbourg", logo: "https://placehold.co/200x80/111/fff?text=1664+Kronenbourg" },
-];
+// This year's sponsors live in content.ts as partnerProfiles (single source
+// for the homepage, the press grid, and the profile pages). The lists below
+// are the press page's media/past credits only.
 
 export const infoPartners: Sponsor[] = [
   { id: "ip1", name: "ELLE Lithuania", logo: "https://placehold.co/200x80/111/fff?text=ELLE" },

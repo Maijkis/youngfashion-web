@@ -27,29 +27,31 @@ function renderMarkers(text: string): ReactNode[] {
 
 export default function Manifesto() {
   return (
-    <WipePanel id="about" className="px-5 md:px-10 lg:px-16 py-20 md:py-32">
-      <SectionTag index={sectionIndex("manifesto")} label="Five Years" className="mb-14 md:mb-20" />
+    <WipePanel id="about" className="py-section">
+      <div className="container">
+        <SectionTag index={sectionIndex("manifesto")} label="Five Years" className="mb-12" />
 
-      <AnimatedSection effect="mask">
-        <blockquote className="font-serif italic leading-[1.1] text-[clamp(1.8rem,6vw,3.5rem)] max-w-[16ch] mb-4">
-          <span className="text-[var(--color-accent)]">(</span>
-          {about.pullQuote}
-          <span className="text-[var(--color-accent)]">)</span>
-        </blockquote>
-        <p className="mono-label text-[var(--color-ink-muted)] mb-12 md:mb-16">— {about.quoteMeta}</p>
-      </AnimatedSection>
+        <AnimatedSection effect="mask">
+          <blockquote className="font-serif italic leading-tight text-quote max-w-[16ch] mb-4">
+            <span className="text-[var(--color-accent)]">(</span>
+            {about.pullQuote}
+            <span className="text-[var(--color-accent)]">)</span>
+          </blockquote>
+          <p className="mono-label text-[var(--color-ink-muted)] mb-16">— {about.quoteMeta}</p>
+        </AnimatedSection>
 
-      <div className="max-w-[60ch] space-y-5 md:space-y-6">
-        {about.paragraphs.map((paragraph, i) => (
-          <AnimatedSection key={i} effect="mask" delay={i * 0.08}>
-            <p className="font-light text-base md:text-lg leading-relaxed">
-              {renderMarkers(paragraph)}
-            </p>
-          </AnimatedSection>
-        ))}
+        <div className="max-w-[60ch] space-y-6">
+          {about.paragraphs.map((paragraph, i) => (
+            <AnimatedSection key={i} effect="mask" delay={i * 0.08}>
+              <p className="font-light text-body leading-body">
+                {renderMarkers(paragraph)}
+              </p>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        <p className="mono-label text-[var(--color-ink-muted)] mt-16">* Est. 2022 — Vilnius *</p>
       </div>
-
-      <p className="mono-label text-[var(--color-ink-muted)] mt-14 md:mt-20">* Est. 2022 — Vilnius *</p>
     </WipePanel>
   );
 }

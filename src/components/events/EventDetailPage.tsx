@@ -23,11 +23,10 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
   const hasMorePhotos = galleryPhotos.length > 3;
 
   return (
-    <div className="pt-28 md:pt-36 pb-20 md:pb-28 px-5 md:px-10 lg:px-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="container pt-28 md:pt-36 pb-section">
         <Link
           href="/events"
-          className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors mb-10 md:mb-14 min-h-[44px]"
+          className="mono-label inline-flex items-center gap-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors mb-12 min-h-[44px]"
         >
           <ArrowLeft size={14} />
           Back to events
@@ -65,12 +64,12 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
                   </>
                 )}
               </div>
-              <h1 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-[0.95] tracking-[-0.02em] text-[clamp(2rem,6vw,4.5rem)]">
+              <h1 className="max-w-[22ch] font-display font-semibold uppercase text-[var(--color-ink)] leading-display tracking-tight text-h1">
                 {event.title}
               </h1>
             </div>
             <div className="md:col-span-5 md:pt-2">
-              <p className="text-[var(--color-ink)]/70 font-light leading-relaxed text-base md:text-lg">
+              <p className="text-[var(--color-ink)]/70 font-light leading-body text-body">
                 {event.longDescription ?? event.description}
               </p>
             </div>
@@ -104,13 +103,19 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
                   key={sponsor.id}
                   className="flex items-center justify-center aspect-[3/2] border border-[var(--color-hairline)]"
                 >
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={260}
-                    height={100}
-                    className="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-                  />
+                  {sponsor.logo ? (
+                    <Image
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      width={260}
+                      height={100}
+                      className="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+                    />
+                  ) : (
+                    <span className="mono-label text-[var(--color-ink-muted)] text-center px-3">
+                      {sponsor.name}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -142,7 +147,7 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
               <button
                 type="button"
                 onClick={() => setExpanded((prev) => !prev)}
-                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                className="inline-flex items-center gap-2 text-label uppercase tracking-[0.28em] text-[var(--color-ink)] font-medium border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
               >
                 {expanded ? "Show less" : `See all ${galleryPhotos.length}`}
                 <ArrowRight
@@ -153,7 +158,6 @@ export default function EventDetailPage({ event }: EventDetailPageProps) {
             </div>
           )}
         </section>
-      </div>
     </div>
   );
 }
