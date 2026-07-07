@@ -21,9 +21,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -38,21 +39,26 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // Solid paper once scrolled — never a translucent blur (it composites to a
-  // muddy grey over the dark panels). One clean transparent→paper swap.
-  const bgClass = scrolled
-    ? "bg-[var(--color-paper)] border-b border-hairline"
-    : "bg-transparent";
+  // On the homepage the bar starts as just a centered logo and expands into the
+  // full floating island once you scroll past the ticker; every other page shows
+  // the island straight away (its nav needs to be reachable immediately).
+  const expanded = scrolled || !isHome;
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full safe-top transition-colors duration-500 ${bgClass}`}
-      >
-        <div className="container flex items-center justify-between w-full h-14 md:h-16">
+      {/* The nav is a centred flex; pointer-events pass through the empty gutters
+          so the collapsed (logo-only) state never blocks the hero underneath. */}
+      <nav className="fixed top-0 inset-x-0 z-50 safe-top flex justify-center px-4 pointer-events-none">
+        <div
+          className={`relative mt-3 flex w-full max-w-[var(--container-max)] items-center transition-all duration-500 ease-[var(--ease)] ${
+            expanded
+              ? "pointer-events-auto justify-between gap-6 rounded-2xl border border-hairline bg-[var(--color-paper)] px-5 py-2.5 shadow-[0_10px_40px_-12px_rgba(17,17,17,0.25)]"
+              : "pointer-events-none justify-center gap-0 rounded-2xl border border-transparent bg-transparent px-0 py-2.5 shadow-none"
+          }`}
+        >
           <Link
             href="/"
-            className="flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
+            className="pointer-events-auto flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
             aria-label="Young Fashion home"
           >
             <Image
@@ -61,11 +67,12 @@ export default function Navbar() {
               width={1774}
               height={164}
               priority
-              className="h-3 md:h-3.5 w-auto"
+              className="h-3.5 w-auto"
             />
           </Link>
 
-          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+          {/* Desktop nav — only inside the expanded island */}
+          <div className={`items-center gap-7 lg:gap-9 ${expanded ? "hidden md:flex" : "hidden"}`}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -90,23 +97,9 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-1 md:hidden">
-            {/* One CTA at a time on phones: this pill only exists at the top of the
-                page — once scrolled, the hero button (then the sticky bottom bar)
-                takes over, so two ticket CTAs never compete for attention. */}
-            <Link
-              href={ticketHref}
-              data-cta="masthead"
-              target={ticketIsExternal ? "_blank" : undefined}
-              rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-              aria-hidden={scrolled}
-              tabIndex={scrolled ? -1 : 0}
-              className={`mono-label inline-flex items-center min-h-[44px] px-3 border border-[var(--color-ink)] text-[var(--color-ink)] transition-[opacity,transform] duration-300 ease-[var(--ease)] ${
-                scrolled ? "opacity-0 -translate-y-1 pointer-events-none" : "opacity-100 translate-y-0"
-              }`}
-            >
-              Tickets
-            </Link>
+          {/* Mobile control — hamburger only; the tickets CTA lives in the sticky
+              bottom bar + the menu, so it never doubles up here. */}
+          <div className={`items-center ${expanded ? "flex md:hidden" : "hidden"}`}>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--color-ink)]"
@@ -115,6 +108,15 @@ export default function Navbar() {
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
+
+          {/* Pink connect line — draws out from the centre along the island's
+              base as it forms, then holds: the "silhouette that connects". */}
+          <span
+            aria-hidden
+            className={`pointer-events-none absolute bottom-0 left-1/2 h-[2px] w-20 -translate-x-1/2 origin-center bg-[var(--color-accent)] transition-[transform,opacity] duration-500 ease-[var(--ease)] ${
+              expanded ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+            }`}
+          />
         </div>
       </nav>
 
