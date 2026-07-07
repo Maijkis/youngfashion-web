@@ -248,7 +248,7 @@ export const partnerProfiles: PartnerProfile[] = [
     slug: "femina-bona-keune",
     name: "Femina Bona × Keune",
     tier: "main",
-    logo: null,
+    logo: "/assets/partners/partner-femina-bona-keune.png",
     blurb: "Hair by Femina Bona with Keune — every look that walks the runway.",
     comms: [
       { date: "20.05.2026", kind: "Announcement", title: "Partnership announced", description: "Post introducing the hair team behind all nine collections.", image: null },
