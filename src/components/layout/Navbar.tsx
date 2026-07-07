@@ -52,7 +52,7 @@ export default function Navbar() {
         <div className="container flex items-center justify-between w-full h-14 md:h-16">
           <Link
             href="/"
-            className="flex items-center gap-1 hover:opacity-70 transition-opacity min-h-[44px]"
+            className="flex items-center hover:opacity-70 transition-opacity min-h-[44px]"
             aria-label="Young Fashion home"
           >
             <Image
@@ -61,11 +61,8 @@ export default function Navbar() {
               width={1774}
               height={164}
               priority
-              className="h-4 md:h-5 w-auto"
+              className="h-3 md:h-3.5 w-auto"
             />
-            <span className="font-display font-semibold text-lg md:text-xl leading-none text-[var(--color-accent-text)]">
-              *
-            </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-7 lg:gap-9">
