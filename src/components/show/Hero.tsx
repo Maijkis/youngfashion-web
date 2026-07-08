@@ -36,6 +36,20 @@ export default function Hero() {
           },
           0.1,
         );
+        // Measurement mark under the wordmark — the lines draw outward from
+        // the label like a technical dimension being taken.
+        tl.fromTo(
+          ".hero-measure-line",
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.8, ease: GSAP_EXPO },
+          0.55,
+        );
+        tl.fromTo(
+          ".hero-measure-mark",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4, ease: "power2.out", stagger: 0.06 },
+          0.6,
+        );
         tl.fromTo(
           ".hero-meta > *",
           { y: 16, opacity: 0 },
@@ -87,6 +101,16 @@ export default function Hero() {
           <h1 className="hero-line font-display font-semibold uppercase leading-display tracking-tight text-display">
             {word2}
           </h1>
+          {/* Blueprint measurement mark — the one place "5 Years" appears. */}
+          <div className="mt-3 flex items-center gap-3" aria-hidden>
+            <span className="hero-measure-mark h-2 w-px bg-[var(--color-ink)]/50" />
+            <span className="hero-measure-line h-px flex-1 origin-left bg-[var(--color-ink)]/30" />
+            <span className="hero-measure-mark mono-label shrink-0 text-[var(--color-ink-muted)]">
+              {event.editionShort}
+            </span>
+            <span className="hero-measure-line h-px flex-1 origin-right bg-[var(--color-ink)]/30" />
+            <span className="hero-measure-mark h-2 w-px bg-[var(--color-ink)]/50" />
+          </div>
         </div>
 
         <div className="hero-meta mt-s6 flex flex-col md:flex-row md:items-end justify-between gap-s4">

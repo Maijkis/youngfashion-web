@@ -1,10 +1,37 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { gsap } from "gsap";
 import MediaSlot from "@/components/ui/MediaSlot";
 import { event, type ShowDesigner } from "@/lib/content";
-import { MQ_SCRUB, prefersLiteMotion } from "@/lib/motion";
+import { MQ_SCRUB, motionOK, prefersLiteMotion } from "@/lib/motion";
+
+/**
+ * Blueprint corner brackets that snap onto the portrait during the
+ * tap-to-unpack beat — instant appear (staggered 0–120ms), scale-settle,
+ * retract when the card closes. Pure CSS transitions on the motion tokens.
+ */
+function UnpackBrackets({ active }: { active: boolean }) {
+  const corners = [
+    "top-1.5 left-1.5 border-t border-l",
+    "top-1.5 right-1.5 border-t border-r",
+    "bottom-1.5 right-1.5 border-b border-r",
+    "bottom-1.5 left-1.5 border-b border-l",
+  ];
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      {corners.map((pos, i) => (
+        <span
+          key={pos}
+          style={{ transitionDelay: active ? `${i * 40}ms` : "0ms" }}
+          className={`absolute h-3.5 w-3.5 border-[var(--color-accent)] transition-[opacity,transform] duration-[var(--dur-micro)] ease-[var(--ease-out)] ${pos} ${
+            active ? "scale-100 opacity-100" : "scale-150 opacity-0"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
 
 interface LineupCardProps {
   designer: ShowDesigner;
@@ -91,10 +118,26 @@ export default function LineupCard({
     return () => window.removeEventListener("keydown", onKey);
   }, [flipped, modalOpen, onClose]);
 
+  // Tap-to-unpack: brackets snap onto the portrait instantly (feedback <100ms),
+  // then the flip runs one beat later — one tap, one choreographed sequence.
+  // Under reduced motion the flip is immediate.
+  const [unpacking, setUnpacking] = useState(false);
+  const unpackTimer = useRef(0);
+  const unpack = () => {
+    if (flipped) return;
+    setUnpacking(true);
+    window.clearTimeout(unpackTimer.current);
+    unpackTimer.current = window.setTimeout(onOpen, motionOK() ? 260 : 0);
+  };
+  useEffect(() => {
+    if (!flipped) setUnpacking(false);
+  }, [flipped]);
+  useEffect(() => () => window.clearTimeout(unpackTimer.current), []);
+
   const handleFrontKey = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onOpen();
+      unpack();
     }
   };
 
@@ -108,7 +151,7 @@ export default function LineupCard({
             role="button"
             tabIndex={0}
             inert={flipped}
-            onClick={onOpen}
+            onClick={unpack}
             onKeyDown={handleFrontKey}
             aria-expanded={flipped}
             aria-controls={backId}
@@ -132,6 +175,7 @@ export default function LineupCard({
               <span className="absolute top-2 left-2 bg-[var(--color-paper)] text-[var(--color-accent-text)] mono-label px-1.5 py-0.5">
                 {look}
               </span>
+              <UnpackBrackets active={unpacking} />
             </div>
 
             <div className="mt-3 space-y-1.5" aria-hidden>

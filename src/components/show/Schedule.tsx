@@ -133,7 +133,14 @@ export default function Schedule() {
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <p className="font-light text-body pb-6 pr-4">
+                  {/* Unfold: content opens from a folded state as the row expands */}
+                  <p
+                    className={`font-light text-body pb-6 pr-4 transition-[clip-path,transform,opacity] duration-500 ease-[var(--ease-io)] ${
+                      isOpen
+                        ? "[clip-path:inset(0)] scale-100 opacity-100"
+                        : "[clip-path:inset(0_8%_60%_8%)] scale-[1.02] opacity-0"
+                    }`}
+                  >
                     {row.detail ?? `${event.venue}, ${event.address}`}
                   </p>
                 </div>
