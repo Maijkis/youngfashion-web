@@ -53,6 +53,9 @@ export default function PastEditions() {
     let startScroll = 0;
     let moved = false;
     const onDown = (e: PointerEvent) => {
+      // Mouse only — on hybrid touchscreen laptops (which pass the
+      // pointer:fine gate) touch input must stay with native scrolling.
+      if (e.pointerType !== "mouse") return;
       down = true;
       moved = false;
       startX = e.clientX;
@@ -78,11 +81,13 @@ export default function PastEditions() {
     track.addEventListener("pointerdown", onDown);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     track.addEventListener("click", onClickCapture, true);
     return () => {
       track.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       track.removeEventListener("click", onClickCapture, true);
     };
   }, []);

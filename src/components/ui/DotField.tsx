@@ -12,9 +12,10 @@ import { motionOK } from "@/lib/motion";
 // ============================================================================
 
 const MAX_POINTS = 400;
-const DRIFT = 2.5; // px of slow drift
-const POINTER_R = 90; // px displacement radius
-const POINTER_PUSH = 10; // px max push
+const BACKING_SCALE = 0.5; // render at half resolution, CSS-stretched — dots are soft anyway
+const DRIFT = 1.5; // backing px of slow drift
+const POINTER_R = 45; // backing px displacement radius (≈90 CSS px)
+const POINTER_PUSH = 5; // backing px max push
 
 export default function DotField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,12 +31,13 @@ export default function DotField() {
     let raf = 0;
     let inView = false;
     let t = Math.random() * 100;
+    let last = 0;
     let pointer: { x: number; y: number } | null = null;
 
     const build = () => {
       const rect = holder.getBoundingClientRect();
-      canvas.width = Math.max(2, Math.round(rect.width));
-      canvas.height = Math.max(2, Math.round(rect.height));
+      canvas.width = Math.max(2, Math.round(rect.width * BACKING_SCALE));
+      canvas.height = Math.max(2, Math.round(rect.height * BACKING_SCALE));
       const spacing = Math.max(
         34,
         Math.ceil(Math.sqrt((canvas.width * canvas.height) / MAX_POINTS)),
@@ -50,8 +52,10 @@ export default function DotField() {
       }
     };
 
-    const draw = () => {
-      t += 1 / 60;
+    const draw = (now: number) => {
+      // Real elapsed time (clamped) so drift speed is refresh-rate independent.
+      if (last) t += Math.min((now - last) / 1000, 0.1);
+      last = now;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "rgba(244, 241, 234, 0.28)";
       for (const p of pts) {
@@ -79,6 +83,7 @@ export default function DotField() {
     const stop = () => {
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
+      last = 0;
     };
 
     const io = new IntersectionObserver(
@@ -92,7 +97,10 @@ export default function DotField() {
 
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      pointer = {
+        x: (e.clientX - rect.left) * BACKING_SCALE,
+        y: (e.clientY - rect.top) * BACKING_SCALE,
+      };
     };
     const onLeave = () => {
       pointer = null;

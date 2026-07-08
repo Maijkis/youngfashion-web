@@ -55,6 +55,7 @@ export default function PixelCanvas({
     let raf = 0;
     let revealed = false;
     let destroyed = false;
+    let observed = false;
     let cell = cellStart;
     // Tween state — retargeting mid-flight starts from the current cell size,
     // so rapid scroll direction changes / hovers never stick or jump.
@@ -156,7 +157,18 @@ export default function PixelCanvas({
     const hide = () => {
       canvas.style.opacity = "0";
       window.setTimeout(() => {
-        if (!destroyed && canvas.style.opacity === "0") canvas.style.display = "none";
+        if (destroyed || canvas.style.opacity !== "0") return;
+        canvas.style.display = "none";
+        // One-shot instances are finished for good — release the canvas
+        // backing stores and stop watching for resizes (matters on gallery
+        // pages with dozens of instances). Hover instances stay live.
+        if (!hover) {
+          canvas.width = 0;
+          canvas.height = 0;
+          off.width = 0;
+          off.height = 0;
+          ro.disconnect();
+        }
       }, 280);
     };
 
@@ -166,11 +178,17 @@ export default function PixelCanvas({
       animateTo(1, duration, hide);
     };
 
-    // Initial coarse frame as soon as the bitmap is available.
+    // Initial coarse frame as soon as the bitmap is available. If the holder
+    // has no layout box yet (e.g. the hidden desktop/mobile twin of a lineup
+    // card), the ResizeObserver below re-runs this once it gains size — the
+    // reveal must never be left permanently unobserved.
     const start = () => {
       if (destroyed || !size()) return;
       draw();
-      io.observe(holder);
+      if (!observed) {
+        observed = true;
+        io.observe(holder);
+      }
     };
 
     const io = new IntersectionObserver(
@@ -203,6 +221,11 @@ export default function PixelCanvas({
     }
 
     const ro = new ResizeObserver(() => {
+      if (destroyed) return;
+      if (!observed) {
+        if (img.complete && img.naturalWidth) start();
+        return;
+      }
       if (canvas.style.display !== "none" && size()) draw();
     });
     ro.observe(holder);

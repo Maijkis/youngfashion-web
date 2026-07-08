@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import MediaSlot from "@/components/ui/MediaSlot";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import type { CommunicationItem } from "@/lib/content";
@@ -21,7 +21,23 @@ function CommPolaroid({
   partnerName: string;
 }) {
   const [flipped, setFlipped] = useState(false);
+  const frontRef = useRef<HTMLButtonElement>(null);
+  const backRef = useRef<HTMLDivElement>(null);
+  const wasFlipped = useRef(false);
+  const backId = useId();
   const n = String(index + 1).padStart(2, "0");
+
+  // Focus follows the flip: into the back on open, back to the front on close
+  // (otherwise inert drops focus to <body> and keyboard users start over).
+  useEffect(() => {
+    if (flipped) {
+      backRef.current?.focus();
+      wasFlipped.current = true;
+    } else if (wasFlipped.current) {
+      wasFlipped.current = false;
+      frontRef.current?.focus();
+    }
+  }, [flipped]);
 
   return (
     <div className="card-persp">
@@ -29,7 +45,9 @@ function CommPolaroid({
         {/* FRONT — the polaroid */}
         <button
           type="button"
-          aria-pressed={flipped}
+          ref={frontRef}
+          aria-expanded={flipped}
+          aria-controls={backId}
           aria-label={`${item.title} — flip for details`}
           inert={flipped}
           onClick={() => setFlipped(true)}
@@ -57,9 +75,14 @@ function CommPolaroid({
 
         {/* BACK — the write-up */}
         <div
+          ref={backRef}
+          id={backId}
+          role="group"
+          aria-label={`${item.title} — details`}
+          tabIndex={-1}
           inert={!flipped}
           aria-hidden={!flipped}
-          className="card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm"
+          className="card-face card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm focus:outline-none"
         >
           <span className="mono-label text-[var(--color-ink-muted)]">
             {item.date} · {item.kind}

@@ -57,7 +57,7 @@ export default function LineupModal({ designers, index, onClose, onNavigate }: L
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[80] bg-[var(--color-paper)]"
+          className="fixed inset-0 z-[80] overflow-y-auto bg-[var(--color-paper)]"
           data-lenis-prevent
         >
           <div className="sticky top-0 z-10 bg-[var(--color-paper)]/90 backdrop-blur-md border-b border-hairline safe-top">
@@ -75,7 +75,7 @@ export default function LineupModal({ designers, index, onClose, onNavigate }: L
             </div>
           </div>
 
-          <div className="relative h-[calc(100svh-73px)] flex items-center px-4 md:px-16">
+          <div className="relative min-h-[calc(100svh-73px)] flex items-center px-4 md:px-16 py-8">
             <button
               onClick={showPrev}
               aria-label="Previous designer"

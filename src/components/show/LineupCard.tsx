@@ -97,16 +97,19 @@ export default function LineupCard({
     return () => mm.revert();
   }, []);
 
-  // Focus management: move focus into the back on open; return to the front on
-  // close — but only if focus is still trapped in this card's back (so opening a
-  // second card doesn't steal focus from it).
+  // Focus management: move focus into the back on open; return to the front
+  // when THIS card closes (tracked with a flag — inert may have already blurred
+  // the back to <body> by the time this effect runs, so containment checks lie).
+  const wasFlipped = useRef(false);
   useEffect(() => {
     if (flipped) {
       backRef.current?.focus();
-    } else if (backRef.current?.contains(document.activeElement)) {
-      frontRef.current?.focus();
+      wasFlipped.current = true;
+    } else if (wasFlipped.current) {
+      wasFlipped.current = false;
+      if (!modalOpen) frontRef.current?.focus();
     }
-  }, [flipped]);
+  }, [flipped, modalOpen]);
 
   // Escape closes the flipped card — unless the look modal is open (it owns Escape then).
   useEffect(() => {
@@ -227,9 +230,9 @@ export default function LineupCard({
                   href={designer.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-underline mono-label w-fit"
+                  className="mono-label inline-flex min-h-[44px] w-fit items-center"
                 >
-                  Instagram →
+                  <span className="link-underline">Instagram →</span>
                 </a>
               )}
               <button

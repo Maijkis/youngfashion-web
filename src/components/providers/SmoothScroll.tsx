@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+
+  // Data-saver / low-memory / low-core devices get the reduced-motion
+  // treatment in framer too (GSAP/canvas already gate via prefersLiteMotion).
+  const [reducedMotion, setReducedMotion] = useState<"user" | "always">("user");
+  useEffect(() => {
+    if (prefersLiteMotion()) setReducedMotion("always");
+  }, []);
 
   useEffect(() => {
     // Reduced motion: skip Lenis entirely — native scroll, ScrollTrigger still
@@ -32,17 +39,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    // Keep the exact wrapper reference so cleanup actually removes it —
+    // removing `lenis.raf` (a different function) would silently leak the
+    // ticker callback on every remount.
+    const update = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(update);
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf as unknown as gsap.TickerCallback);
       delete (window as Window & { __lenis?: Lenis }).__lenis;
     };
   }, []);
 
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return <MotionConfig reducedMotion={reducedMotion}>{children}</MotionConfig>;
 }

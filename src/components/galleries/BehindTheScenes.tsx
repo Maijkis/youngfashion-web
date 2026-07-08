@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
@@ -22,6 +22,7 @@ export default function BehindTheScenes({
   showSeeMore = false,
 }: BehindTheScenesProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<BtsPhoto | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!selectedPhoto) return;
@@ -32,12 +33,17 @@ export default function BehindTheScenes({
       }
     };
 
+    // Dialog focus: move into the lightbox on open, restore to the opener on close.
+    const opener = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
+      opener?.focus?.();
     };
   }, [selectedPhoto]);
 
@@ -81,9 +87,11 @@ export default function BehindTheScenes({
           {visiblePhotos.map((photo, index) => (
             /* Polaroid: drops in with a slight settle-rotation, the photo
                develops from the pixel mosaic (PixelCanvas). Tap = lightbox. */
-            <motion.div
+            <motion.button
+              type="button"
               key={photo.id}
               layout
+              aria-label={`Open photo ${index + 1} — ${photo.alt}`}
               initial={{ opacity: 0, y: -12, rotate: 0 }}
               whileInView={{
                 opacity: 1,
@@ -93,7 +101,7 @@ export default function BehindTheScenes({
               viewport={{ once: true, amount: 0.2 }}
               exit={{ opacity: 0, y: 12 }}
               transition={{ duration: 0.7, ease: EASE_EXPO_T, delay: (index % 6) * 0.075 }}
-              className="group cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 shadow-sm"
+              className="group block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm"
               onClick={() => setSelectedPhoto(photo)}
             >
               <div className="relative overflow-hidden bg-[var(--color-paper-deep)]">
@@ -117,7 +125,7 @@ export default function BehindTheScenes({
                   {photo.year}
                 </span>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </AnimatePresence>
       </div>
@@ -143,11 +151,14 @@ export default function BehindTheScenes({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-[var(--color-paper)]/95 backdrop-blur-md px-4 py-6 md:px-6 md:py-8"
+            className="fixed inset-0 z-[70] overflow-y-auto bg-[var(--color-paper)]/95 backdrop-blur-md px-4 py-6 md:px-6 md:py-8"
             onClick={() => setSelectedPhoto(null)}
           >
             <div className="flex min-h-full items-center justify-center">
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={selectedPhoto.alt}
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -157,6 +168,7 @@ export default function BehindTheScenes({
               >
                 <button
                   type="button"
+                  ref={closeRef}
                   onClick={() => setSelectedPhoto(null)}
                   className="absolute top-3 right-3 z-10 p-2 text-[var(--color-ink)] hover:text-[var(--color-ink-muted)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Close image preview"

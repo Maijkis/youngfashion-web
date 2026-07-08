@@ -129,6 +129,7 @@ export default function Schedule() {
               <div
                 id={`acc-panel-${i}`}
                 role="region"
+                inert={!isOpen}
                 className="grid transition-[grid-template-rows] duration-500 ease-[var(--ease-move)]"
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
