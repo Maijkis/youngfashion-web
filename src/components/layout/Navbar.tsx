@@ -84,7 +84,7 @@ export default function Navbar() {
               data-cta="masthead"
               target={ticketIsExternal ? "_blank" : undefined}
               rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-              className="mono-label inline-flex items-center min-h-[36px] px-4 border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+              className="mono-label inline-flex items-center min-h-[36px] px-4 border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] active:bg-[var(--color-ink)] active:text-[var(--color-paper)] transition-colors"
             >
               Tickets
             </Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
               rel={ticketIsExternal ? "noopener noreferrer" : undefined}
               aria-hidden={scrolled}
               tabIndex={scrolled ? -1 : 0}
-              className={`mono-label inline-flex items-center min-h-[44px] px-3 border border-[var(--color-ink)] text-[var(--color-ink)] transition-[opacity,transform] duration-300 ease-[var(--ease)] ${
+              className={`mono-label inline-flex items-center min-h-[44px] px-3 border border-[var(--color-ink)] text-[var(--color-ink)] active:bg-[var(--color-ink)] active:text-[var(--color-paper)] transition-[opacity,transform,background-color,color] duration-300 ease-[var(--ease)] ${
                 scrolled ? "opacity-0 -translate-y-1 pointer-events-none" : "opacity-100 translate-y-0"
               }`}
             >
@@ -138,7 +138,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`font-display font-semibold uppercase text-h2 leading-none tracking-tight transition-colors min-h-[56px] flex items-center ${
+                    className={`font-display font-semibold uppercase text-h2 leading-none tracking-tight transition-colors min-h-[56px] flex items-center hover:text-[var(--color-accent-text)] active:text-[var(--color-accent-text)] ${
                       pathname === link.href
                         ? "text-[var(--color-ink)]"
                         : "text-[var(--color-ink)]/40"

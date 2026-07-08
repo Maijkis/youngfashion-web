@@ -326,6 +326,49 @@ html.lenis, html.lenis body {
   /* The dark accent-text shade is tuned for paper; on a dark panel the bright
      fill accent itself has the contrast (5.27:1) small text needs. */
   --color-accent-text: var(--color-accent);
+  /* Dark-panel dot texture is paper-tinted (ink dots would vanish). */
+  --dot-color: rgba(244, 241, 234, 0.05);
+}
+
+/* ——— Dark-panel FX (DarkFX) —————————————————————————————————————————————
+   A crisp structural dot grid + a cursor-follow spotlight. The dots come
+   straight from a radial-gradient with a FIXED background-size — never scaled,
+   filtered or shadowed — so they stay hard-edged (1px) instead of softening
+   into smudges. The 32px lattice matches the blueprint minor grid and the 8px
+   spacing scale, so it reads as structure. Alpha ≤6%. */
+.dot-grid {
+  background-image: radial-gradient(
+    circle at center,
+    var(--dot-color, rgba(17, 17, 17, 0.05)) 1px,
+    transparent 1.6px
+  );
+  background-size: 32px 32px;
+}
+/* Soft radial light following the pointer (--mx/--my, set by DarkFX); rests
+   centred on touch/low-power via the fallbacks. */
+.dark-fx-glow {
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 38%),
+    rgba(244, 241, 234, 0.06),
+    transparent 72%
+  );
+}
+/* Brighter dots, masked to the spotlight circle — the grid the cursor passes
+   over lights up. Fades in only while the pointer is over the section. */
+.dot-grid--lit {
+  --dot-color: rgba(244, 241, 234, 0.18);
+  opacity: var(--lit, 0);
+  transition: opacity 0.45s var(--ease-out);
+  -webkit-mask-image: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 40%),
+    #000 0%,
+    transparent 68%
+  );
+  mask-image: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 40%),
+    #000 0%,
+    transparent 68%
+  );
 }
 
 /* Paper grain — fixed printed-stock texture over the whole viewport. Inline SVG
@@ -364,6 +407,24 @@ html.lenis, html.lenis body {
 }
 .link-underline:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* Links & text CTAs react in the brand accent — on hover (desktop), on :active
+   (touch, where hover never fires) and while focused. --color-accent-text is
+   AA-safe on paper and remaps to the bright fill accent on dark panels; the
+   accent tickets section remaps it to ink, so it's never magenta-on-magenta.
+   Unlayered so it wins over any per-element hover:text-* Tailwind utility. */
+@media (hover: hover) {
+  .link-underline:hover,
+  .hot-text:hover {
+    color: var(--color-accent-text);
+  }
+}
+.link-underline:active,
+.hot-text:active,
+.link-underline:focus-visible,
+.hot-text:focus-visible {
+  color: var(--color-accent-text);
 }
 
 /* Blueprint grid — graph-paper backdrop for the partner communication maps:

@@ -65,7 +65,7 @@ export default function Schedule() {
                 className={`font-display uppercase text-xl leading-none transition-colors ${
                   active === i
                     ? "text-[var(--color-ink)]"
-                    : "text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)]"
+                    : "text-[var(--color-ink-muted)] group-hover:text-[var(--color-accent-text)] group-active:text-[var(--color-accent-text)]"
                 }`}
               >
                 {row.title}
@@ -111,11 +111,11 @@ export default function Schedule() {
                   aria-expanded={isOpen}
                   aria-controls={`acc-panel-${i}`}
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-center gap-3 py-5 text-left min-h-[44px]"
+                  className="group w-full flex items-center gap-3 py-5 text-left min-h-[44px]"
                 >
                   <span className="section-num">({String(i + 1).padStart(2, "0")})</span>
                   <span className="mono-label tabular-nums">{row.time}</span>
-                  <span className="font-display font-semibold uppercase text-h2 leading-none ml-1">{row.title}</span>
+                  <span className="font-display font-semibold uppercase text-h2 leading-none ml-1 transition-colors group-hover:text-[var(--color-accent-text)] group-active:text-[var(--color-accent-text)]">{row.title}</span>
                   <span
                     className={`ml-auto text-2xl text-[var(--color-accent-text)] transition-transform duration-300 ${
                       isOpen ? "rotate-45" : ""

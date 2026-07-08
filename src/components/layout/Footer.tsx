@@ -105,7 +105,7 @@ export default function Footer() {
             href={ticketHref}
             target={ticketIsExternal ? "_blank" : undefined}
             rel={ticketIsExternal ? "noopener noreferrer" : undefined}
-            className="mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+            className="hot-text mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 hover:border-[var(--color-accent-text)] transition-all"
           >
             Get Tickets
             <span>→</span>

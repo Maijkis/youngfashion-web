@@ -5,7 +5,9 @@ import WipePanel from "@/components/ui/WipePanel";
 import Highlight from "@/components/show/Highlight";
 import { about, sectionIndex } from "@/lib/content";
 
-/** Parse *serif italic* and ==accent highlight== markers into nodes. */
+/** Parse *emphasis* and ==accent highlight== markers into nodes. Emphasis is
+ *  SANS italic (never serif) — serif is reserved for the pull-quote alone, so
+ *  no paragraph mixes the two faces. */
 function renderMarkers(text: string): ReactNode[] {
   return text
     .split(/(\*[^*]+\*|==[^=]+==)/g)
@@ -16,7 +18,7 @@ function renderMarkers(text: string): ReactNode[] {
       }
       if (part.startsWith("*") && part.endsWith("*")) {
         return (
-          <em key={i} className="font-serif italic">
+          <em key={i} className="italic text-[var(--color-ink)]">
             {part.slice(1, -1)}
           </em>
         );

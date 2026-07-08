@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import MediaSlot from "@/components/ui/MediaSlot";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import type { CommunicationItem } from "@/lib/content";
 
 /**
- * One touchpoint as a tap-flip polaroid: front = the photo developing from the
- * pixel mosaic + a caption strip; back = the write-up (title, description,
- * link). Uses the shared .card-flip 3D pattern (backface hidden, back face
- * pre-rotated so its content reads unmirrored). aria-pressed announces state.
+ * One touchpoint as a tap-flip polaroid: front = the photo + a caption strip;
+ * back = the write-up (title, description, link). The whole card is the flip
+ * target — tap/Enter/Space anywhere toggles, both directions (aria-pressed
+ * announces state). Uses the shared .card-flip 3D pattern (backface hidden,
+ * back face pre-rotated so its content reads unmirrored). The one real control
+ * inside — the "View post" link — stops propagation so it never flips the card.
  */
 function CommPolaroid({
   item,
@@ -21,67 +23,57 @@ function CommPolaroid({
   partnerName: string;
 }) {
   const [flipped, setFlipped] = useState(false);
-  const frontRef = useRef<HTMLButtonElement>(null);
-  const backRef = useRef<HTMLDivElement>(null);
-  const wasFlipped = useRef(false);
-  const backId = useId();
   const n = String(index + 1).padStart(2, "0");
 
-  // Focus follows the flip: into the back on open, back to the front on close
-  // (otherwise inert drops focus to <body> and keyboard users start over).
-  useEffect(() => {
-    if (flipped) {
-      backRef.current?.focus();
-      wasFlipped.current = true;
-    } else if (wasFlipped.current) {
-      wasFlipped.current = false;
-      frontRef.current?.focus();
+  const toggle = () => setFlipped((f) => !f);
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
     }
-  }, [flipped]);
+  };
 
   return (
     <div className="card-persp">
-      <div className={`card-flip ${flipped ? "is-flipped" : ""}`}>
+      {/* The flip layer is itself the button — tap anywhere flips either way. */}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-pressed={flipped}
+        aria-label={`${item.title} — tap to flip`}
+        onClick={toggle}
+        onKeyDown={onKeyDown}
+        className={`card-flip cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+          flipped ? "is-flipped" : ""
+        }`}
+      >
         {/* FRONT — the polaroid */}
-        <button
-          type="button"
-          ref={frontRef}
-          aria-expanded={flipped}
-          aria-controls={backId}
-          aria-label={`${item.title} — flip for details`}
+        <div
           inert={flipped}
-          onClick={() => setFlipped(true)}
-          className="card-face block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm transition-transform duration-[var(--dur-micro)] active:scale-[0.98]"
+          className="card-face border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm"
+          aria-hidden
         >
-          <div aria-hidden>
-            <MediaSlot
-              src={item.image}
-              alt={`${partnerName} — ${item.title}`}
-              label={item.kind}
-              sublabel={item.date}
-              aspect="aspect-[4/3]"
-              sizes="(max-width: 768px) 100vw, 40vw"
-            />
-            <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
-              <span className="section-num shrink-0">({n})</span>
-              <span className="mono-label truncate text-[var(--color-ink-muted)]">
-                {item.title}
-              </span>
-              <span className="mono-label shrink-0 text-[var(--color-accent-text)]">Flip ★</span>
-            </div>
+          <MediaSlot
+            src={item.image}
+            alt={`${partnerName} — ${item.title}`}
+            label={item.kind}
+            sublabel={item.date}
+            aspect="aspect-[4/3]"
+            sizes="(max-width: 768px) 100vw, 40vw"
+          />
+          <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
+            <span className="section-num shrink-0">({n})</span>
+            <span className="mono-label truncate text-[var(--color-ink-muted)]">
+              {item.title}
+            </span>
+            <span className="mono-label shrink-0 text-[var(--color-accent-text)]">Flip ★</span>
           </div>
-        </button>
+        </div>
 
         {/* BACK — the write-up */}
         <div
-          ref={backRef}
-          id={backId}
-          role="group"
-          aria-label={`${item.title} — details`}
-          tabIndex={-1}
           inert={!flipped}
-          aria-hidden={!flipped}
-          className="card-face card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm focus:outline-none"
+          className="card-face card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm"
         >
           <span className="mono-label text-[var(--color-ink-muted)]">
             {item.date} · {item.kind}
@@ -93,18 +85,16 @@ function CommPolaroid({
             {item.description}
           </p>
           <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-            <button
-              type="button"
-              onClick={() => setFlipped(false)}
-              className="mono-label min-h-[44px] text-left text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
-            >
-              ← Back
-            </button>
+            <span className="mono-label text-[var(--color-ink-muted)]" aria-hidden>
+              ← Tap to close
+            </span>
             {item.link && (
               <a
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
                 className="mono-label inline-flex min-h-[44px] items-center gap-1 text-[var(--color-accent-text)]"
               >
                 <span className="link-underline">View post</span>

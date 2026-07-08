@@ -26,7 +26,7 @@ export default function Partners() {
             href={`/press-partners/${partner.slug}`}
             className="group relative flex items-center justify-between gap-4 py-6 md:py-8"
           >
-            <h3 className="font-display font-semibold uppercase text-h1 leading-display tracking-tight transition-transform duration-300 ease-[var(--ease)] group-hover:translate-x-2">
+            <h3 className="font-display font-semibold uppercase text-h1 leading-display tracking-tight transition-[transform,color] duration-300 ease-[var(--ease)] group-hover:translate-x-2 group-hover:text-[var(--color-accent-text)] group-active:text-[var(--color-accent-text)]">
               {partner.name}
             </h3>
             <span className="section-num shrink-0">({String(i + 1).padStart(2, "0")})</span>
@@ -44,7 +44,7 @@ export default function Partners() {
           <Link
             key={`${partner.slug}-${i}`}
             href={`/press-partners/${partner.slug}`}
-            className="mono-label text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors whitespace-nowrap flex items-center"
+            className="hot-text mono-label text-[var(--color-ink-muted)] transition-colors whitespace-nowrap flex items-center"
           >
             {partner.name}
             <span className="text-[var(--color-accent-text)] mx-8" aria-hidden>

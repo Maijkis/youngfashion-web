@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GridLines from "@/components/ui/GridLines";
-import DotField from "@/components/ui/DotField";
+import DarkFX from "@/components/ui/DarkFX";
 import { MQ_SCRUB, motionOK, prefersLiteMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,7 +28,7 @@ export default function WipePanel({
   /** Faint column grid behind the content — .panel remaps the hairline to
    *  light, and 0.16 alpha × 0.35 keeps it under the 6% texture budget. */
   texture?: boolean;
-  /** Drifting point-cloud layer (dark "system" sections only). */
+  /** Crisp dot grid + cursor spotlight (dark "system" sections only). */
   dotField?: boolean;
   children: ReactNode;
 }) {
@@ -97,7 +97,7 @@ export default function WipePanel({
         }`}
       />
       {texture && <GridLines className="opacity-[0.35]" />}
-      {dotField && <DotField />}
+      {dotField && <DarkFX />}
       <div className="relative z-10">{children}</div>
     </section>
   );

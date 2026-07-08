@@ -236,13 +236,13 @@ export default function LineupCard({
               <button
                 onClick={onViewLook}
                 data-cursor="VIEW"
-                className="mono-label inline-flex items-center gap-2 min-h-[44px] w-fit border-b border-[var(--color-ink)] pb-0.5 hover:gap-3 transition-all"
+                className="hot-text mono-label inline-flex items-center gap-2 min-h-[44px] w-fit border-b border-[var(--color-ink)] pb-0.5 hover:gap-3 hover:border-[var(--color-accent-text)] transition-all"
               >
                 View look →
               </button>
               <button
                 onClick={onClose}
-                className="mono-label text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors w-fit min-h-[44px] text-left"
+                className="hot-text mono-label text-[var(--color-ink-muted)] transition-colors w-fit min-h-[44px] text-left"
               >
                 ← Back
               </button>

@@ -110,7 +110,7 @@ export default function LineupModal({ designers, index, onClose, onNavigate }: L
                     href={designer.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 transition-all"
+                    className="hot-text mono-label inline-flex items-center gap-2 border-b border-[var(--color-ink)] pb-1 min-h-[44px] hover:gap-3 hover:border-[var(--color-accent-text)] transition-all"
                   >
                     Instagram <span>→</span>
                   </a>

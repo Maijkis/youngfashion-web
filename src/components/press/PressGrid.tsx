@@ -52,7 +52,7 @@ export default function PressGrid() {
                   {article.excerpt}
                 </p>
 
-                <span className="mono-label inline-flex items-center gap-2 text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 transition-all">
+                <span className="hot-text mono-label inline-flex items-center gap-2 text-[var(--color-ink)] border-b border-[var(--color-ink)] pb-1 group-hover:gap-3 group-hover:text-[var(--color-accent-text)] group-hover:border-[var(--color-accent-text)] transition-all">
                   Read article
                   <ArrowUpRight size={14} />
                 </span>
