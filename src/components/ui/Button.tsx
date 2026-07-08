@@ -34,8 +34,9 @@ export default function Button({
 }: ButtonProps) {
   const magneticRef = useMagnetic<HTMLAnchorElement | HTMLButtonElement>();
   // Mono-label language (type role 3) — one CTA voice across the site.
+  // active:scale = immediate pressed feedback on touch (<100ms).
   const base =
-    "inline-flex items-center gap-2 min-h-[44px] font-mono text-label uppercase tracking-label transition-all cursor-pointer";
+    "inline-flex items-center gap-2 min-h-[44px] font-mono text-label uppercase tracking-label transition-all cursor-pointer active:scale-[0.98]";
 
   const variants = {
     // Underlined editorial link — primary CTA

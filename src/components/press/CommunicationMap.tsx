@@ -33,7 +33,7 @@ function CommPolaroid({
           aria-label={`${item.title} — flip for details`}
           inert={flipped}
           onClick={() => setFlipped(true)}
-          className="card-face block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm"
+          className="card-face block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm transition-transform duration-[var(--dur-micro)] active:scale-[0.98]"
         >
           <div aria-hidden>
             <MediaSlot

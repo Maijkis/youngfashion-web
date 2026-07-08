@@ -88,7 +88,7 @@ export default function PastEditions() {
   }, []);
 
   return (
-    <WipePanel id="editions" className="py-section" texture>
+    <WipePanel id="editions" className="py-section" texture dotField>
       <div className="container">
         <SectionTag index={sectionIndex("editions")} label="Past Issues" className="mb-4" />
         <h2 className="font-display font-semibold uppercase leading-display tracking-tight text-h1 mb-16">

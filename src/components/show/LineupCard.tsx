@@ -157,7 +157,7 @@ export default function LineupCard({
             aria-controls={backId}
             aria-label={`${designer.name}, ${look}`}
             data-cursor="FLIP"
-            className="card-face card-front block w-full text-left cursor-pointer border border-hairline bg-[var(--color-paper)] p-3 shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+            className="card-face card-front block w-full text-left cursor-pointer border border-hairline bg-[var(--color-paper)] p-3 shadow-lg transition-[box-shadow,transform] duration-200 hover:shadow-2xl active:scale-[0.98]"
           >
             {/* Content is decorative — the button's name comes from aria-label,
                 so the visible fields don't create a label/name mismatch. */}

@@ -20,7 +20,7 @@ export default function EditionCover({
       href={edition.href}
       data-cursor="VIEW"
       aria-label={`Issue ${edition.issue} — ${edition.year}, ${edition.title}`}
-      className="block bg-[var(--color-panel)] border border-[rgba(244,241,234,0.16)] p-4 select-none"
+      className="block bg-[var(--color-panel)] border border-[rgba(244,241,234,0.16)] p-4 select-none transition-transform duration-[var(--dur-micro)] active:scale-[0.98]"
     >
       {/* The cover is a graphic; the aria-label names it, so its typographic
           content is decorative (avoids a label/name mismatch). */}
