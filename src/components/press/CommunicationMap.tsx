@@ -61,7 +61,6 @@ function CommPolaroid({
               sublabel={item.date}
               aspect="aspect-[4/3]"
               sizes="(max-width: 768px) 100vw, 40vw"
-              reveal
             />
             <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
               <span className="section-num shrink-0">({n})</span>

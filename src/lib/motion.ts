@@ -38,8 +38,8 @@ export const STAGGER = 0.075;
 
 /**
  * Data-saver / low-memory / low-core devices get the reduced-motion treatment
- * even if they don't set prefers-reduced-motion. Canvas effects (pixel reveals,
- * dot-fields, the walking figure) must check this before allocating anything.
+ * even if they don't set prefers-reduced-motion. Pointer-driven effects (the
+ * dark-panel spotlight, magnetic CTA) must check this before wiring listeners.
  * Called at runtime inside matchMedia branches.
  */
 export function prefersLiteMotion(): boolean {

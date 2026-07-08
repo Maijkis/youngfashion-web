@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Designer } from "@/lib/mockData";
-import PixelCanvas from "@/components/ui/PixelCanvas";
 import DesignerModal from "./DesignerModal";
 import { EASE_IMAGE } from "@/lib/motion";
 
@@ -42,12 +41,11 @@ export default function DesignerGrid({ designers }: DesignerGridProps) {
                     className="object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03]"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <PixelCanvas hover />
                   {/* Explore affordance — always visible on touch (hover can't
                       fire there), hover-revealed on desktop */}
                   {hasPhotos && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-100 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
-                      <span className="text-white text-label uppercase tracking-[0.32em] font-medium border border-white/70 px-5 py-2">
+                      <span className="mono-label text-white border border-white/70 px-5 py-2">
                         View {designer.photos!.length}
                       </span>
                     </div>

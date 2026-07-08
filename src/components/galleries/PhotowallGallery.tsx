@@ -7,7 +7,6 @@ import { ArrowUpRight, X } from "lucide-react";
 import { BtsPhoto } from "@/lib/mockData";
 import { EASE_EXPO_T } from "@/lib/motion";
 import SectionHeader from "@/components/ui/SectionHeader";
-import PixelCanvas from "@/components/ui/PixelCanvas";
 import Button from "@/components/ui/Button";
 
 interface PhotowallGalleryProps {
@@ -69,8 +68,7 @@ export default function PhotowallGallery({
       <div className={isPreview ? "grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" : "masonry-grid"}>
         <AnimatePresence mode="popLayout">
           {visiblePhotos.map((photo, index) => (
-            /* Polaroid: drops in with a slight settle-rotation, the photo
-               develops from the pixel mosaic (PixelCanvas). Tap = lightbox. */
+            /* Polaroid: drops in with a slight settle-rotation. Tap = lightbox. */
             <motion.button
               type="button"
               key={photo.id}
@@ -99,7 +97,6 @@ export default function PhotowallGallery({
                   }`}
                   sizes="(max-width: 768px) 50vw, 33vw"
                 />
-                <PixelCanvas />
               </div>
               <div className="mt-2 flex items-center justify-between px-0.5 pb-0.5">
                 <span className="mono-label text-[var(--color-ink-muted)]">

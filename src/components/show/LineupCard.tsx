@@ -172,8 +172,6 @@ export default function LineupCard({
                 sublabel={look}
                 aspect="aspect-[4/5]"
                 priority={index < 2}
-                reveal
-                revealHover
               />
               <span className="absolute top-2 left-2 bg-[var(--color-paper)] text-[var(--color-accent-text)] mono-label px-1.5 py-0.5">
                 {look}
