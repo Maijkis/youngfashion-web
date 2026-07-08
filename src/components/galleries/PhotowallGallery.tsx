@@ -5,7 +5,9 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 import { BtsPhoto } from "@/lib/mockData";
+import { EASE_EXPO_T } from "@/lib/motion";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PixelCanvas from "@/components/ui/PixelCanvas";
 import Button from "@/components/ui/Button";
 
 interface PhotowallGalleryProps {
@@ -61,26 +63,44 @@ export default function PhotowallGallery({
       <div className={isPreview ? "grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" : "masonry-grid"}>
         <AnimatePresence mode="popLayout">
           {visiblePhotos.map((photo, index) => (
+            /* Polaroid: drops in with a slight settle-rotation, the photo
+               develops from the pixel mosaic (PixelCanvas). Tap = lightbox. */
             <motion.div
               key={photo.id}
               layout
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 16 }}
-              transition={{ duration: 0.35, delay: Math.min(index * 0.01, 0.2) }}
-              className="relative overflow-hidden group bg-[var(--color-paper-deep)] cursor-pointer"
+              initial={{ opacity: 0, y: -12, rotate: 0 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                rotate: (index % 2 ? 1 : -1) * (0.5 + (index % 3) * 0.35),
+              }}
+              viewport={{ once: true, amount: 0.2 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.7, ease: EASE_EXPO_T, delay: (index % 6) * 0.075 }}
+              className="group cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 shadow-sm"
               onClick={() => setSelectedPhoto(photo)}
             >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={900}
-                height={1200}
-                className={`w-full object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03] ${
-                  isPreview ? "aspect-[3/4] h-full" : "h-auto"
-                }`}
-                sizes="(max-width: 768px) 50vw, 33vw"
-              />
+              <div className="relative overflow-hidden bg-[var(--color-paper-deep)]">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={900}
+                  height={1200}
+                  className={`w-full object-cover transition-transform duration-[900ms] ease-image group-hover:scale-[1.03] ${
+                    isPreview ? "aspect-[3/4] h-full" : "h-auto"
+                  }`}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+                <PixelCanvas />
+              </div>
+              <div className="mt-2 flex items-center justify-between px-0.5 pb-0.5">
+                <span className="mono-label text-[var(--color-ink-muted)]">
+                  № {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="mono-label text-[var(--color-ink-muted)] tabular-nums">
+                  {photo.year}
+                </span>
+              </div>
             </motion.div>
           ))}
         </AnimatePresence>

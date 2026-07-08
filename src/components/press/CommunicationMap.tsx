@@ -5,6 +5,97 @@ import MediaSlot from "@/components/ui/MediaSlot";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import type { CommunicationItem } from "@/lib/content";
 
+/**
+ * One touchpoint as a tap-flip polaroid: front = the photo developing from the
+ * pixel mosaic + a caption strip; back = the write-up (title, description,
+ * link). Uses the shared .card-flip 3D pattern (backface hidden, back face
+ * pre-rotated so its content reads unmirrored). aria-pressed announces state.
+ */
+function CommPolaroid({
+  item,
+  index,
+  partnerName,
+}: {
+  item: CommunicationItem;
+  index: number;
+  partnerName: string;
+}) {
+  const [flipped, setFlipped] = useState(false);
+  const n = String(index + 1).padStart(2, "0");
+
+  return (
+    <div className="card-persp">
+      <div className={`card-flip ${flipped ? "is-flipped" : ""}`}>
+        {/* FRONT — the polaroid */}
+        <button
+          type="button"
+          aria-pressed={flipped}
+          aria-label={`${item.title} — flip for details`}
+          inert={flipped}
+          onClick={() => setFlipped(true)}
+          className="card-face block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm"
+        >
+          <div aria-hidden>
+            <MediaSlot
+              src={item.image}
+              alt={`${partnerName} — ${item.title}`}
+              label={item.kind}
+              sublabel={item.date}
+              aspect="aspect-[4/3]"
+              sizes="(max-width: 768px) 100vw, 40vw"
+              reveal
+            />
+            <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
+              <span className="section-num shrink-0">({n})</span>
+              <span className="mono-label truncate text-[var(--color-ink-muted)]">
+                {item.title}
+              </span>
+              <span className="mono-label shrink-0 text-[var(--color-accent-text)]">Flip ★</span>
+            </div>
+          </div>
+        </button>
+
+        {/* BACK — the write-up */}
+        <div
+          inert={!flipped}
+          aria-hidden={!flipped}
+          className="card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm"
+        >
+          <span className="mono-label text-[var(--color-ink-muted)]">
+            {item.date} · {item.kind}
+          </span>
+          <h3 className="mt-2 text-body font-light leading-tight text-[var(--color-ink)]">
+            {item.title}
+          </h3>
+          <p className="mt-1.5 text-sm font-light leading-body text-[var(--color-ink)]/65">
+            {item.description}
+          </p>
+          <div className="mt-auto flex items-center justify-between gap-3 pt-3">
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="mono-label min-h-[44px] text-left text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+            >
+              ← Back
+            </button>
+            {item.link && (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mono-label inline-flex min-h-[44px] items-center gap-1 text-[var(--color-accent-text)]"
+              >
+                <span className="link-underline">View post</span>
+                <span aria-hidden>↗</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============================================================================
 // CommunicationMap — the partner "roadmap": comm touchpoints pinned to a
 // blueprint grid, scattered like an evidence board and threaded together by a
@@ -115,38 +206,7 @@ export default function CommunicationMap({ items, partnerName }: CommunicationMa
             />
             <AnimatedSection effect="rise" delay={(i % 3) * 0.08}>
               <div className={TILTS[i % 6]}>
-                <MediaSlot
-                  src={item.image}
-                  alt={`${partnerName} — ${item.title}`}
-                  label={item.kind}
-                  sublabel={item.date}
-                  aspect="aspect-[4/3]"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
-                <div className="mt-4 flex items-start gap-3">
-                  <span className="section-num mt-0.5 shrink-0">
-                    ({String(i + 1).padStart(2, "0")})
-                  </span>
-                  <div>
-                    <h3 className="text-body font-light leading-tight text-[var(--color-ink)]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm font-light leading-body text-[var(--color-ink)]/65">
-                      {item.description}
-                    </p>
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mono-label mt-2 inline-flex min-h-[44px] items-center gap-1 text-[var(--color-accent-text)]"
-                      >
-                        <span className="link-underline">View post</span>
-                        <span aria-hidden>↗</span>
-                      </a>
-                    )}
-                  </div>
-                </div>
+                <CommPolaroid item={item} index={i} partnerName={partnerName} />
               </div>
             </AnimatedSection>
           </div>
