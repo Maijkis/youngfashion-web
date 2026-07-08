@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PixelCanvas from "@/components/ui/PixelCanvas";
 
 interface MediaSlotProps {
   src: string | null;
@@ -9,6 +10,10 @@ interface MediaSlotProps {
   sizes?: string;
   priority?: boolean;
   mark?: "star" | "asterisk";
+  /** Pixel-reveal: enters as a coarse mosaic, resolves sharp on scroll-in. */
+  reveal?: boolean;
+  /** With `reveal`: desktop pointer-hover briefly re-pixelates. */
+  revealHover?: boolean;
   className?: string;
 }
 
@@ -21,6 +26,8 @@ export default function MediaSlot({
   sizes = "(max-width: 768px) 100vw, 50vw",
   priority = false,
   mark = "star",
+  reveal = false,
+  revealHover = false,
   className = "",
 }: MediaSlotProps) {
   if (src) {
@@ -34,6 +41,7 @@ export default function MediaSlot({
           sizes={sizes}
           className="object-cover"
         />
+        {reveal && <PixelCanvas hover={revealHover} />}
       </div>
     );
   }

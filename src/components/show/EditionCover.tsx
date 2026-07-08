@@ -43,6 +43,8 @@ export default function EditionCover({
           sublabel={edition.year}
           aspect="aspect-[4/5]"
           priority={priority}
+          reveal
+          revealHover
         />
       ) : (
         /* No cover yet (the current issue) — a designed typographic cover
