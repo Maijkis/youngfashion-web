@@ -112,6 +112,17 @@
   --ease: var(--ease-move);
   --dur: 0.5s;
   --ease-image: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Motion scale (interaction system). Spec-name aliases: --ease-out ≡ reveals
+     (expo settle), --ease-io ≡ movement (symmetric, no bounce). Durations:
+     reveals live in the 700–1000ms band, micro-interactions in 200–350ms,
+     list/grid staggers step 60–90ms. Only transform / opacity / clip-path /
+     mask ever animate — never layout properties. */
+  --ease-out: var(--ease-expo);
+  --ease-io: var(--ease-move);
+  --dur-reveal: 0.9s;
+  --dur-micro: 0.25s;
+  --stagger: 75ms;
 }
 
 /* ——— The five type roles ————————————————————————————————————————————————

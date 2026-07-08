@@ -29,9 +29,16 @@ export const EASE_IMAGE: [number, number, number, number] = [0.32, 0.72, 0, 1];
 /** GSAP-string equivalents of the above. */
 export const GSAP_EXPO = "expo.out";
 
+/** Motion scale (mirrors the CSS tokens --dur-reveal / --dur-micro / --stagger). */
+export const DUR_REVEAL = 0.9;
+export const DUR_MICRO = 0.25;
+export const STAGGER = 0.075;
+
 /**
- * Data-saver / low-memory devices get the reduced-motion treatment even if they
- * don't set prefers-reduced-motion. Called at runtime inside matchMedia branches.
+ * Data-saver / low-memory / low-core devices get the reduced-motion treatment
+ * even if they don't set prefers-reduced-motion. Canvas effects (pixel reveals,
+ * dot-fields, the walking figure) must check this before allocating anything.
+ * Called at runtime inside matchMedia branches.
  */
 export function prefersLiteMotion(): boolean {
   if (typeof navigator === "undefined") return false;
@@ -41,5 +48,13 @@ export function prefersLiteMotion(): boolean {
   };
   if (nav.connection?.saveData) return true;
   if (nav.deviceMemory !== undefined && nav.deviceMemory < 4) return true;
+  if (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency <= 2) return true;
   return false;
+}
+
+/** True when entrance/one-shot motion should run at all (reduced-motion + lite gate). */
+export function motionOK(): boolean {
+  if (typeof window === "undefined") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  return !prefersLiteMotion();
 }
