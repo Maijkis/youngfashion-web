@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { MQ_POINTER_FINE, prefersLiteMotion } from "@/lib/motion";
+import { MQ_POINTER_FINE, motionOK } from "@/lib/motion";
 
 // ============================================================================
 // DarkFX — the layered "system" texture for dark (.panel) sections:
@@ -22,9 +22,9 @@ export default function DarkFX() {
     const el = ref.current;
     const host = el?.parentElement;
     if (!el || !host) return;
-    // Pointer-driven only. Touch / reduced-data / low-power keep the static
-    // centred glow (the CSS fallbacks for --mx/--my).
-    if (!window.matchMedia(MQ_POINTER_FINE).matches || prefersLiteMotion()) return;
+    // Pointer-driven only. Touch / reduced-motion / data-saver / low-power keep
+    // the static centred glow (the CSS fallbacks for --mx/--my).
+    if (!window.matchMedia(MQ_POINTER_FINE).matches || !motionOK()) return;
 
     let raf = 0;
     let mx = 0;
