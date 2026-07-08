@@ -3,6 +3,7 @@ import Ticker from "@/components/show/Ticker";
 import Hero from "@/components/show/Hero";
 import Countdown from "@/components/show/Countdown";
 import StickyTicketsBar from "@/components/show/StickyTicketsBar";
+import WalkingFigure from "@/components/show/WalkingFigure";
 
 const Manifesto = dynamic(() => import("@/components/show/Manifesto"));
 const Lineup = dynamic(() => import("@/components/show/Lineup"));
@@ -26,6 +27,7 @@ export default function HomePage() {
       <PastEditions />
       <TicketsCta />
       <StickyTicketsBar />
+      <WalkingFigure />
     </>
   );
 }
