@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import CtaTracker from "@/components/providers/CtaTracker";
 import StarCursor from "@/components/show/StarCursor";
+import ScrollThread from "@/components/ui/ScrollThread";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import { clashDisplay, generalSans, spaceMono, serifAccent } from "@/lib/fonts";
 import { seo } from "@/lib/content";
@@ -50,6 +51,7 @@ export default function RootLayout({
           <StarCursor />
           <CtaTracker />
           <Navbar />
+          <ScrollThread />
           <main className="min-h-screen">{children}</main>
           <Footer />
           <GrainOverlay />

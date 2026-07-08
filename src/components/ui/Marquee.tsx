@@ -5,6 +5,8 @@ interface MarqueeProps {
   /** Seconds for one full loop. Longer = slower. */
   durationSec?: number;
   pauseOnHover?: boolean;
+  /** Play the loop backwards — used to flip the ticker with scroll direction. */
+  reverse?: boolean;
   className?: string;
 }
 
@@ -19,13 +21,19 @@ export default function Marquee({
   children,
   durationSec = 30,
   pauseOnHover = false,
+  reverse = false,
   className = "",
 }: MarqueeProps) {
   return (
     <div className={`overflow-hidden ${pauseOnHover ? "marquee-pause" : ""} ${className}`}>
       <div
         className="marquee-track"
-        style={{ "--marquee-duration": `${durationSec}s` } as CSSProperties}
+        style={
+          {
+            "--marquee-duration": `${durationSec}s`,
+            animationDirection: reverse ? "reverse" : "normal",
+          } as CSSProperties
+        }
       >
         <div className="flex shrink-0">{children}</div>
         {/* Duplicate for the seamless loop — inert so its (possibly focusable)

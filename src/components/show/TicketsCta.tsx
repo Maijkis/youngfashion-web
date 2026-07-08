@@ -4,6 +4,7 @@ import SectionTag from "@/components/ui/SectionTag";
 import GridLines from "@/components/ui/GridLines";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
+import UrgencyTag from "@/components/show/UrgencyTag";
 import { event, ticketHref, ticketIsExternal, isPlaceholder, sectionIndex } from "@/lib/content";
 
 export default function TicketsCta() {
@@ -36,6 +37,8 @@ export default function TicketsCta() {
             ★ {event.venue}, {event.city} ★
           </span>
         </p>
+
+        <UrgencyTag className="mb-8" />
 
         {/* Ink-filled primary — the outline version was low-contrast on magenta. */}
         {soon ? (
