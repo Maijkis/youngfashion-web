@@ -12,6 +12,7 @@ import DesignerGrid from "@/components/galleries/DesignerGrid";
 import BehindTheScenes from "@/components/galleries/BehindTheScenes";
 import PhotowallGallery from "@/components/galleries/PhotowallGallery";
 import SectionHeader from "@/components/ui/SectionHeader";
+import BackButton from "@/components/ui/BackButton";
 
 const years = [2022, 2023, 2024, 2025];
 
@@ -25,6 +26,7 @@ export default function GalleriesPageContent() {
 
   return (
     <div className="container pt-28 md:pt-36 pb-section">
+        <BackButton className="mb-8" />
         <SectionHeader
           title="Galleries"
           subtitle="Designer collections by year"

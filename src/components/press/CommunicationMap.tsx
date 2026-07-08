@@ -1,110 +1,200 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import MediaSlot from "@/components/ui/MediaSlot";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import { EASE_EXPO_T } from "@/lib/motion";
 import type { CommunicationItem } from "@/lib/content";
 
 /**
- * One touchpoint as a tap-flip polaroid: front = the photo + a caption strip;
- * back = the write-up (title, description, link). The whole card is the flip
- * target — tap/Enter/Space anywhere toggles, both directions (aria-pressed
- * announces state). Uses the shared .card-flip 3D pattern (backface hidden,
- * back face pre-rotated so its content reads unmirrored). The one real control
- * inside — the "View post" link — stops propagation so it never flips the card.
+ * Grid thumbnail — the polaroid front. Tapping opens the zoom-in popup below.
  */
-function CommPolaroid({
+function PolaroidButton({
   item,
   index,
   partnerName,
+  onOpen,
 }: {
   item: CommunicationItem;
   index: number;
   partnerName: string;
+  onOpen: () => void;
 }) {
-  const [flipped, setFlipped] = useState(false);
   const n = String(index + 1).padStart(2, "0");
-
-  const toggle = () => setFlipped((f) => !f);
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggle();
-    }
-  };
-
   return (
-    <div className="card-persp">
-      {/* The flip layer is itself the button — tap anywhere flips either way. */}
-      <div
-        role="button"
-        tabIndex={0}
-        aria-pressed={flipped}
-        aria-label={`${item.title} — tap to flip`}
-        onClick={toggle}
-        onKeyDown={onKeyDown}
-        className={`card-flip cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
-          flipped ? "is-flipped" : ""
-        }`}
-      >
-        {/* FRONT — the polaroid */}
-        <div
-          inert={flipped}
-          className="card-face border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm"
-          aria-hidden
-        >
-          <MediaSlot
-            src={item.image}
-            alt={`${partnerName} — ${item.title}`}
-            label={item.kind}
-            sublabel={item.date}
-            aspect="aspect-[4/3]"
-            sizes="(max-width: 768px) 100vw, 40vw"
-          />
-          <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
-            <span className="section-num shrink-0">({n})</span>
-            <span className="mono-label truncate text-[var(--color-ink-muted)]">
-              {item.title}
-            </span>
-            <span className="mono-label shrink-0 text-[var(--color-accent-text)]">Flip ★</span>
-          </div>
-        </div>
-
-        {/* BACK — the write-up */}
-        <div
-          inert={!flipped}
-          className="card-face card-back flex flex-col overflow-hidden border border-hairline bg-[var(--color-paper)] p-4 shadow-sm"
-        >
-          <span className="mono-label text-[var(--color-ink-muted)]">
-            {item.date} · {item.kind}
-          </span>
-          <h3 className="mt-2 text-body font-light leading-tight text-[var(--color-ink)]">
-            {item.title}
-          </h3>
-          <p className="mt-1.5 text-sm font-light leading-body text-[var(--color-ink)]/65">
-            {item.description}
-          </p>
-          <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-            <span className="mono-label text-[var(--color-ink-muted)]" aria-hidden>
-              ← Tap to close
-            </span>
-            {item.link && (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                onKeyDown={(e) => e.stopPropagation()}
-                className="mono-label inline-flex min-h-[44px] items-center gap-1 text-[var(--color-accent-text)]"
-              >
-                <span className="link-underline">View post</span>
-                <span aria-hidden>↗</span>
-              </a>
-            )}
-          </div>
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`${item.title} — open`}
+      className="group block w-full cursor-pointer border border-hairline bg-[var(--color-paper)] p-2 text-left shadow-sm transition-transform duration-[var(--dur-micro)] hover:-translate-y-0.5 active:scale-[0.98]"
+    >
+      <div aria-hidden>
+        <MediaSlot
+          src={item.image}
+          alt={`${partnerName} — ${item.title}`}
+          label={item.kind}
+          sublabel={item.date}
+          aspect="aspect-[4/3]"
+          sizes="(max-width: 768px) 100vw, 40vw"
+        />
+        <div className="mt-2 flex items-center justify-between gap-2 px-0.5 pb-0.5">
+          <span className="section-num shrink-0">({n})</span>
+          <span className="mono-label truncate text-[var(--color-ink-muted)]">{item.title}</span>
+          <span className="mono-label shrink-0 text-[var(--color-accent-text)]">View ★</span>
         </div>
       </div>
-    </div>
+    </button>
+  );
+}
+
+/**
+ * Zoom-in popup: the polaroid enlarges to centre-screen over a dimmed backdrop;
+ * tap the card to flip between the photo and the write-up (works on desktop and
+ * touch), tap again to flip back. Backdrop / close button / Escape dismiss it.
+ * Uses the shared .card-flip 3D pattern (back face pre-rotated, backface hidden
+ * so it reads unmirrored). The "View post" link stops propagation so it never
+ * flips the card.
+ */
+function CommModal({
+  item,
+  index,
+  partnerName,
+  onClose,
+}: {
+  item: CommunicationItem;
+  index: number;
+  partnerName: string;
+  onClose: () => void;
+}) {
+  const [flipped, setFlipped] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const n = String(index + 1).padStart(2, "0");
+  const toggle = () => setFlipped((f) => !f);
+
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const lenis = (window as Window & { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    lenis?.stop();
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      lenis?.start();
+      window.removeEventListener("keydown", onKey);
+      opener?.focus?.();
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      data-lenis-prevent
+      className="fixed inset-0 z-[80] overflow-y-auto bg-[var(--color-ink)]/70 backdrop-blur-sm"
+    >
+      <div className="flex min-h-full items-center justify-center p-5 md:p-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 8 }}
+          transition={{ duration: 0.35, ease: EASE_EXPO_T }}
+          onClick={(e) => e.stopPropagation()}
+          className="card-persp relative w-full max-w-md"
+        >
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute -right-2 -top-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-[var(--color-paper)] text-[var(--color-ink)] shadow-md transition-colors hover:text-[var(--color-accent-text)]"
+          >
+            <X size={18} />
+          </button>
+
+          <div
+            role="button"
+            tabIndex={0}
+            aria-pressed={flipped}
+            aria-label={`${item.title} — tap to flip`}
+            onClick={toggle}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggle();
+              }
+            }}
+            className={`card-flip cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] ${
+              flipped ? "is-flipped" : ""
+            }`}
+          >
+            {/* FRONT — the enlarged polaroid */}
+            <div
+              inert={flipped}
+              aria-hidden
+              className="card-face border border-hairline bg-[var(--color-paper)] p-3 shadow-2xl"
+            >
+              <MediaSlot
+                src={item.image}
+                alt={`${partnerName} — ${item.title}`}
+                label={item.kind}
+                sublabel={item.date}
+                aspect="aspect-[4/3]"
+                sizes="(max-width: 768px) 90vw, 28rem"
+              />
+              <div className="mt-3 flex items-center justify-between gap-2 px-0.5">
+                <span className="section-num shrink-0">({n})</span>
+                <span className="mono-label truncate text-[var(--color-ink-muted)]">{item.title}</span>
+                <span className="mono-label shrink-0 text-[var(--color-accent-text)]">Flip ★</span>
+              </div>
+            </div>
+
+            {/* BACK — the write-up */}
+            <div
+              inert={!flipped}
+              className="card-face card-back flex flex-col overflow-y-auto border border-hairline bg-[var(--color-paper)] p-6 shadow-2xl"
+            >
+              <span className="mono-label text-[var(--color-ink-muted)]">
+                {item.date} · {item.kind}
+              </span>
+              <h3 className="mt-3 text-body font-light leading-tight text-[var(--color-ink)]">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm font-light leading-body text-[var(--color-ink)]/70">
+                {item.description}
+              </p>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+                <span className="mono-label text-[var(--color-ink-muted)]" aria-hidden>
+                  ↺ Tap to flip back
+                </span>
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => e.stopPropagation()}
+                    className="hot-text mono-label inline-flex min-h-[44px] items-center gap-1 text-[var(--color-accent-text)]"
+                  >
+                    <span className="link-underline">View post</span>
+                    <span aria-hidden>↗</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -147,6 +237,7 @@ interface CommunicationMapProps {
 export default function CommunicationMap({ items, partnerName }: CommunicationMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [path, setPath] = useState("");
+  const [open, setOpen] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const el = wrapRef.current;
@@ -218,12 +309,28 @@ export default function CommunicationMap({ items, partnerName }: CommunicationMa
             />
             <AnimatedSection effect="rise" delay={(i % 3) * 0.08}>
               <div className={TILTS[i % 6]}>
-                <CommPolaroid item={item} index={i} partnerName={partnerName} />
+                <PolaroidButton
+                  item={item}
+                  index={i}
+                  partnerName={partnerName}
+                  onOpen={() => setOpen(i)}
+                />
               </div>
             </AnimatedSection>
           </div>
         ))}
       </div>
+
+      <AnimatePresence>
+        {open !== null && (
+          <CommModal
+            item={items[open]}
+            index={open}
+            partnerName={partnerName}
+            onClose={() => setOpen(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

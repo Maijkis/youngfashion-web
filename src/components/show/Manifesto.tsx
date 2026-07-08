@@ -6,8 +6,8 @@ import Highlight from "@/components/show/Highlight";
 import { about, sectionIndex } from "@/lib/content";
 
 /** Parse *emphasis* and ==accent highlight== markers into nodes. Emphasis is
- *  SANS italic (never serif) — serif is reserved for the pull-quote alone, so
- *  no paragraph mixes the two faces. */
+ *  the accent colour (no italics, no extra font) — the site runs on three
+ *  faces only: Clash Display, General Sans, Space Mono. */
 function renderMarkers(text: string): ReactNode[] {
   return text
     .split(/(\*[^*]+\*|==[^=]+==)/g)
@@ -18,7 +18,7 @@ function renderMarkers(text: string): ReactNode[] {
       }
       if (part.startsWith("*") && part.endsWith("*")) {
         return (
-          <em key={i} className="italic text-[var(--color-ink)]">
+          <em key={i} className="not-italic text-[var(--color-accent-text)]">
             {part.slice(1, -1)}
           </em>
         );
@@ -34,7 +34,7 @@ export default function Manifesto() {
         <SectionTag index={sectionIndex("manifesto")} label="Five Years" className="mb-12" />
 
         <AnimatedSection effect="mask">
-          <blockquote className="font-serif italic leading-tight text-quote max-w-[16ch] mb-4">
+          <blockquote className="font-light leading-tight text-quote max-w-[18ch] mb-4">
             <span className="text-[var(--color-accent)]">(</span>
             {about.pullQuote}
             <span className="text-[var(--color-accent)]">)</span>

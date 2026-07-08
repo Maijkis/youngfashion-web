@@ -6,7 +6,7 @@ import CtaTracker from "@/components/providers/CtaTracker";
 import StarCursor from "@/components/show/StarCursor";
 import ScrollThread from "@/components/ui/ScrollThread";
 import GrainOverlay from "@/components/ui/GrainOverlay";
-import { clashDisplay, generalSans, spaceMono, serifAccent } from "@/lib/fonts";
+import { clashDisplay, generalSans, spaceMono } from "@/lib/fonts";
 import { seo } from "@/lib/content";
 import "./globals.css";
 
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${clashDisplay.variable} ${generalSans.variable} ${spaceMono.variable} ${serifAccent.variable}`}
+      className={`${clashDisplay.variable} ${generalSans.variable} ${spaceMono.variable}`}
     >
       <body className="font-sans antialiased bg-[var(--color-paper)] text-[var(--color-ink)]">
         <SmoothScroll>

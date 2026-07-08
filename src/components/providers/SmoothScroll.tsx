@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +12,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
+  // Start every route at the top — Next's default scroll restoration doesn't
+  // reach Lenis's virtual scroll, so navigating (e.g. tapping a sponsor) could
+  // land you wherever the previous page was scrolled to. Skip when there's a
+  // hash so in-page anchor links still jump to their target.
+  useEffect(() => {
+    if (typeof window === "undefined" || window.location.hash) return;
+    const lenis = (window as Window & { __lenis?: Lenis }).__lenis;
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
+  }, [pathname]);
 
   // Data-saver / low-memory / low-core devices get the reduced-motion
   // treatment in framer too (GSAP/canvas already gate via prefersLiteMotion).

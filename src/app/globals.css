@@ -21,7 +21,6 @@
 
   --font-sans: var(--font-general-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: var(--font-space-mono), "SFMono-Regular", Menlo, monospace;
-  --font-serif: var(--font-serif-accent), Georgia, serif;
 }
 
 /* ——— Layout & type scale (design tokens) ————————————————————————————————
@@ -98,7 +97,7 @@
   --t-display: clamp(3rem, 12vw, 9rem);    /* hero masthead */
   --t-h1: clamp(2.5rem, 7vw, 5rem);        /* section headings + partner names — all equal */
   --t-h2: clamp(1.75rem, 4vw, 3rem);
-  --t-quote: clamp(2rem, 5vw, 3.5rem);     /* serif-italic pull-quotes only */
+  --t-quote: clamp(2rem, 5vw, 3.5rem);     /* pull-quote lead (General Sans light) */
   --t-body: clamp(1rem, 1.4vw, 1.125rem);
   --t-label: 0.75rem;                      /* mono eyebrows / metadata / captions / nav */
 
@@ -125,23 +124,25 @@
   --stagger: 75ms;
 }
 
-/* ——— The five type roles ————————————————————————————————————————————————
-   Every text element on the site maps to exactly ONE of these. No bespoke
-   sizes, weights or trackings outside them.
+/* ——— The type roles (THREE faces only) ——————————————————————————————————
+   Clash Display · General Sans · Space Mono — no italics, no fourth family.
+   Every text element maps to exactly ONE role. No bespoke sizes, weights or
+   trackings outside them.
 
    1. DISPLAY   — Clash Display: font-display font-semibold uppercase
                   tracking-tight at text-display/h1/h2 + leading-display
                   (leading-none on single-line rows). List-item scale for
                   display-face rows inside components = text-xl.
-   2. BODY      — General Sans: font-light text-body leading-body. Compact
-                  variant (text-sm font-light leading-body) ONLY where the
-                  box height is locked (lineup card back, comm-map notes).
+   2. BODY      — General Sans: font-light text-body leading-body. Lead
+                  variant = font-light at text-quote (the manifesto pull-
+                  quote). Compact variant (text-sm font-light leading-body)
+                  ONLY where the box height is locked (lineup card back,
+                  comm-map notes). Emphasis = accent colour, never italic.
    3. MONO LABEL— .mono-label (or composed font-mono text-label uppercase
                   tracking-label): every eyebrow, caption, date, time, nav
                   item, button label and text CTA. Metadata numerals add
                   tabular-nums.
-   4. SERIF     — Instrument Serif italic at text-quote: pull-quotes only.
-   5. NUMERALS  — standalone display numerals (countdown digits, N°05):
+   4. NUMERALS  — standalone display numerals (countdown digits, N°05):
                   font-display font-semibold leading-none tracking-tight.
                   Numerals inside labels/metadata stay MONO LABEL.
 
@@ -330,12 +331,11 @@ html.lenis, html.lenis body {
   --dot-color: rgba(244, 241, 234, 0.05);
 }
 
-/* ——— Dark-panel FX (DarkFX) —————————————————————————————————————————————
-   A crisp structural dot grid + a cursor-follow spotlight. The dots come
-   straight from a radial-gradient with a FIXED background-size — never scaled,
-   filtered or shadowed — so they stay hard-edged (1px) instead of softening
-   into smudges. The 32px lattice matches the blueprint minor grid and the 8px
-   spacing scale, so it reads as structure. Alpha ≤6%. */
+/* ——— Dark-panel dot grid ————————————————————————————————————————————————
+   A crisp structural dot grid — straight from a radial-gradient with a FIXED
+   background-size, never scaled/filtered/shadowed, so it stays hard-edged (1px)
+   instead of softening into smudges. The 32px lattice matches the blueprint
+   minor grid and the 8px spacing scale, so it reads as structure. Alpha ≤6%. */
 .dot-grid {
   background-image: radial-gradient(
     circle at center,
@@ -343,32 +343,6 @@ html.lenis, html.lenis body {
     transparent 1.6px
   );
   background-size: 32px 32px;
-}
-/* Soft radial light following the pointer (--mx/--my, set by DarkFX); rests
-   centred on touch/low-power via the fallbacks. */
-.dark-fx-glow {
-  background: radial-gradient(
-    360px circle at var(--mx, 50%) var(--my, 38%),
-    rgba(244, 241, 234, 0.06),
-    transparent 72%
-  );
-}
-/* Brighter dots, masked to the spotlight circle — the grid the cursor passes
-   over lights up. Fades in only while the pointer is over the section. */
-.dot-grid--lit {
-  --dot-color: rgba(244, 241, 234, 0.18);
-  opacity: var(--lit, 0);
-  transition: opacity 0.45s var(--ease-out);
-  -webkit-mask-image: radial-gradient(
-    220px circle at var(--mx, 50%) var(--my, 40%),
-    #000 0%,
-    transparent 68%
-  );
-  mask-image: radial-gradient(
-    220px circle at var(--mx, 50%) var(--my, 40%),
-    #000 0%,
-    transparent 68%
-  );
 }
 
 /* Paper grain — fixed printed-stock texture over the whole viewport. Inline SVG

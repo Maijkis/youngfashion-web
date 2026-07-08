@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BackButton from "@/components/ui/BackButton";
 import SponsorSection from "@/components/press/SponsorMarquee";
 import PressGrid from "@/components/press/PressGrid";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -13,6 +14,7 @@ export default function PressPartnersPage() {
   return (
     <div className="pt-28 md:pt-36">
       <div className="container">
+        <BackButton className="mb-8" />
         <SectionHeader
           title="Press & Partners"
           subtitle="Media coverage and the brands behind Young Fashion"

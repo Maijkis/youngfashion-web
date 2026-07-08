@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BackButton from "@/components/ui/BackButton";
 import SectionHeader from "@/components/ui/SectionHeader";
 import EventTimeline from "@/components/events/EventTimeline";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <div className="container pt-28 md:pt-36 pb-section">
+      <BackButton className="mb-8" />
       <SectionHeader
         title="Events & Initiatives"
         subtitle="Runway shows, pop-ups, workshops, and more"
